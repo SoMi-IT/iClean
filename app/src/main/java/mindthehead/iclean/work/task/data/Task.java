@@ -1,4 +1,4 @@
-package mindthehead.iclean.work.task;
+package mindthehead.iclean.work.task.data;
 
 public class Task {
 
@@ -22,7 +22,7 @@ public class Task {
     public Task() { }//Constructor
 
 
-    public Task(String _id, int _priority, String _date, String _timeEnd, String _timeStart, String _site, String _floor, String _department, String _info) {
+    public Task(String _id, int _priority, String _date, String _timeStart, String _timeEnd, String _site, String _floor, String _department, String _info) {
 
         isExpanded = false;
         id = _id;

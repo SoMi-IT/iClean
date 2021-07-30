@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">iClean</string>
     <string name="task">mindthehead.iclean.util.tasks</string>
+    <string name="schedules">mindthehead.iclean.util.schedules</string>
 </resources>

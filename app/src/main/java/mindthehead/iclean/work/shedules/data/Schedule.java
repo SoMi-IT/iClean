@@ -1,4 +1,4 @@
-package mindthehead.iclean.work.shedules;
+package mindthehead.iclean.work.shedules.data;
 
 public class Schedule {
 
@@ -15,7 +15,7 @@ public class Schedule {
     public Schedule() { }//Constructor
 
 
-    public Schedule(String _id, String _date, String _timeEnd, String _timeStart, String _site, String _floor, String _department) {
+    public Schedule(String _id, String _date, String _timeStart, String _timeEnd, String _site, String _floor, String _department) {
 
         id = _id;
         date = _date;

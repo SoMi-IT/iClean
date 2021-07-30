@@ -1,4 +1,4 @@
-package mindthehead.iclean.work.task;
+package mindthehead.iclean.work.task.adapter;
 
 
 import android.content.Context;
@@ -10,19 +10,21 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
 import mindthehead.iclean.R;
+import mindthehead.iclean.work.task.data.Task;
 
 
 public class TasksListAdapter extends RecyclerView.Adapter<TasksListAdapter.TasksListAdapterItemView> {
 
 
     private ArrayList<Task> tasks;
-    private Context context;
+    private final Context context;
     private TasksListAdapterListener tasksListAdapterListener;
 
 
@@ -33,10 +35,12 @@ public class TasksListAdapter extends RecyclerView.Adapter<TasksListAdapter.Task
 
     }//constructor
 
-    public void updateTasks(ArrayList<Task> _schedules) {
+    public void updateTasks(ArrayList<Task> _schedules, int donePosition, int currentPosition) {
+
 
         tasks = _schedules;
-        notifyDataSetChanged();
+        notifyItemChanged(donePosition);
+        notifyItemChanged(currentPosition);
 
     }//constructor
 
@@ -48,13 +52,12 @@ public class TasksListAdapter extends RecyclerView.Adapter<TasksListAdapter.Task
     }//setListener
 
 
+    @NonNull
     public TasksListAdapterItemView onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_task, parent, false);
 
-        TasksListAdapterItemView viewHolder = new TasksListAdapterItemView(v);
-
-        return viewHolder;
+        return new TasksListAdapterItemView(v);
 
     }//onCreateViewHolder
 
@@ -118,18 +121,7 @@ public class TasksListAdapter extends RecyclerView.Adapter<TasksListAdapter.Task
     }//onBindViewHolder
 
 
-    private void unExpandAll(){
-
-        for (int i = 0; i < tasks.size(); i++){
-
-            tasks.get(i).setExpanded(false);
-
-        }
-
-    }//unExpandAll
-
-
-    public class TasksListAdapterItemView extends RecyclerView.ViewHolder {
+    public static class TasksListAdapterItemView extends RecyclerView.ViewHolder {
 
         LinearLayout ll_expand;
         View v_divider;
@@ -158,9 +150,7 @@ public class TasksListAdapter extends RecyclerView.Adapter<TasksListAdapter.Task
 
         }
 
-
     }//SheetsListAdapterItemView
-
 
 
     public int getItemCount() {

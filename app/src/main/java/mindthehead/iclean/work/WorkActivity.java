@@ -246,15 +246,12 @@ public class WorkActivity extends AppCompatActivity implements HomeListener, Tim
         insideFragment(TYPE_SETTINGS);
 
         settingsFragment = new SettingsFragment();
-        settingsFragment.setListener(this);
         mainFragmentManager = getSupportFragmentManager();
 
         FragmentTransaction fragmentTransaction = mainFragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fl_work, settingsFragment);
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         fragmentTransaction.commit();
-
-        settingsFragment.setListener(this);
 
     }//showSettingsFragment
 

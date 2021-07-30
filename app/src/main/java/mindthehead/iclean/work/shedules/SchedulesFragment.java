@@ -2,7 +2,6 @@ package mindthehead.iclean.work.shedules;
 
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,18 +10,24 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
-
 import mindthehead.iclean.R;
 import mindthehead.iclean.work.WorkActivity;
+import mindthehead.iclean.work.shedules.adapter.SchedulesListAdapter;
+import mindthehead.iclean.work.shedules.adapter.SchedulesListAdapterListener;
+import mindthehead.iclean.work.shedules.data.Schedule;
+import mindthehead.iclean.work.shedules.data.ScheduleDataManager;
+import mindthehead.iclean.work.shedules.dialog.ScheduleItemInfoDialog;
+import mindthehead.iclean.work.task.adapter.TasksListAdapter;
+import mindthehead.iclean.work.task.data.TaskDataManager;
 
 
-public class SchedulesFragment extends Fragment implements  SchedulesListListener {
+public class SchedulesFragment extends Fragment implements SchedulesListAdapterListener {
 
 
     private WorkActivity activity;
 
     private SchedulesListener listener;
+    private ScheduleDataManager scheduleDataManager;
 
     private RecyclerView rv_schedules;
 
@@ -40,9 +45,10 @@ public class SchedulesFragment extends Fragment implements  SchedulesListListene
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(activity);
         rv_schedules.setLayoutManager(layoutManager);
 
-        SchedulesListAdapter schedulesListAdapter = new SchedulesListAdapter(activity, scheduleDataManager.getFakeData());
+        scheduleDataManager = new ScheduleDataManager();
+        SchedulesListAdapter schedulesListAdapter = new SchedulesListAdapter(activity, scheduleDataManager.getStoredSchedules(activity));
         schedulesListAdapter.setListener(this);
-        rv_schedules.setAdapter(schedulesListAdapter);
+        rv_schedules.setAdapter(schedulesListAdapter);;
 
         return rootView;
 

@@ -79,7 +79,7 @@ public class AuthenticationManager {
 
         }//run
 
-        public class BasicAuthInterceptor implements Interceptor {
+        /*public class BasicAuthInterceptor implements Interceptor {
 
             private String credentials;
 
@@ -95,7 +95,7 @@ public class AuthenticationManager {
                 return chain.proceed(authenticatedRequest);
             }
 
-        }
+        }*/
 
         public void onFailure(@NotNull Call call, @NotNull IOException e) {
 

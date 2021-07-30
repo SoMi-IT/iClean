@@ -1,17 +1,14 @@
-package mindthehead.iclean.work.task;
+package mindthehead.iclean.work.task.data;
 
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 
 import mindthehead.iclean.R;
 import mindthehead.iclean.util.SharedPreferencesManager;
-import mindthehead.iclean.work.shedules.Schedule;
 
 public class TaskDataManager {
 
@@ -39,10 +36,10 @@ public class TaskDataManager {
             task.setExpanded(false);
             task.setStatus(Task.STATUS_TODO);
             task.setId("000" + i);
-            task.setPriority(3-i);
-            task.setDate("01/02/2021");
-            task.setTimeStart("1" + i +":00");
-            task.setTimeEnd("1" + (i+5) +":00");
+            task.setPriority(5-i);
+            task.setDate("0" + i +"/02/2021");
+            task.setTimeStart("1" + (i) +":00");
+            task.setTimeEnd("1" + (i+1) +":00");
             task.setSite("ST789" + i);
             task.setFloor("Secondo");
             task.setDepartment("Riabilitazione");
@@ -56,11 +53,11 @@ public class TaskDataManager {
 
     }//getFakeData
 
-    public void obtainStoredTasks(Activity context) {
+    public ArrayList<Task> getStoredTasks(Activity context) {
 
         String storedTasksString = SharedPreferencesManager.readString(context, R.string.task);
         ArrayList<Task> tasks = JsonTaskDataManager.getTasksFromString(storedTasksString);
-        listener.dataCreated(tasks);
+        return tasks;
 
     }//obtainStoredTasks
 
@@ -87,6 +84,8 @@ public class TaskDataManager {
 
     public void updateTask(Activity context, Task task) {
 
+        int donePosition = 0;
+        int currentPosition = 0;
 
         String storedTasksString = SharedPreferencesManager.readString(context, R.string.task);
         ArrayList<Task> tasks = JsonTaskDataManager.getTasksFromString(storedTasksString);
@@ -96,7 +95,14 @@ public class TaskDataManager {
             if(tasks.get(i).getId().equals(task.getId())) {
 
                 tasks.get(i).setStatus(Task.STATUS_DONE);
-                if (i < tasks.size()-1) tasks.get(i+1).setStatus(Task.STATUS_CURRENT);
+                donePosition = i;
+
+                if (i < tasks.size()-1){
+
+                    tasks.get(i+1).setStatus(Task.STATUS_CURRENT);
+                    currentPosition = i + 1;
+
+                }
             }
 
         }
@@ -104,7 +110,7 @@ public class TaskDataManager {
         String newStoredTaskString = JsonTaskDataManager.getStringFromTasks(tasks);
         SharedPreferencesManager.writeString(context, R.string.task, newStoredTaskString);
 
-        listener.dataUpdated(tasks);
+        listener.dataUpdated(tasks, donePosition, currentPosition);
 
     }//updateTask
 

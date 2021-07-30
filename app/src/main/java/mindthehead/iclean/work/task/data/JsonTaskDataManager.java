@@ -1,4 +1,4 @@
-package mindthehead.iclean.work.task;
+package mindthehead.iclean.work.task.data;
 
 
 import org.json.JSONArray;

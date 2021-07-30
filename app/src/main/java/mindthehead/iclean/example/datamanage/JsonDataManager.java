@@ -5,7 +5,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
-import mindthehead.iclean.work.task.Task;
+import mindthehead.iclean.work.task.data.Task;
 
 
 public class JsonDataManager {

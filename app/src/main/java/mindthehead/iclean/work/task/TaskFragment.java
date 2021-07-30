@@ -2,7 +2,6 @@ package mindthehead.iclean.work.task;
 
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +16,11 @@ import java.util.ArrayList;
 import mindthehead.iclean.R;
 import mindthehead.iclean.util.DateManager;
 import mindthehead.iclean.work.WorkActivity;
+import mindthehead.iclean.work.task.adapter.TasksListAdapter;
+import mindthehead.iclean.work.task.adapter.TasksListAdapterListener;
+import mindthehead.iclean.work.task.data.Task;
+import mindthehead.iclean.work.task.data.TaskDataManager;
+import mindthehead.iclean.work.task.data.TaskDataManagerListener;
 import mindthehead.iclean.work.task.dialog.TaskItemEndDialog;
 import mindthehead.iclean.work.task.dialog.TaskItemEndDialogListener;
 import mindthehead.iclean.work.task.dialog.TaskItemInfoDialog;
@@ -53,7 +57,9 @@ public class TaskFragment extends Fragment implements TasksListAdapterListener, 
 
         taskDataManager = new TaskDataManager();
         taskDataManager.setListener(this);
-        taskDataManager.obtainStoredTasks(activity);
+        tasksListAdapter = new TasksListAdapter(activity, taskDataManager.getStoredTasks(activity));
+        tasksListAdapter.setListener(this);
+        rv_tasks.setAdapter(tasksListAdapter);
 
         tv_date = rootView.findViewById(R.id.tv_task_date);
         tv_time = rootView.findViewById(R.id.tv_task_time);
@@ -151,17 +157,9 @@ public class TaskFragment extends Fragment implements TasksListAdapterListener, 
     }//onItemEndClicked
 
 
-    public void dataCreated(ArrayList<Task> tasks) {
+    public void dataUpdated(ArrayList<Task> tasks, int donePosition, int currentPosition) {
 
-        tasksListAdapter = new TasksListAdapter(activity, tasks);
-        tasksListAdapter.setListener(this);
-        rv_tasks.setAdapter(tasksListAdapter);
-
-    }//dataCreated
-
-    public void dataUpdated(ArrayList<Task> tasks) {
-
-        tasksListAdapter.updateTasks(tasks);
+        tasksListAdapter.updateTasks(tasks, donePosition, currentPosition);
 
     }//dataUpdated
 

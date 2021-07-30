@@ -1,4 +1,4 @@
-package mindthehead.iclean.work.shedules;
+package mindthehead.iclean.work.shedules.dialog;
 
 
 import android.app.Dialog;

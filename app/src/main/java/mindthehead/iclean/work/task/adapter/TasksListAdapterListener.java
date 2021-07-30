@@ -1,6 +1,6 @@
-package mindthehead.iclean.work.task;
+package mindthehead.iclean.work.task.adapter;
 
-import mindthehead.iclean.work.shedules.Schedule;
+import mindthehead.iclean.work.task.data.Task;
 
 public interface TasksListAdapterListener {
 
