@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <color name="white_100">#F5F5F5</color>
+    <color name="white_300">#E0E0E0</color>
+    <color name="dark_800">#424242</color>
+    <color name="pink_700">#B24692</color>
+    <color name="pink_800">#933B81</color>
+    <color name="teal_300">#80D9DA</color>
+    <color name="teal_400">#74BAB8</color>
+    <color name="blue_400">#6474EA</color>
+    <color name="light_transparent">#45212121</color>
+    <color name="dark_transparent">#80212121</color>
+
+
+    <color name="Positive">#A5D800</color>
+    <color name="Negative">#FF3D00</color>
+
+</resources>

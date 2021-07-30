@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_gradient">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_work_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_work_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="40sp"
+            android:layout_gravity="center"
+            android:src="@drawable/iclean_logo"
+            android:adjustViewBounds="true"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <ImageView
+            android:id="@+id/iv_work_back"
+            android:layout_width="40sp"
+            android:layout_height="40sp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_back"
+            app:tint="@color/white_100"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <ImageView
+            android:id="@+id/iv_work_bar_user"
+            android:layout_width="24sp"
+            android:layout_height="40sp"
+            android:src="@drawable/ic_user"
+            app:tint="@color/white_100"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_work_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16sp"
+            android:text="Tizio Sempronio"
+            android:textColor="@color/white_100"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="@id/iv_work_bar_user"
+            app:layout_constraintBottom_toBottomOf="@id/iv_work_bar_user"
+            app:layout_constraintEnd_toStartOf="@id/iv_work_bar_user"/>
+
+
+        <LinearLayout
+            android:id="@+id/ll_work_label"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="18sp"
+            android:layout_marginBottom="18sp"
+            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@id/iv_work_bar_user"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+
+            <ImageView
+                android:id="@+id/iv_work_current_logo"
+                android:layout_width="80sp"
+                android:layout_height="80sp"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_marginStart="8sp">
+
+                <TextView
+                    android:id="@+id/tv_work_current_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sezione"
+                    android:textColor="@color/white_100"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textAlignment="center"/>
+
+                <TextView
+                    android:id="@+id/tv_work_current_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Questa è una descrizione di esempio"
+                    android:textColor="@color/white_100"
+                    android:textSize="14sp"
+                    android:textAlignment="center"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <FrameLayout
+
+        android:id="@+id/fl_work"
+        android:layout_width="0sp"
+        android:layout_height="0sp"
+        android:padding="10sp"
+        android:background="@color/white_300"
+        app:layout_constraintTop_toBottomOf="@id/cl_work_bar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

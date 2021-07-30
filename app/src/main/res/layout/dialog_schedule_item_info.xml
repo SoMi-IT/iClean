@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white_100"
+    android:padding="20sp"
+    android:orientation="vertical"
+    android:gravity="center">
+
+        <ImageView
+            android:layout_width="50sp"
+            android:layout_height="50sp"
+            android:layout_margin="10sp"
+            android:src="@drawable/ic_info"
+            app:tint="@color/dark_800" />
+
+        <!-- Site -->
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18sp">
+
+                <TextView
+                    android:id="@+id/tv_dialog_schedule_item_info_site_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="2sp"
+                    android:text="Sede Operativa:"
+                    android:textColor="@color/dark_transparent"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/tv_dialog_schedule_item_info_site"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2sp"
+                    android:text="XXX"
+                    android:textColor="@color/dark_800"
+                    android:textSize="16sp"
+                    android:textStyle="bold"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8sp">
+
+                <TextView
+                    android:id="@+id/tv_dialog_schedule_item_info_floor_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="2sp"
+                    android:text="Piano:"
+                    android:textColor="@color/dark_transparent"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/tv_dialog_schedule_item_info_floor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2sp"
+                    android:text="XXX"
+                    android:textColor="@color/dark_800"
+                    android:textSize="16sp"
+                    android:textStyle="bold"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8sp">
+
+                <TextView
+                    android:id="@+id/tv_dialog_schedule_item_info_department_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="2sp"
+                    android:text="Reparto:"
+                    android:textColor="@color/dark_transparent"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_dialog_schedule_item_info_department"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2sp"
+                    android:text="XXX"
+                    android:textColor="@color/dark_800"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/b_dialog_schedule_item_info_dismiss"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50sp"
+            android:padding="10sp"
+            android:text="CHIUDI"
+            android:textSize="16sp"
+            android:textColor="@color/white_100"
+            android:backgroundTint="@color/teal_300"/>
+
+</LinearLayout>

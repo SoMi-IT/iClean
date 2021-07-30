@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/white_100"
+        app:cardElevation="4sp"
+        app:cardUseCompatPadding="true"
+        app:cardCornerRadius="30sp">
+
+        <TextView
+            android:id="@+id/tv_sync_state"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8sp"
+            android:text="IClean non è sincronizzato"
+            android:textColor="@color/dark_800"
+            android:textSize="18sp"
+            android:textAlignment="center"/>
+
+
+    </androidx.cardview.widget.CardView>
+
+
+    <Button
+        android:id="@+id/b_sync"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8sp"
+        android:padding="10sp"
+        android:drawableTop="@drawable/ic_sync_2"
+        android:drawableTint="@color/dark_800"
+        android:text="SINCRONIZZA"/>
+
+
+</LinearLayout>
