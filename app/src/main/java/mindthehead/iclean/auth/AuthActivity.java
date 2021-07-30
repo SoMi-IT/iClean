@@ -44,11 +44,11 @@ public class AuthActivity extends AppCompatActivity implements AuthListener, Aut
         v_authLoader = findViewById(R.id.v_auth);
         pb_authLoader = findViewById(R.id.pb_auth);
 
-        //dismissLoader();
+        dismissLoader();
 
-        //showAuthFragment();
+        showAuthFragment();
 
-        startActivity(new Intent(this, WorkActivity.class));
+        //startActivity(new Intent(this, WorkActivity.class));
 
     }//onCreate
 

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import androidx.fragment.app.Fragment;
 import mindthehead.iclean.R;
+import mindthehead.iclean.util.SharedPreferencesManager;
 import mindthehead.iclean.work.WorkActivity;
 import mindthehead.iclean.work.shedules.data.ScheduleDataManager;
 import mindthehead.iclean.work.task.data.TaskDataManager;
@@ -44,6 +45,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
 
                 TaskDataManager.saveTasks(activity, TaskDataManager.getFakeData());
                 ScheduleDataManager.saveSchedules(activity, ScheduleDataManager.getFakeData());
+                SharedPreferencesManager.writeInt(activity, R.string.synced, 0);
 
             }).start();
 

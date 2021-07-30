@@ -1,4 +1,4 @@
-package mindthehead.iclean.work.task.dialog;
+package mindthehead.iclean.util.dialog;
 
 
 import android.app.Dialog;
@@ -14,17 +14,15 @@ import android.widget.TextView;
 
 import mindthehead.iclean.R;
 import mindthehead.iclean.work.WorkActivity;
-import mindthehead.iclean.work.times.TimesListener;
 
 
-public class TaskItemStartDialog extends Dialog implements Button.OnClickListener {
+public class WarningDialog extends Dialog implements Button.OnClickListener {
 
 
-    private TaskItemStartDialogListener listener;
-    private Button b_manual, b_dismiss;
+    private Button b_dismiss;
 
 
-    public TaskItemStartDialog(WorkActivity _context) {
+    public WarningDialog(WorkActivity _context, String description) {
 
         super(_context);
 
@@ -33,35 +31,27 @@ public class TaskItemStartDialog extends Dialog implements Button.OnClickListene
 
         this.getWindow().setBackgroundDrawable(inset);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.setContentView(R.layout.dialog_task_item_start);
+        this.setContentView(R.layout.dialog_warning);
 
         Window window = this.getWindow();
         window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         window.setGravity(Gravity.CENTER);
 
-        b_manual = findViewById(R.id.b_dialog_task_item_start_manual);
-        b_manual.setOnClickListener(this);
-        b_dismiss = findViewById(R.id.b_dialog_task_item_start_dismiss);
+        b_dismiss = findViewById(R.id.b_dialog_warning_dismiss);
         b_dismiss.setOnClickListener(this);
+
+        TextView tv_info;
+
+        tv_info = findViewById(R.id.tv_dialog_warning_info);
+        tv_info.setText(description);
 
     }//CheckPasswordDialog
 
 
-    public void setListener(TaskItemStartDialogListener _listener){
-
-        listener = _listener;
-
-    }//setListener
-
 
     public void onClick(View view) {
 
-        if(view == b_manual) {
-
-            if (listener != null) listener.onStartDid();
-            dismiss();
-
-        }else if(view == b_dismiss) {
+        if(view == b_dismiss) {
 
             dismiss();
 
@@ -71,4 +61,4 @@ public class TaskItemStartDialog extends Dialog implements Button.OnClickListene
 
 
 
-}//ForgotPswDialog
+}//WarningDialog

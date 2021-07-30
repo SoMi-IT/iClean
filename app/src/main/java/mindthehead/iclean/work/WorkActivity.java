@@ -244,10 +244,8 @@ public class WorkActivity extends AppCompatActivity implements HomeListener, Tim
 
         currentStatus = TYPE_SETTINGS;
         insideFragment(TYPE_SETTINGS);
-
         settingsFragment = new SettingsFragment();
         mainFragmentManager = getSupportFragmentManager();
-
         FragmentTransaction fragmentTransaction = mainFragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fl_work, settingsFragment);
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);

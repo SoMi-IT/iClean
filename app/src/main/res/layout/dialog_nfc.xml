@@ -17,7 +17,7 @@
             app:tint="@color/dark_800" />
 
         <TextView
-            android:id="@+id/tv_dialog_task_item_end"
+            android:id="@+id/tv_dialog_nfc_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="2sp"
@@ -33,19 +33,19 @@
             android:layout_marginTop="50sp"/>
 
         <Button
-            android:id="@+id/b_dialog_task_item_end_manual"
+            android:id="@+id/b_dialog_nfc_manual"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="50sp"
             android:padding="10sp"
             android:text="Timbra manualmente"
-            android:textColor="@color/white_100"
             android:backgroundTint="@color/teal_300"
+            android:textColor="@color/white_100"
             android:textSize="16sp" />
 
 
         <Button
-            android:id="@+id/b_dialog_task_item_end_dismiss"
+            android:id="@+id/b_dialog_nfc_dismiss"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20sp"

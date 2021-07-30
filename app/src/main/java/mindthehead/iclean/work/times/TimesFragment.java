@@ -1,26 +1,39 @@
 package mindthehead.iclean.work.times;
 
 
+import android.content.res.ColorStateList;
+import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.Fragment;
 
 import mindthehead.iclean.R;
 import mindthehead.iclean.util.DateManager;
+import mindthehead.iclean.util.SharedPreferencesManager;
+import mindthehead.iclean.util.dialog.ManualDialogListener;
+import mindthehead.iclean.util.dialog.ManualTimeDialog;
+import mindthehead.iclean.util.dialog.NFCDialog;
+import mindthehead.iclean.util.dialog.NFCDialogListener;
 import mindthehead.iclean.work.WorkActivity;
 
 
-public class TimesFragment extends Fragment implements View.OnClickListener {
+public class TimesFragment extends Fragment implements View.OnClickListener, NFCDialogListener, ManualDialogListener {
 
 
     private WorkActivity activity;
 
     private TimesListener listener;
+
+    private NFCDialog nfcDialog;
 
     private TextView tv_date, tv_time, tv_start, tv_end;
 
@@ -29,6 +42,8 @@ public class TimesFragment extends Fragment implements View.OnClickListener {
     private View v_start, v_end;
 
     private Thread thread;
+
+    private int currentChoice;
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -56,6 +71,8 @@ public class TimesFragment extends Fragment implements View.OnClickListener {
 
         startClock();
 
+        updateStatus();
+
         return rootView;
 
     }//onCreateView
@@ -67,6 +84,74 @@ public class TimesFragment extends Fragment implements View.OnClickListener {
         super.onDestroy();
 
     }//onDestroy
+
+
+    private void updateStatus() {
+
+        String dateIn = SharedPreferencesManager.readString(activity, R.string.times_date_in);
+        String dateOut = SharedPreferencesManager.readString(activity, R.string.times_date_out);
+        String timeIn = SharedPreferencesManager.readString(activity, R.string.times_time_in);
+        String timeOut = SharedPreferencesManager.readString(activity, R.string.times_time_out);
+
+        if(dateIn.length() == 0  && dateOut.length() == 0) {
+
+            v_start.setBackgroundResource(R.drawable.times_round_view_disabled);
+            v_end.setBackgroundResource(R.drawable.times_round_view_disabled);
+
+            tv_start.setText("Non hai ancora timbrato l'ingresso");
+            tv_end.setText("Non hai ancora timbrato l'uscita");
+
+            toggleButtonState(b_start, true);
+            toggleButtonState(b_end, false);
+
+        } else if(dateIn.length() != 0  && dateOut.length() == 0) {
+
+            v_start.setBackgroundResource(R.drawable.times_round_view_start);
+            v_end.setBackgroundResource(R.drawable.times_round_view_disabled);
+
+            tv_start.setText("Hai timbrato l'ingresso il: " + dateIn + "\n alle ore: " + timeIn);
+            tv_end.setText("Non hai ancora timbrato l'uscita");
+
+            toggleButtonState(b_start, false);
+            toggleButtonState(b_end, true);
+
+        }  else if(dateIn.length() != 0  && dateOut.length() != 0) {
+
+            v_start.setBackgroundResource(R.drawable.times_round_view_start);
+            v_end.setBackgroundResource(R.drawable.times_round_view_end);
+
+            tv_start.setText("Hai timbrato l'ingresso il: " + dateIn + "\n alle ore: " + timeIn);
+            tv_end.setText("Hai timbrato l'uscita il: " + dateOut + "\n alle ore: " + timeOut);
+
+            toggleButtonState(b_start, false);
+            toggleButtonState(b_end, false);
+
+        }
+
+    }
+
+
+    private void toggleButtonState(Button b, boolean isEnable) {
+
+        Drawable buttonDrawable = b.getBackground();
+        buttonDrawable = DrawableCompat.wrap(buttonDrawable);
+
+        if (isEnable) {
+
+            DrawableCompat.setTint(buttonDrawable, activity.getColor(R.color.white_100));
+            b.setBackground(buttonDrawable);
+            b.setClickable(true);
+
+        } else {
+
+            DrawableCompat.setTint(buttonDrawable, activity.getColor(R.color.light_transparent));
+            b.setBackground(buttonDrawable);
+            b.setClickable(false);
+
+        }
+
+    }//toggleButtonState
+
 
     private void startClock() {
 
@@ -110,9 +195,61 @@ public class TimesFragment extends Fragment implements View.OnClickListener {
 
     public void onClick(View view) {
 
+        if(view == b_start) {
+
+            currentChoice = ManualTimeDialog.MANUAL_TYPE_IN;
+            nfcDialog = new NFCDialog(activity);
+            nfcDialog.setListener(this);
+            nfcDialog.show();
+
+        } else if (view == b_end) {
+
+            currentChoice = ManualTimeDialog.MANUAL_TYPE_OUT;
+            nfcDialog = new NFCDialog(activity);
+            nfcDialog.setListener(this);
+            nfcDialog.show();
+
+        }
 
     }//onClick
 
+
+    public void onNFCFind() {
+
+        if(nfcDialog != null)nfcDialog.dismiss();
+        ManualTimeDialog manualTimeDialog = new ManualTimeDialog(activity, currentChoice);
+        manualTimeDialog.setListener(this);
+        manualTimeDialog.show();
+
+    }//onNFCFind
+
+    public void onManual() {
+
+        if(nfcDialog != null)nfcDialog.dismiss();
+        ManualTimeDialog manualTimeDialog = new ManualTimeDialog(activity, currentChoice);
+        manualTimeDialog.setListener(this);
+        manualTimeDialog.show();
+
+    }//onManual
+
+
+    public void onManualPick(String date, String time) {
+
+        if(currentChoice == ManualTimeDialog.MANUAL_TYPE_IN) {
+
+            SharedPreferencesManager.writeString(activity, R.string.times_date_in, date);
+            SharedPreferencesManager.writeString(activity, R.string.times_time_in, time);
+
+        } else if(currentChoice == ManualTimeDialog.MANUAL_TYPE_OUT) {
+
+            SharedPreferencesManager.writeString(activity, R.string.times_date_out, date);
+            SharedPreferencesManager.writeString(activity, R.string.times_time_out, time);
+
+        }
+
+        updateStatus();
+
+    }//onTimeChosen
 
 }//TimesFragment
 

@@ -13,46 +13,29 @@
             android:layout_width="50sp"
             android:layout_height="50sp"
             android:layout_margin="10sp"
-            android:src="@drawable/ic_nfc"
-            app:tint="@color/dark_800" />
+            android:src="@drawable/ic_info"
+            app:tint="@color/Negative" />
 
         <TextView
-            android:id="@+id/tv_dialog_task_item_start"
+            android:id="@+id/tv_dialog_warning_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="2sp"
-            android:text="Ricerca NFC..."
+            android:text="Lorem Ipsum"
             android:textAlignment="center"
             android:textColor="@color/dark_transparent"
             android:textSize="16sp" />
 
-        <ProgressBar
-            style="?android:attr/progressBarStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50sp"/>
 
         <Button
-            android:id="@+id/b_dialog_task_item_start_manual"
+            android:id="@+id/b_dialog_warning_dismiss"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="50sp"
             android:padding="10sp"
-            android:text="Timbra manualmente"
+            android:text="CHIUDI"
+            android:textColor="@color/white_100"
             android:backgroundTint="@color/teal_300"
-            android:textColor="@color/white_100"
-            android:textSize="16sp" />
-
-
-        <Button
-            android:id="@+id/b_dialog_task_item_start_dismiss"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20sp"
-            android:padding="10sp"
-            android:text="Annulla"
-            android:textColor="@color/white_100"
-            android:backgroundTint="@color/Negative"
             android:textSize="16sp" />
 
 </LinearLayout>

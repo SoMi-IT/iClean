@@ -6,30 +6,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
-
 import mindthehead.iclean.R;
 import mindthehead.iclean.util.DateManager;
+import mindthehead.iclean.util.dialog.NFCDialog;
+import mindthehead.iclean.util.dialog.NFCDialogListener;
 import mindthehead.iclean.work.WorkActivity;
 import mindthehead.iclean.work.task.adapter.TasksListAdapter;
 import mindthehead.iclean.work.task.adapter.TasksListAdapterListener;
 import mindthehead.iclean.work.task.data.Task;
 import mindthehead.iclean.work.task.data.TaskDataManager;
 import mindthehead.iclean.work.task.data.TaskDataManagerListener;
-import mindthehead.iclean.work.task.dialog.TaskItemEndDialog;
-import mindthehead.iclean.work.task.dialog.TaskItemEndDialogListener;
 import mindthehead.iclean.work.task.dialog.TaskItemInfoDialog;
 import mindthehead.iclean.work.task.dialog.TaskItemLocationDialog;
-import mindthehead.iclean.work.task.dialog.TaskItemStartDialog;
-import mindthehead.iclean.work.task.dialog.TaskItemStartDialogListener;
 
 
-public class TaskFragment extends Fragment implements TasksListAdapterListener, TaskDataManagerListener, TaskItemStartDialogListener, TaskItemEndDialogListener {
+public class TaskFragment extends Fragment implements TasksListAdapterListener, TaskDataManagerListener, NFCDialogListener {
 
 
     private WorkActivity activity;
@@ -140,9 +135,9 @@ public class TaskFragment extends Fragment implements TasksListAdapterListener, 
     public void onItemStartClicked(Task task) {
 
         currentTask = task;
-        TaskItemStartDialog taskItemStartDialog = new TaskItemStartDialog(activity);
-        taskItemStartDialog.setListener(this);
-        taskItemStartDialog.show();
+        NFCDialog nfcDialog = new NFCDialog(activity);
+        nfcDialog.setListener(this);
+        nfcDialog.show();
 
     }//onItemStartClicked
 
@@ -150,9 +145,9 @@ public class TaskFragment extends Fragment implements TasksListAdapterListener, 
     public void onItemEndClicked(Task task) {
 
         currentTask = task;
-        TaskItemEndDialog taskItemEndDialog = new TaskItemEndDialog(activity);
-        taskItemEndDialog.setListener(this);
-        taskItemEndDialog.show();
+        NFCDialog nfcDialog = new NFCDialog(activity);
+        nfcDialog.setListener(this);
+        nfcDialog.show();
 
     }//onItemEndClicked
 
@@ -163,16 +158,16 @@ public class TaskFragment extends Fragment implements TasksListAdapterListener, 
 
     }//dataUpdated
 
-    public void onStartDid() {
+
+    public void onNFCFind() {
+
+    }//onNFCFind
+
+    public void onManual() {
 
         taskDataManager.updateTask(activity, currentTask);
 
-    }//onStartDid
-
-    public void onEndDid() {
-
-
-    }//onEndDid
+    }//onManual
 
 }//TaskFragment
 

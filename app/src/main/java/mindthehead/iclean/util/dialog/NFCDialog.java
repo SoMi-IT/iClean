@@ -1,4 +1,4 @@
-package mindthehead.iclean.work.task.dialog;
+package mindthehead.iclean.util.dialog;
 
 
 import android.app.Dialog;
@@ -10,19 +10,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
-
 import mindthehead.iclean.R;
 import mindthehead.iclean.work.WorkActivity;
 
 
-public class TaskItemEndDialog extends Dialog implements Button.OnClickListener {
+public class NFCDialog extends Dialog implements Button.OnClickListener {
 
 
-    private TaskItemEndDialogListener listener;
+    private NFCDialogListener listener;
     private Button b_manual, b_dismiss;
 
 
-    public TaskItemEndDialog(WorkActivity _context) {
+    public NFCDialog(WorkActivity _context) {
 
         super(_context);
 
@@ -31,21 +30,21 @@ public class TaskItemEndDialog extends Dialog implements Button.OnClickListener 
 
         this.getWindow().setBackgroundDrawable(inset);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.setContentView(R.layout.dialog_task_item_end);
+        this.setContentView(R.layout.dialog_nfc);
 
         Window window = this.getWindow();
         window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         window.setGravity(Gravity.CENTER);
 
-        b_manual = findViewById(R.id.b_dialog_task_item_end_manual);
+        b_manual = findViewById(R.id.b_dialog_nfc_manual);
         b_manual.setOnClickListener(this);
-        b_dismiss = findViewById(R.id.b_dialog_task_item_end_dismiss);
+        b_dismiss = findViewById(R.id.b_dialog_nfc_dismiss);
         b_dismiss.setOnClickListener(this);
 
     }//CheckPasswordDialog
 
 
-    public void setListener(TaskItemEndDialogListener _listener){
+    public void setListener(NFCDialogListener _listener){
 
         listener = _listener;
 
@@ -56,7 +55,8 @@ public class TaskItemEndDialog extends Dialog implements Button.OnClickListener 
 
         if(view == b_manual) {
 
-            if (listener != null) listener.onEndDid();
+            if (listener != null) listener.onManual();
+            dismiss();
 
         }else if(view == b_dismiss) {
 

@@ -26,9 +26,7 @@ public class SharedPreferencesManager {
         String key = context.getResources().getString(idKey);
         SharedPreferences sharedPreferences = context.getSharedPreferences(sharedPreferencesName , Context.MODE_PRIVATE);
 
-        String value = sharedPreferences.getString(key, "");
-
-        return value;
+        return sharedPreferences.getString(key, "");
 
     }//readString
 
@@ -47,9 +45,8 @@ public class SharedPreferencesManager {
 
         SharedPreferences sharedPreferences = context.getSharedPreferences(sharedPreferencesName , Context.MODE_PRIVATE);
 
-        String value = sharedPreferences.getString(key, "");
 
-        return value;
+        return sharedPreferences.getString(key, "");
 
     }//readString
 
@@ -71,9 +68,8 @@ public class SharedPreferencesManager {
         String key = context.getResources().getString(idKey);
         SharedPreferences sharedPreferences = context.getSharedPreferences(sharedPreferencesName , Context.MODE_PRIVATE);
 
-        int value = sharedPreferences.getInt(key, 0);
 
-        return value;
+        return sharedPreferences.getInt(key, 0);
 
     }//readString
 
