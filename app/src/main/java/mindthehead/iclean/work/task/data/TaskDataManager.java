@@ -78,7 +78,6 @@ public class TaskDataManager {
 
         tasks.get(0).setStatus(Task.STATUS_CURRENT_NOT_STARTED);
         String newStoredTaskString = JsonTaskDataManager.getStringFromTasks(tasks);
-        Log.d("XXX", newStoredTaskString);
         SharedPreferencesManager.writeString(context, R.string.task, newStoredTaskString);
 
     }//saveTasks

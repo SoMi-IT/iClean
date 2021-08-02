@@ -2,51 +2,45 @@ package mindthehead.iclean.work.settings;
 
 import android.app.Activity;
 
+import java.util.ArrayList;
+
 import mindthehead.iclean.R;
 import mindthehead.iclean.util.SharedPreferencesManager;
 import mindthehead.iclean.util.dialog.WarningDialog;
+import mindthehead.iclean.work.shedules.data.Schedule;
+import mindthehead.iclean.work.task.data.Task;
 
 public class UserDataManager {
 
     private Activity activity;
-    private String dateIn;
-    private String dateOut;
-    private String timeIn;
-    private String timeOut;
+
+    private String userId;
+
+    private String UserName;
+    private String UserLastName;
 
 
-    private boolean isUserLogged()
-    {
+    public UserDataManager (Activity _activity) {
 
-        return true;
+        activity = _activity;
 
-    }//isUserLogged
+    }//Constructor
 
     public  boolean isUserWorkShiftStarted() {
 
-        return dateIn.length() != 0;
+        return SharedPreferencesManager.readString(activity, R.string.times_date_in).length() != 0;
 
     }//isUserWorkShiftStarted
 
 
     public boolean isUserWorkShiftEnd() {
 
-        return dateOut.length() != 0;
+        return SharedPreferencesManager.readString(activity, R.string.times_date_out).length() != 0;
 
     }//isUserWorkShiftEnd
 
 
-    public UserDataManager (Activity _activity) {
-
-        activity = _activity;
-        dateIn = SharedPreferencesManager.readString(activity, R.string.times_date_in);
-        dateOut = SharedPreferencesManager.readString(activity, R.string.times_date_out);
-        timeIn = SharedPreferencesManager.readString(activity, R.string.times_time_in);
-        timeOut = SharedPreferencesManager.readString(activity, R.string.times_time_out);
-
-    }
-
-    public static void saveData(Activity activity, String _dateIn, String _dateOut, String _timeIn, String _timeOut) {
+    public static void saveWorkShiftData(Activity activity, String _dateIn, String _dateOut, String _timeIn, String _timeOut) {
 
         if (_dateIn != null) {
 
@@ -66,25 +60,25 @@ public class UserDataManager {
 
     public String getDateIn() {
 
-        return dateIn;
+        return SharedPreferencesManager.readString(activity, R.string.times_date_in);
 
     }//getDateIn
 
     public String getDateOut() {
 
-        return dateOut;
+        return SharedPreferencesManager.readString(activity, R.string.times_date_out);
 
     }//getDateOut
 
     public  String getTimeIn() {
 
-        return timeIn;
+        return SharedPreferencesManager.readString(activity, R.string.times_time_in);
 
     }//getTimeIn
 
     public  String getTimeOut() {
 
-        return timeOut;
+        return SharedPreferencesManager.readString(activity, R.string.times_time_out);
 
     }//getTimeOut
 

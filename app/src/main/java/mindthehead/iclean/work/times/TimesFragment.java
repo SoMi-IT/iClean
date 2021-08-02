@@ -235,11 +235,11 @@ public class TimesFragment extends Fragment implements View.OnClickListener, NFC
 
         if(currentChoice == ManualTimeDialog.MANUAL_TYPE_IN) {
 
-            UserDataManager.saveData(activity, date, null, time, null);
+            UserDataManager.saveWorkShiftData(activity, date, null, time, null);
 
         } else if(currentChoice == ManualTimeDialog.MANUAL_TYPE_OUT) {
 
-            UserDataManager.saveData(activity, null, date, null, time);
+            UserDataManager.saveWorkShiftData(activity, null, date, null, time);
 
         }
 
