@@ -4,6 +4,6 @@ import java.util.ArrayList;
 
 public interface TaskDataManagerListener {
 
-    void dataUpdated(ArrayList<Task> tasks, int donePosition, int currentPosition);
+    void dataUpdated(ArrayList<Task> tasks, int donePosition, int currentPosition, int newPosition);
 
 }//TaskDataManagerListener

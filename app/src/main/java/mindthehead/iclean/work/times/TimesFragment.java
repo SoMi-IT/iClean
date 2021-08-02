@@ -24,6 +24,7 @@ import mindthehead.iclean.util.dialog.ManualTimeDialog;
 import mindthehead.iclean.util.dialog.NFCDialog;
 import mindthehead.iclean.util.dialog.NFCDialogListener;
 import mindthehead.iclean.work.WorkActivity;
+import mindthehead.iclean.work.settings.UserDataManager;
 
 
 public class TimesFragment extends Fragment implements View.OnClickListener, NFCDialogListener, ManualDialogListener {
@@ -88,12 +89,9 @@ public class TimesFragment extends Fragment implements View.OnClickListener, NFC
 
     private void updateStatus() {
 
-        String dateIn = SharedPreferencesManager.readString(activity, R.string.times_date_in);
-        String dateOut = SharedPreferencesManager.readString(activity, R.string.times_date_out);
-        String timeIn = SharedPreferencesManager.readString(activity, R.string.times_time_in);
-        String timeOut = SharedPreferencesManager.readString(activity, R.string.times_time_out);
+        UserDataManager userDataManager = new UserDataManager(activity);
 
-        if(dateIn.length() == 0  && dateOut.length() == 0) {
+        if(userDataManager.getDateIn().length() == 0  && userDataManager.getDateOut().length() == 0) {
 
             v_start.setBackgroundResource(R.drawable.times_round_view_disabled);
             v_end.setBackgroundResource(R.drawable.times_round_view_disabled);
@@ -104,24 +102,24 @@ public class TimesFragment extends Fragment implements View.OnClickListener, NFC
             toggleButtonState(b_start, true);
             toggleButtonState(b_end, false);
 
-        } else if(dateIn.length() != 0  && dateOut.length() == 0) {
+        } else if(userDataManager.getDateIn().length() != 0  && userDataManager.getDateOut().length() == 0) {
 
             v_start.setBackgroundResource(R.drawable.times_round_view_start);
             v_end.setBackgroundResource(R.drawable.times_round_view_disabled);
 
-            tv_start.setText("Hai timbrato l'ingresso il: " + dateIn + "\n alle ore: " + timeIn);
+            tv_start.setText("Hai timbrato l'ingresso il: " + userDataManager.getDateIn() + "\n alle ore: " + userDataManager.getTimeIn());
             tv_end.setText("Non hai ancora timbrato l'uscita");
 
             toggleButtonState(b_start, false);
             toggleButtonState(b_end, true);
 
-        }  else if(dateIn.length() != 0  && dateOut.length() != 0) {
+        }  else if(userDataManager.getDateIn().length() != 0  && userDataManager.getDateOut().length() != 0) {
 
             v_start.setBackgroundResource(R.drawable.times_round_view_start);
             v_end.setBackgroundResource(R.drawable.times_round_view_end);
 
-            tv_start.setText("Hai timbrato l'ingresso il: " + dateIn + "\n alle ore: " + timeIn);
-            tv_end.setText("Hai timbrato l'uscita il: " + dateOut + "\n alle ore: " + timeOut);
+            tv_start.setText("Hai timbrato l'ingresso il: " + userDataManager.getDateIn() + "\n alle ore: " + userDataManager.getTimeIn());
+            tv_end.setText("Hai timbrato l'uscita il: " + userDataManager.getDateOut() + "\n alle ore: " + userDataManager.getTimeOut());
 
             toggleButtonState(b_start, false);
             toggleButtonState(b_end, false);
@@ -237,13 +235,11 @@ public class TimesFragment extends Fragment implements View.OnClickListener, NFC
 
         if(currentChoice == ManualTimeDialog.MANUAL_TYPE_IN) {
 
-            SharedPreferencesManager.writeString(activity, R.string.times_date_in, date);
-            SharedPreferencesManager.writeString(activity, R.string.times_time_in, time);
+            UserDataManager.saveData(activity, date, null, time, null);
 
         } else if(currentChoice == ManualTimeDialog.MANUAL_TYPE_OUT) {
 
-            SharedPreferencesManager.writeString(activity, R.string.times_date_out, date);
-            SharedPreferencesManager.writeString(activity, R.string.times_time_out, time);
+            UserDataManager.saveData(activity, null, date, null, time);
 
         }
 

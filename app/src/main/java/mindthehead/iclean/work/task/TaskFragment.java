@@ -12,9 +12,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import mindthehead.iclean.R;
 import mindthehead.iclean.util.DateManager;
+import mindthehead.iclean.util.SharedPreferencesManager;
+import mindthehead.iclean.util.dialog.ManualDialogListener;
+import mindthehead.iclean.util.dialog.ManualTimeDialog;
 import mindthehead.iclean.util.dialog.NFCDialog;
 import mindthehead.iclean.util.dialog.NFCDialogListener;
+import mindthehead.iclean.util.dialog.WarningDialog;
 import mindthehead.iclean.work.WorkActivity;
+import mindthehead.iclean.work.settings.UserDataManager;
 import mindthehead.iclean.work.task.adapter.TasksListAdapter;
 import mindthehead.iclean.work.task.adapter.TasksListAdapterListener;
 import mindthehead.iclean.work.task.data.Task;
@@ -24,7 +29,7 @@ import mindthehead.iclean.work.task.dialog.TaskItemInfoDialog;
 import mindthehead.iclean.work.task.dialog.TaskItemLocationDialog;
 
 
-public class TaskFragment extends Fragment implements TasksListAdapterListener, TaskDataManagerListener, NFCDialogListener {
+public class TaskFragment extends Fragment implements TasksListAdapterListener, TaskDataManagerListener, NFCDialogListener, ManualDialogListener {
 
 
     private WorkActivity activity;
@@ -32,12 +37,16 @@ public class TaskFragment extends Fragment implements TasksListAdapterListener, 
     private TasksListAdapter tasksListAdapter;
     private TaskListener listener;
     private Task currentTask;
+    private NFCDialog nfcDialog;
 
     private RecyclerView rv_tasks;
 
     private TextView tv_date, tv_time;
 
     private Thread thread;
+
+    private int currentChoice;
+
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -134,8 +143,25 @@ public class TaskFragment extends Fragment implements TasksListAdapterListener, 
 
     public void onItemStartClicked(Task task) {
 
+        UserDataManager userDataManager = new UserDataManager(activity);
+
+        if (userDataManager.getDateIn().length() == 0 ) {
+
+            WarningDialog warningDialog = new WarningDialog(activity, "Non hai ancora timbrato l'ingresso!");
+            warningDialog.show();
+            return;
+
+        }
+        if (userDataManager.getDateOut().length() != 0) {
+
+            WarningDialog warningDialog = new WarningDialog(activity, "Hai già chiuso il turno!");
+            warningDialog.show();
+            return;
+
+        }
+        currentChoice = ManualTimeDialog.MANUAL_TYPE_IN;
         currentTask = task;
-        NFCDialog nfcDialog = new NFCDialog(activity);
+        nfcDialog = new NFCDialog(activity);
         nfcDialog.setListener(this);
         nfcDialog.show();
 
@@ -144,17 +170,35 @@ public class TaskFragment extends Fragment implements TasksListAdapterListener, 
 
     public void onItemEndClicked(Task task) {
 
+        UserDataManager userDataManager = new UserDataManager(activity);
+
+        if (!userDataManager.isUserWorkShiftStarted()) {
+
+            WarningDialog warningDialog = new WarningDialog(activity, "Non hai ancora timbrato l'ingresso!");
+            warningDialog.show();
+            return;
+
+        }
+        if (userDataManager.isUserWorkShiftEnd()) {
+
+            WarningDialog warningDialog = new WarningDialog(activity, "Hai già chiuso il turno!");
+            warningDialog.show();
+            return;
+
+        }
+
+        currentChoice = ManualTimeDialog.MANUAL_TYPE_OUT;
         currentTask = task;
-        NFCDialog nfcDialog = new NFCDialog(activity);
+        nfcDialog = new NFCDialog(activity);
         nfcDialog.setListener(this);
         nfcDialog.show();
 
     }//onItemEndClicked
 
 
-    public void dataUpdated(ArrayList<Task> tasks, int donePosition, int currentPosition) {
+    public void dataUpdated(ArrayList<Task> tasks, int donePosition, int currentPosition, int newPosition) {
 
-        tasksListAdapter.updateTasks(tasks, donePosition, currentPosition);
+        tasksListAdapter.updateTasks(tasks, donePosition, currentPosition, newPosition);
 
     }//dataUpdated
 
@@ -165,9 +209,19 @@ public class TaskFragment extends Fragment implements TasksListAdapterListener, 
 
     public void onManual() {
 
-        taskDataManager.updateTask(activity, currentTask);
+        if(nfcDialog != null)nfcDialog.dismiss();
+        ManualTimeDialog manualTimeDialog = new ManualTimeDialog(activity, currentChoice);
+        manualTimeDialog.setListener(this);
+        manualTimeDialog.show();
 
     }//onManual
+
+
+    public void onManualPick(String date, String time) {
+
+        taskDataManager.updateTask(activity, currentTask);
+
+    }//onManualPick
 
 }//TaskFragment
 

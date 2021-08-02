@@ -9,6 +9,8 @@ import java.util.Collections;
 
 import mindthehead.iclean.R;
 import mindthehead.iclean.util.SharedPreferencesManager;
+import mindthehead.iclean.util.dialog.ManualTimeDialog;
+import mindthehead.iclean.work.task.TaskFragment;
 
 public class TaskDataManager {
 
@@ -74,7 +76,7 @@ public class TaskDataManager {
 
         });
 
-        tasks.get(0).setStatus(Task.STATUS_CURRENT);
+        tasks.get(0).setStatus(Task.STATUS_CURRENT_NOT_STARTED);
         String newStoredTaskString = JsonTaskDataManager.getStringFromTasks(tasks);
         Log.d("XXX", newStoredTaskString);
         SharedPreferencesManager.writeString(context, R.string.task, newStoredTaskString);
@@ -86,6 +88,7 @@ public class TaskDataManager {
 
         int donePosition = 0;
         int currentPosition = 0;
+        int newPosition = 0;
 
         String storedTasksString = SharedPreferencesManager.readString(context, R.string.task);
         ArrayList<Task> tasks = JsonTaskDataManager.getTasksFromString(storedTasksString);
@@ -94,15 +97,28 @@ public class TaskDataManager {
 
             if(tasks.get(i).getId().equals(task.getId())) {
 
-                tasks.get(i).setStatus(Task.STATUS_DONE);
-                donePosition = i;
+                if (tasks.get(i).getStatus() == Task.STATUS_CURRENT_NOT_STARTED) {
 
-                if (i < tasks.size()-1){
+                    tasks.get(i).setStatus(Task.STATUS_CURRENT_STARTED);
 
-                    tasks.get(i+1).setStatus(Task.STATUS_CURRENT);
-                    currentPosition = i + 1;
+                    currentPosition = i;
+
+                } else if (tasks.get(i).getStatus() == Task.STATUS_CURRENT_STARTED) {
+
+                    tasks.get(i).setStatus(Task.STATUS_DONE);
+
+                    donePosition = i;
+
+                    if (i < tasks.size()-1){
+
+                        tasks.get(i+1).setStatus(Task.STATUS_CURRENT_NOT_STARTED);
+                        newPosition = i + 1;
+
+                    }
 
                 }
+
+
             }
 
         }
@@ -110,7 +126,7 @@ public class TaskDataManager {
         String newStoredTaskString = JsonTaskDataManager.getStringFromTasks(tasks);
         SharedPreferencesManager.writeString(context, R.string.task, newStoredTaskString);
 
-        listener.dataUpdated(tasks, donePosition, currentPosition);
+        listener.dataUpdated(tasks, donePosition, currentPosition, newPosition);
 
     }//updateTask
 

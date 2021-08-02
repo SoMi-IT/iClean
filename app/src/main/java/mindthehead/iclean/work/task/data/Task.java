@@ -3,8 +3,9 @@ package mindthehead.iclean.work.task.data;
 public class Task {
 
     public static final int STATUS_DONE = 0;
-    public static final int STATUS_CURRENT = 1;
-    public static final int STATUS_TODO = 2;
+    public static final int STATUS_CURRENT_NOT_STARTED = 1;
+    public static final int STATUS_CURRENT_STARTED = 2;
+    public static final int STATUS_TODO = 3;
 
     private boolean isExpanded;
     private int status;

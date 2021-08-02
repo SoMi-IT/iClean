@@ -2,6 +2,7 @@ package mindthehead.iclean.work.task.adapter;
 
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -25,7 +27,7 @@ public class TasksListAdapter extends RecyclerView.Adapter<TasksListAdapter.Task
 
     private ArrayList<Task> tasks;
     private final Context context;
-    private TasksListAdapterListener tasksListAdapterListener;
+    private TasksListAdapterListener listener;
 
 
     public TasksListAdapter(Context _context, ArrayList<Task> _schedules) {
@@ -35,19 +37,20 @@ public class TasksListAdapter extends RecyclerView.Adapter<TasksListAdapter.Task
 
     }//constructor
 
-    public void updateTasks(ArrayList<Task> _schedules, int donePosition, int currentPosition) {
+    public void updateTasks(ArrayList<Task> _schedules, int donePosition, int currentPosition, int newPosition) {
 
 
         tasks = _schedules;
         notifyItemChanged(donePosition);
         notifyItemChanged(currentPosition);
+        notifyItemChanged(newPosition);
 
     }//constructor
 
 
     public void setListener(TasksListAdapterListener _tasksListAdapterListener){
 
-        tasksListAdapterListener = _tasksListAdapterListener;
+        listener = _tasksListAdapterListener;
 
     }//setListener
 
@@ -68,11 +71,53 @@ public class TasksListAdapter extends RecyclerView.Adapter<TasksListAdapter.Task
 
         Task task = tasks.get(position);
 
-        if (task.getStatus() == Task.STATUS_CURRENT) {
+
+        holder.tv_date.setText(task.getDate());
+        holder.tv_time.setText(task.getTimeStart() + " - " + task.getTimeEnd());
+        holder.tv_task.setText(task.getSite());
+
+        holder.iv_info.setOnClickListener(v -> {
+
+            if (listener != null) listener.onItemInfoClicked(tasks.get(holder.getAdapterPosition()));
+
+        });
+
+        holder.iv_location.setOnClickListener(v -> {
+
+            if (listener != null) listener.onItemLocationClicked(tasks.get(holder.getAdapterPosition()));
+
+        });
+
+
+        if (task.getStatus() == Task.STATUS_CURRENT_NOT_STARTED) {
 
             holder.ll_expand.setVisibility(View.VISIBLE);
             holder.v_divider.setVisibility(View.VISIBLE);
             holder.cv_card.setCardBackgroundColor(context.getColor(R.color.pink_700));
+
+            toggleButtonState(holder.b_start, true);
+            toggleButtonState(holder.b_end, false);
+
+            holder.b_start.setOnClickListener(v -> {
+
+                if (listener != null) listener.onItemStartClicked(tasks.get(holder.getAdapterPosition()));
+
+            });
+
+        }else if (task.getStatus() == Task.STATUS_CURRENT_STARTED) {
+
+            holder.ll_expand.setVisibility(View.VISIBLE);
+            holder.v_divider.setVisibility(View.VISIBLE);
+            holder.cv_card.setCardBackgroundColor(context.getColor(R.color.pink_700));
+
+            toggleButtonState(holder.b_start, false);
+            toggleButtonState(holder.b_end, true);
+
+            holder.b_end.setOnClickListener(v -> {
+
+                if (listener != null) listener.onItemEndClicked(tasks.get(holder.getAdapterPosition()));
+
+            });
 
         }else if (task.getStatus() == Task.STATUS_DONE) {
 
@@ -88,38 +133,29 @@ public class TasksListAdapter extends RecyclerView.Adapter<TasksListAdapter.Task
 
         }
 
-
-        holder.tv_date.setText(task.getDate());
-        holder.tv_time.setText(task.getTimeStart() + " - " + task.getTimeEnd());
-        holder.tv_task.setText(task.getSite());
-
-        holder.iv_info.setOnClickListener(v -> {
-
-            if (tasksListAdapterListener != null) tasksListAdapterListener.onItemInfoClicked(tasks.get(holder.getAdapterPosition()));
-
-        });
-
-        holder.iv_location.setOnClickListener(v -> {
-
-            if (tasksListAdapterListener != null) tasksListAdapterListener.onItemLocationClicked(tasks.get(holder.getAdapterPosition()));
-
-        });
-
-        holder.b_start.setOnClickListener(v -> {
-
-            if (tasksListAdapterListener != null) tasksListAdapterListener.onItemStartClicked(tasks.get(holder.getAdapterPosition()));
-
-        });
-
-        holder.b_end.setOnClickListener(v -> {
-
-            if (tasksListAdapterListener != null) tasksListAdapterListener.onItemEndClicked(tasks.get(holder.getAdapterPosition()));
-
-        });
-
-
     }//onBindViewHolder
 
+
+    private void toggleButtonState(Button b, boolean isEnable) {
+
+        Drawable buttonDrawable = b.getBackground();
+        buttonDrawable = DrawableCompat.wrap(buttonDrawable);
+
+        if (isEnable) {
+
+            DrawableCompat.setTint(buttonDrawable, context.getColor(R.color.white_100));
+            b.setBackground(buttonDrawable);
+            b.setClickable(true);
+
+        } else {
+
+            DrawableCompat.setTint(buttonDrawable, context.getColor(R.color.light_transparent));
+            b.setBackground(buttonDrawable);
+            b.setClickable(false);
+
+        }
+
+    }//toggleButtonState
 
     public static class TasksListAdapterItemView extends RecyclerView.ViewHolder {
 
