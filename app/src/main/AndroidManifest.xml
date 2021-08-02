@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.IClean">
 
-        <activity android:name=".auth.AuthActivity"
+        <activity android:name=".auth.AuthFragmentActivity"
             android:screenOrientation="portrait">
 
             <intent-filter>

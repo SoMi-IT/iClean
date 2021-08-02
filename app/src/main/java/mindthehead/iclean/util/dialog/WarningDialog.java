@@ -1,6 +1,7 @@
 package mindthehead.iclean.util.dialog;
 
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -22,7 +23,7 @@ public class WarningDialog extends Dialog implements Button.OnClickListener {
     private Button b_dismiss;
 
 
-    public WarningDialog(WorkActivity _context, String description) {
+    public WarningDialog(Activity _context, String description) {
 
         super(_context);
 

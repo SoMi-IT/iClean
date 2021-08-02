@@ -7,34 +7,23 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ProgressBar;
-import android.widget.Toast;
-
-import java.io.IOException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import mindthehead.iclean.R;
+import mindthehead.iclean.util.dialog.WarningDialog;
 import mindthehead.iclean.work.WorkActivity;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 
-public class AuthActivity extends AppCompatActivity implements AuthListener, AuthenticationManagerListener {
+public class AuthFragmentActivity extends AppCompatActivity implements AuthFragmentListener, AuthenticationManagerListener {
 
-
-    private FragmentManager mainFragmentManager;
 
     private AuthFragment authFragment;
 
     private View v_authLoader;
     private ProgressBar pb_authLoader;
+
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -44,37 +33,34 @@ public class AuthActivity extends AppCompatActivity implements AuthListener, Aut
         v_authLoader = findViewById(R.id.v_auth);
         pb_authLoader = findViewById(R.id.pb_auth);
 
-        //dismissLoader();
+        toggleLoader(false);
 
-        //showAuthFragment();
+        showAuthFragment();
 
-        startActivity(new Intent(this, WorkActivity.class));
+        //startActivity(new Intent(this, WorkActivity.class));
 
     }//onCreate
 
 
-    public void dismissLoader(){
+    public void toggleLoader(boolean visible){
 
-        v_authLoader.setVisibility(View.GONE);
-        pb_authLoader.setVisibility(View.GONE);
+        if(visible) {
+            v_authLoader.setVisibility(View.VISIBLE);
+            pb_authLoader.setVisibility(View.VISIBLE);
+        }else {
+            v_authLoader.setVisibility(View.GONE);
+            pb_authLoader.setVisibility(View.GONE);
+        }
 
-    }//dismissLoader
-
-
-    public void showLoader(){
-
-        v_authLoader.setVisibility(View.VISIBLE);
-        pb_authLoader.setVisibility(View.VISIBLE);
-
-    }//showLoader
+    }//toggleLoader
 
 
     public void showAuthFragment() {
 
         authFragment = new AuthFragment();
         authFragment.setListener(this);
-        mainFragmentManager = getSupportFragmentManager();
 
+        FragmentManager mainFragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = mainFragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fl_auth, authFragment);
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
@@ -87,12 +73,12 @@ public class AuthActivity extends AppCompatActivity implements AuthListener, Aut
 
     public void onAuthStarted(String email, String psw) {
 
-        showLoader();
+        toggleLoader(true);
         InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(getWindow().getCurrentFocus().getApplicationWindowToken(),0);
         AuthenticationManager authenticationManager = new AuthenticationManager();
         authenticationManager.setListener(this);
-        authenticationManager.startAuth("", "");
+        authenticationManager.startAuth(email, psw);
 
     }//onAuthStarted
 
@@ -103,13 +89,15 @@ public class AuthActivity extends AppCompatActivity implements AuthListener, Aut
 
     }//onLoginSuccessful
 
+
     public void onLoginError(String error) {
 
-        Log.d("XXX", error +"");
+        if (authFragment != null) authFragment.toggleAuthButton(true);
 
-        if (authFragment != null) authFragment.enableAuthButton();
+        toggleLoader(false);
 
-        dismissLoader();
+        WarningDialog warningDialog = new WarningDialog(this, "Error: " + error);
+        warningDialog.show();
 
     }//onLoginError
 

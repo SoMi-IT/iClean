@@ -14,9 +14,7 @@ import mindthehead.iclean.R;
 public class AuthFragment extends Fragment implements View.OnClickListener {
 
 
-    private AuthActivity activity;
-
-    private AuthListener listener;
+    private AuthFragmentListener listener;
 
     private EditText et_username;
     private EditText et_password;
@@ -26,11 +24,7 @@ public class AuthFragment extends Fragment implements View.OnClickListener {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-
-        activity = (AuthActivity) getActivity();
-
         View rootView = inflater.inflate(R.layout.fragment_auth, container, false);
-
 
         et_username = rootView.findViewById(R.id.et_auth_username);
         et_password = rootView.findViewById(R.id.et_auth_password);
@@ -38,13 +32,12 @@ public class AuthFragment extends Fragment implements View.OnClickListener {
         b_confirm = rootView.findViewById(R.id.b_auth_confirm_label);
         b_confirm.setOnClickListener(this);
 
-
         return rootView;
 
     }//onCreateView
 
 
-    private void saveData(){
+    private void initAuth(){
 
         String emailString = et_username.getText().toString();
         String pswString = et_password.getText().toString();
@@ -62,7 +55,7 @@ public class AuthFragment extends Fragment implements View.OnClickListener {
             et_username.setError(null);
             et_password.setError(null);
 
-            disableAuthButton();
+            toggleAuthButton(false);
             listener.onAuthStarted(emailString, pswString);
 
         }
@@ -70,19 +63,15 @@ public class AuthFragment extends Fragment implements View.OnClickListener {
     }//saveData
 
 
-    private void disableAuthButton() {
+    public void toggleAuthButton(boolean active) {
 
-        if (b_confirm != null)b_confirm.setClickable(false);
+        if (b_confirm != null && active)b_confirm.setClickable(true);
+        else if (b_confirm != null)b_confirm.setClickable(false);
 
-    }//disableAuthButton
+    }//toggleAuthButton
 
-    public void enableAuthButton() {
 
-        if (b_confirm != null)b_confirm.setClickable(true);
-
-    }//enableAuthButton
-
-    public void setListener(AuthListener _listener){
+    public void setListener(AuthFragmentListener _listener){
 
         listener = _listener;
 
@@ -91,9 +80,7 @@ public class AuthFragment extends Fragment implements View.OnClickListener {
 
     public void onClick(View view) {
 
-        if (view == b_confirm) {
-            saveData();
-        }
+        if (view == b_confirm) initAuth();
 
     }//onClick
 

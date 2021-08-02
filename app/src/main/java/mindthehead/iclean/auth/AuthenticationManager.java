@@ -1,22 +1,14 @@
 package mindthehead.iclean.auth;
 
 
-import android.util.Log;
 import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
-
-import okhttp3.Authenticator;
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.Credentials;
-import okhttp3.HttpUrl;
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
-import okhttp3.Route;
-
 
 public class AuthenticationManager {
 
@@ -45,7 +37,6 @@ public class AuthenticationManager {
     public final class AsynchronousGet implements Callback{
 
         private final OkHttpClient client2 = new OkHttpClient();
-
 
         public void run() throws Exception {
 
@@ -109,11 +100,13 @@ public class AuthenticationManager {
 
             try (ResponseBody responseBody = response.body()) {
 
-                if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
-
-                listener.onLoginSuccessful();
-
-                Log.d("XXX", responseBody.string() +"eeee");
+                if (!response.isSuccessful()) {
+                    listener.onLoginError("Unexpected code " + response);
+                    throw new IOException("Unexpected code " + response);
+                }else {
+                    listener.onLoginSuccessful();
+                    //manage responsebody.tostring
+                }
 
             }
 
