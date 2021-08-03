@@ -12,8 +12,12 @@ public class Task {
     private String id;
     private int priority;
     private String date;
+    private String dateStartDone;
+    private String dateEndDone;
     private String timeStart;
+    private String timeStartDone;
     private String timeEnd;
+    private String timeEndDone;
     private String site;
     private String floor;
     private String department;
@@ -22,22 +26,23 @@ public class Task {
 
     public Task() { }//Constructor
 
-
-    public Task(String _id, int _priority, String _date, String _timeStart, String _timeEnd, String _site, String _floor, String _department, String _info) {
-
-        isExpanded = false;
+    public Task(String _id, int _priority, String _date, String _dateStartDone, String _dateEndDone, String _timeStart, String _timeStartDone, String _timeEnd, String _timeEndDone, String _site, String _floor, String _department, String _info) {
         id = _id;
         priority = _priority;
         date = _date;
+        dateStartDone = _dateStartDone;
+        dateEndDone = _dateEndDone;
         timeStart = _timeStart;
+        timeStartDone = _timeStartDone;
         timeEnd = _timeEnd;
+        timeEndDone = _timeEndDone;
         site = _site;
         floor = _floor;
         department = _department;
         info = _info;
+    }
 
-    }//Constructor
-
+    //GET---------------
     public boolean isExpanded() { return isExpanded; }//isExpanded
 
     public int getStatus() { return status; }//getStatus
@@ -48,9 +53,17 @@ public class Task {
 
     public String getDate() { return date; }//getDate
 
+    public String getDateStartDone() { return dateStartDone; }//getDateStartDone
+
+    public String getDateEndDone() { return dateEndDone; }//getDateEndDone
+
     public String getTimeStart() { return timeStart; }//getTimeStart
 
+    public String getTimeStartDone() { return timeStartDone; }//getTimeStartDone
+
     public String getTimeEnd() { return timeEnd; }//getTimeEnd
+
+    public String getTimeEndDone() { return timeEndDone; }//getTimeEndDone
 
     public String getSite() { return site; }//getSite
 
@@ -60,6 +73,7 @@ public class Task {
 
     public String getInfo() { return info; }//getInfo
 
+    //SET---------------
 
     public void setExpanded(boolean _isExpanded) { isExpanded = _isExpanded; }//setExpanded
 
@@ -69,11 +83,22 @@ public class Task {
 
     public void setPriority(int _priority) { priority = _priority; }//setPriority
 
+
     public void setDate(String _date) { date = _date; }//setDate
+
+    public void setDateStartDone(String _dateStartDone) { dateStartDone = _dateStartDone; }//setDateStartDone
+
+    public void setDateEndDone(String _dateEndDone) { dateEndDone = _dateEndDone; }//setDateEndDone
+
 
     public void setTimeStart(String _timeStart) { timeStart = _timeStart; }//setTimeStart
 
+    public void setTimeStartDone(String _timeStartDone) { timeStartDone = _timeStartDone; }//setTimeStartDone
+
     public void setTimeEnd(String _timeEnd) { timeEnd = _timeEnd; }//setTimeEnd
+
+    public void setTimeEndDone(String _timeEndDone) { timeEndDone = _timeEndDone; }//setTimeEndDone
+
 
     public void setSite(String _site) { site = _site; }//setSite
 

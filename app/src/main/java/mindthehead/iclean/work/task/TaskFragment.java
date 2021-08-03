@@ -203,13 +203,12 @@ public class TaskFragment extends Fragment implements TasksListAdapterListener, 
     }//dataUpdated
 
 
-    public void onNFCFind() {
+    public void onNFCFind(String id) {
 
     }//onNFCFind
 
     public void onManual() {
 
-        if(nfcDialog != null)nfcDialog.dismiss();
         ManualTimeDialog manualTimeDialog = new ManualTimeDialog(activity, currentChoice);
         manualTimeDialog.setListener(this);
         manualTimeDialog.show();
@@ -219,7 +218,22 @@ public class TaskFragment extends Fragment implements TasksListAdapterListener, 
 
     public void onManualPick(String date, String time) {
 
-        taskDataManager.updateTask(activity, currentTask);
+        if(currentChoice == ManualTimeDialog.MANUAL_TYPE_IN) {
+
+            currentTask.setDateStartDone(date);
+            currentTask.setTimeStartDone(time);
+            taskDataManager.updateTask(activity, currentTask);
+
+        } else if(currentChoice == ManualTimeDialog.MANUAL_TYPE_OUT) {
+
+            currentTask.setDateEndDone(date);
+            currentTask.setTimeEndDone(time);
+            taskDataManager.updateTask(activity, currentTask);
+
+        }
+
+
+
 
     }//onManualPick
 

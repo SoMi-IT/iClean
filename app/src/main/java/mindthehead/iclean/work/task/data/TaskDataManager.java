@@ -40,8 +40,12 @@ public class TaskDataManager {
             task.setId("000" + i);
             task.setPriority(5-i);
             task.setDate("0" + i +"/02/2021");
+            task.setDateStartDone("");
+            task.setDateEndDone("");
             task.setTimeStart("1" + (i) +":00");
+            task.setTimeStartDone("");
             task.setTimeEnd("1" + (i+1) +":00");
+            task.setTimeEndDone("");
             task.setSite("ST789" + i);
             task.setFloor("Secondo");
             task.setDepartment("Riabilitazione");
@@ -96,6 +100,8 @@ public class TaskDataManager {
 
             if(tasks.get(i).getId().equals(task.getId())) {
 
+                tasks.set(i, task);
+
                 if (tasks.get(i).getStatus() == Task.STATUS_CURRENT_NOT_STARTED) {
 
                     tasks.get(i).setStatus(Task.STATUS_CURRENT_STARTED);
@@ -120,6 +126,9 @@ public class TaskDataManager {
 
             }
 
+            Log.d("XXX" , "tmestartdone: " + tasks.get(i).getTimeStartDone());
+            Log.d("XXX" , "tmeenddone: " + tasks.get(i).getDateEndDone());
+            Log.d("XXX" , " ------------ ");
         }
 
         String newStoredTaskString = JsonTaskDataManager.getStringFromTasks(tasks);

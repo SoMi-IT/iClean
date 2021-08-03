@@ -1,4 +1,4 @@
-package mindthehead.iclean.work.task.data;
+/*package mindthehead.iclean.work.task.data;
 
 
 import android.content.Context;
@@ -44,30 +44,6 @@ public class SharedTasksDataManager {
         return null;
 
     }//obtainTaskFromId
-
-
-
-
-
-    public static void updateTask(Context context, Task task, String newTaskId) {
-
-        ArrayList<Task> storedTasks = obtainStoredTasks(context);
-
-        for(int i = 0; i<storedTasks.size(); i++) {
-
-            if(task.getId().equals(storedTasks.get(i).getId())) {
-
-                storedTasks.get(i).setId(newTaskId);
-
-            }
-
-        }
-
-        String newStoredTaskString = JsonTaskDataManager.getStringFromTasks(storedTasks);
-
-        SharedPreferencesManager.writeString(context, R.string.task, newStoredTaskString);
-
-    }//updateTask
 
 
     public static boolean isTaskAlreadyExist(Context context, String taskId) {
@@ -131,3 +107,4 @@ public class SharedTasksDataManager {
 
 
 }//SharedTasksDataManager
+*/

@@ -3,6 +3,8 @@
     package="mindthehead.iclean">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.NFC" />
+    <uses-feature android:name="android.hardware.nfc" android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -12,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.IClean">
 
-        <activity android:name=".auth.AuthFragmentActivity"
+        <activity android:name=".auth.AuthActivity"
             android:screenOrientation="portrait">
 
             <intent-filter>
@@ -26,7 +28,12 @@
         <activity
             android:name=".work.WorkActivity"
             android:screenOrientation="portrait">
+
+
         </activity>
+
     </application>
+
+
 
 </manifest>

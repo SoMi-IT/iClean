@@ -212,18 +212,14 @@ public class TimesFragment extends Fragment implements View.OnClickListener, NFC
     }//onClick
 
 
-    public void onNFCFind() {
+    public void onNFCFind(String id) {
 
-        if(nfcDialog != null)nfcDialog.dismiss();
-        ManualTimeDialog manualTimeDialog = new ManualTimeDialog(activity, currentChoice);
-        manualTimeDialog.setListener(this);
-        manualTimeDialog.show();
+
 
     }//onNFCFind
 
     public void onManual() {
 
-        if(nfcDialog != null)nfcDialog.dismiss();
         ManualTimeDialog manualTimeDialog = new ManualTimeDialog(activity, currentChoice);
         manualTimeDialog.setListener(this);
         manualTimeDialog.show();

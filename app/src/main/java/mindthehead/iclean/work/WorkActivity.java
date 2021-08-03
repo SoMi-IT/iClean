@@ -3,13 +3,28 @@ package mindthehead.iclean.work;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import android.app.PendingIntent;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.nfc.NdefMessage;
+import android.nfc.NfcAdapter;
+import android.nfc.Tag;
+import android.nfc.tech.MifareClassic;
+import android.nfc.tech.MifareUltralight;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.io.UnsupportedEncodingException;
+
 import mindthehead.iclean.R;
+import mindthehead.iclean.util.NFCManager;
+import mindthehead.iclean.util.dialog.NFCDialogListener;
 import mindthehead.iclean.work.settings.SettingsFragment;
 import mindthehead.iclean.work.shedules.SchedulesFragment;
 import mindthehead.iclean.work.shedules.SchedulesListener;
@@ -32,6 +47,7 @@ public class WorkActivity extends AppCompatActivity implements HomeListener, Tim
     static final int TYPE_SYNC = 4;
     static final int TYPE_SETTINGS = 5;
 
+    private WorkActivityListener listener;
     private FragmentManager mainFragmentManager;
 
     private HomeFragment homeFragment;
@@ -48,6 +64,10 @@ public class WorkActivity extends AppCompatActivity implements HomeListener, Tim
 
     private int currentStatus;
 
+    //Intialize attributes
+    NfcAdapter nfcAdapter;
+    PendingIntent pendingIntent;
+    final static String TAG = "nfc_test";
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -67,8 +87,52 @@ public class WorkActivity extends AppCompatActivity implements HomeListener, Tim
 
         showHomeFragment();
 
+        //Initialise NfcAdapter
+        nfcAdapter = NfcAdapter.getDefaultAdapter(this);
+        //If no NfcAdapter, display that the device has no NFC
+        if (nfcAdapter == null){
+            finish();
+        }
+        //PendingIntent.getActivity(Context,requestcode(identifier for intent),intent,int)
+        pendingIntent = PendingIntent.getActivity(this,0,new Intent(this,this.getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP),0);
+
+
     }//onCreate
 
+
+    protected void onResume() {
+
+        super.onResume();
+        assert nfcAdapter != null;
+        //nfcAdapter.enableForegroundDispatch(context,pendingIntent, intentFilterArray, techListsArray)
+        nfcAdapter.enableForegroundDispatch(this,pendingIntent,null,null);
+
+    }//onResume
+
+
+    protected void onPause() {
+
+        super.onPause();
+        if (nfcAdapter != null) nfcAdapter.disableForegroundDispatch(this);
+
+    }//onPause
+
+
+    protected void onNewIntent(Intent intent) {
+
+        super.onNewIntent(intent);
+        setIntent(intent);
+        if (listener != null) listener.onNFCTagFound(NFCManager.obtainTagFromIntent(intent));
+
+    }//onNewIntent
+
+
+    public void setListener(WorkActivityListener _listener){
+
+        listener = _listener;
+
+
+    }//setListener
 
     private void insideFragment(int type) {
 
@@ -252,6 +316,7 @@ public class WorkActivity extends AppCompatActivity implements HomeListener, Tim
         fragmentTransaction.commit();
 
     }//showSettingsFragment
+
 
 
     public void onTimesChosen() {
