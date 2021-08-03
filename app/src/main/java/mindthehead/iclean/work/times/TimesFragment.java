@@ -214,6 +214,17 @@ public class TimesFragment extends Fragment implements View.OnClickListener, NFC
 
     public void onNFCFind(String id) {
 
+        if(currentChoice == ManualTimeDialog.MANUAL_TYPE_IN) {
+
+            UserDataManager.saveWorkShiftData(activity, DateManager.getCurrentDate(), null, DateManager.getCurrentTime(), null);
+
+        } else if(currentChoice == ManualTimeDialog.MANUAL_TYPE_OUT) {
+
+            UserDataManager.saveWorkShiftData(activity, null, DateManager.getCurrentDate(), null, DateManager.getCurrentTime());
+
+        }
+
+        updateStatus();
 
 
     }//onNFCFind

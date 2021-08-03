@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ProgressBar;
@@ -33,11 +35,11 @@ public class AuthActivity extends AppCompatActivity implements AuthFragmentListe
         v_authLoader = findViewById(R.id.v_auth);
         pb_authLoader = findViewById(R.id.pb_auth);
 
-        //toggleLoader(false);
+        toggleLoader(false);
 
-        //showAuthFragment();
+        showAuthFragment();
 
-        startActivity(new Intent(this, WorkActivity.class));
+        //startActivity(new Intent(this, WorkActivity.class));
 
     }//onCreate
 
@@ -92,12 +94,22 @@ public class AuthActivity extends AppCompatActivity implements AuthFragmentListe
 
     public void onLoginError(String error) {
 
-        if (authFragment != null) authFragment.toggleAuthButton(true);
+        Activity activity = this;
 
-        toggleLoader(false);
+        runOnUiThread(new Runnable() {
 
-        WarningDialog warningDialog = new WarningDialog(this, "Error: " + error);
-        warningDialog.show();
+            @Override
+            public void run() {
+
+                if (authFragment != null) authFragment.toggleAuthButton(true);
+
+                toggleLoader(false);
+
+                WarningDialog warningDialog = new WarningDialog(activity, "Error: " + error);
+                warningDialog.show();
+
+            }
+        });
 
     }//onLoginError
 

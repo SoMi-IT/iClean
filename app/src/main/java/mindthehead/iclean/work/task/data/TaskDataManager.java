@@ -123,14 +123,9 @@ public class TaskDataManager {
 
                 }
 
-
             }
 
-            Log.d("XXX" , "tmestartdone: " + tasks.get(i).getTimeStartDone());
-            Log.d("XXX" , "tmeenddone: " + tasks.get(i).getDateEndDone());
-            Log.d("XXX" , " ------------ ");
         }
-
         String newStoredTaskString = JsonTaskDataManager.getStringFromTasks(tasks);
         SharedPreferencesManager.writeString(context, R.string.task, newStoredTaskString);
 
