@@ -20,8 +20,8 @@ import okhttp3.ResponseBody;
 public class AuthenticationManager {
 
     private final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-    private static final String URL_LOGIN = "https://emotionalselling.mthdigital.it/api/login";
-    private static final String BODY_NAME = "name";
+    private static final String URL_LOGIN = "https://mediclean.icleanfm.it/api/user/login  ";
+    private static final String BODY_NAME = "username";
     private static final String BODY_PASSWORD = "password";
     private static final String RESPONSE_TOKEN = "token";
     private static final String RESPONSE_ERROR = "error_message";
@@ -104,6 +104,7 @@ public class AuthenticationManager {
 
             if (!token.equals("")) {
 
+                Log.d("XXX", jsonResponse.toString().replaceAll("\\,","\\,\n"));
                 listener.onLoginSuccessful();
             }
             else {
