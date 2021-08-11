@@ -35,11 +35,11 @@ public class AuthActivity extends AppCompatActivity implements AuthFragmentListe
         v_authLoader = findViewById(R.id.v_auth);
         pb_authLoader = findViewById(R.id.pb_auth);
 
-        toggleLoader(false);
+        //toggleLoader(false);
 
-        showAuthFragment();
+        //showAuthFragment();
 
-        //startActivity(new Intent(this, WorkActivity.class));
+        startActivity(new Intent(this, WorkActivity.class));
 
     }//onCreate
 

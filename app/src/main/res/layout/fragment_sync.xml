@@ -35,8 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="8sp"
         android:padding="10sp"
-        android:drawableTop="@drawable/ic_sync_2"
-        android:drawableTint="@color/dark_800"
+        android:drawableTop="@drawable/icon_sync_action"
         android:text="SINCRONIZZA"/>
 
 

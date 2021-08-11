@@ -13,8 +13,7 @@
             android:layout_width="50sp"
             android:layout_height="50sp"
             android:layout_margin="10sp"
-            android:src="@drawable/ic_nfc"
-            app:tint="@color/dark_800" />
+            android:src="@drawable/icon_nfc"/>
 
         <TextView
             android:id="@+id/tv_dialog_nfc_label"
