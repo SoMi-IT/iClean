@@ -3,6 +3,10 @@ package mindthehead.iclean.work.shedules.data;
 public class Schedule {
 
 
+    public final static String SCHEDULES_DATE = "data";
+    public final static String SCHEDULES_TIME_START = "orainizio";
+    public final static String SCHEDULES_TIME_END = "orafinie";
+
     private String id;
     private String date;
     private String timeStart;
@@ -14,6 +18,14 @@ public class Schedule {
 
     public Schedule() { }//Constructor
 
+
+    public Schedule(String _date, String _timeStart, String _timeEnd) {
+
+        date = _date;
+        timeStart = _timeStart;
+        timeEnd = _timeEnd;
+
+    }//Constructor
 
     public Schedule(String _id, String _date, String _timeStart, String _timeEnd, String _site, String _floor, String _department) {
 

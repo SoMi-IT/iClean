@@ -2,15 +2,12 @@ package mindthehead.iclean.work.task.data;
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
 import mindthehead.iclean.R;
 import mindthehead.iclean.util.SharedPreferencesManager;
-import mindthehead.iclean.util.dialog.ManualTimeDialog;
-import mindthehead.iclean.work.task.TaskFragment;
 
 public class TaskDataManager {
 
@@ -28,40 +25,9 @@ public class TaskDataManager {
     }//setListener
 
 
-    public static ArrayList<Task> getFakeData(){
-
-        ArrayList<Task> tasks = new ArrayList<>();
-
-        for (int i = 0; i < 5; i++) {
-
-            Task task = new Task();
-            task.setExpanded(false);
-            task.setStatus(Task.STATUS_TODO);
-            task.setId("000" + i);
-            task.setPriority(5-i);
-            task.setDate("0" + i +"/02/2021");
-            task.setDateStartDone("");
-            task.setDateEndDone("");
-            task.setTimeStart("1" + (i) +":00");
-            task.setTimeStartDone("");
-            task.setTimeEnd("1" + (i+1) +":00");
-            task.setTimeEndDone("");
-            task.setSite("ST789" + i);
-            task.setFloor("Secondo");
-            task.setDepartment("Riabilitazione");
-            task.setInfo("Svuotare la spazzatura, \n Spazzare \n Lavare pavimento \n Sanificazione");
-
-            tasks.add(task);
-
-        }
-
-        return tasks;
-
-    }//getFakeData
-
     public ArrayList<Task> getStoredTasks(Activity context) {
 
-        String storedTasksString = SharedPreferencesManager.readString(context, R.string.task);
+        String storedTasksString = SharedPreferencesManager.readString(context, R.string.tasks);
         ArrayList<Task> tasks = JsonTaskDataManager.getTasksFromString(storedTasksString);
         return tasks;
 
@@ -70,7 +36,7 @@ public class TaskDataManager {
 
     public static void saveTasks(Context context, ArrayList<Task> tasks) {
 
-        Collections.sort(tasks, (obj1, obj2) -> {
+        /*Collections.sort(tasks, (obj1, obj2) -> {
             // ## Ascending order
             //return obj1.firstName.compareToIgnoreCase(obj2.firstName); // To compare string values
             //return Integer.compare(obj1.getPriority(), obj2.getPriority()); // To compare integer values
@@ -78,11 +44,11 @@ public class TaskDataManager {
             // return obj2.firstName.compareToIgnoreCase(obj1.firstName); // To compare string values
             return Integer.compare(obj2.getPriority(), obj1.getPriority()); // To compare integer values
 
-        });
+        });*/
 
         tasks.get(0).setStatus(Task.STATUS_CURRENT_NOT_STARTED);
         String newStoredTaskString = JsonTaskDataManager.getStringFromTasks(tasks);
-        SharedPreferencesManager.writeString(context, R.string.task, newStoredTaskString);
+        SharedPreferencesManager.writeString(context, R.string.tasks, newStoredTaskString);
 
     }//saveTasks
 
@@ -93,7 +59,7 @@ public class TaskDataManager {
         int currentPosition = 0;
         int newPosition = 0;
 
-        String storedTasksString = SharedPreferencesManager.readString(context, R.string.task);
+        String storedTasksString = SharedPreferencesManager.readString(context, R.string.tasks);
         ArrayList<Task> tasks = JsonTaskDataManager.getTasksFromString(storedTasksString);
 
         for(int i = 0; i<tasks.size(); i++) {
@@ -127,7 +93,7 @@ public class TaskDataManager {
 
         }
         String newStoredTaskString = JsonTaskDataManager.getStringFromTasks(tasks);
-        SharedPreferencesManager.writeString(context, R.string.task, newStoredTaskString);
+        SharedPreferencesManager.writeString(context, R.string.tasks, newStoredTaskString);
 
         listener.dataUpdated(tasks, donePosition, currentPosition, newPosition);
 

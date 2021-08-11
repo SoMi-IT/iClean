@@ -4,10 +4,17 @@ package mindthehead.iclean.auth;
 import android.util.Log;
 
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
+import mindthehead.iclean.R;
+import mindthehead.iclean.util.SharedPreferencesManager;
+import mindthehead.iclean.work.shedules.data.ScheduleDataManager;
+import mindthehead.iclean.work.task.data.TaskDataManager;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
@@ -25,6 +32,10 @@ public class AuthenticationManager {
     private static final String BODY_PASSWORD = "password";
     private static final String RESPONSE_TOKEN = "token";
     private static final String RESPONSE_ERROR = "error_message";
+    private static final String RESPONSE_USERNAME = "user";
+    private static final String RESPONSE_SCHEDULES = "Turni";
+    private static final String RESPONSE_TASKS = "tasks";
+
     private AuthenticationManagerListener listener;
     private final JSONObject jsonBody = new JSONObject();
 
@@ -104,18 +115,55 @@ public class AuthenticationManager {
 
             if (!token.equals("")) {
 
-                Log.d("XXX", jsonResponse.toString().replaceAll("\\,","\\,\n"));
-                listener.onLoginSuccessful();
-            }
-            else {
+               saveResponse(jsonResponse);
+               Log.d("XXX", jsonResponse.toString());
+
+            } else {
 
                 listener.onLoginError(jsonResponse.getString(RESPONSE_ERROR));
+
             }
 
         } catch (JSONException e) {
             listener.onLoginError(e.toString());
             e.printStackTrace();
         }
+
+    }//analyzeResponse
+
+
+    private void saveResponse(JSONObject jsonResponse) {
+
+        String username;
+        String schedules;
+        String tasks;
+
+        try {
+
+            username = jsonResponse.getString(RESPONSE_USERNAME);
+            if (username.length() == 0) username = null;
+
+        } catch (JSONException e) {
+            username = "";
+        }
+
+        try {
+
+            schedules = jsonResponse.getJSONArray(RESPONSE_SCHEDULES).toString();
+
+        } catch (JSONException e) {
+            schedules = "";
+        }
+
+        try {
+
+            tasks = jsonResponse.getJSONArray(RESPONSE_TASKS).toString();
+
+        } catch (JSONException e) {
+            tasks = "";
+        }
+
+        listener.onLoginSuccessful(username, schedules, tasks);
 
     }//analyzeResponse
 

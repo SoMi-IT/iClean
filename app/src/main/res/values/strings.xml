@@ -1,9 +1,12 @@
 <resources>
     <string name="app_name">iClean</string>
 
+    <string name="username">mindthehead.iclean.util.username</string>
+
     <string name="synced">mindthehead.iclean.util.synced</string>
 
-    <string name="task">mindthehead.iclean.util.tasks</string>
+    <string name="tasks">mindthehead.iclean.util.tasks</string>
+    <string name="tasks_done">mindthehead.iclean.util.tasks.done</string>
     <string name="schedules">mindthehead.iclean.util.schedules</string>
 
     <string name="times_date_in">mindthehead.iclean.util.times.date.in</string>

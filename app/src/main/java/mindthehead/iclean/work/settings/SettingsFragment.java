@@ -43,9 +43,6 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
 
             new Thread(() -> {
 
-                TaskDataManager.saveTasks(activity, TaskDataManager.getFakeData());
-                ScheduleDataManager.saveSchedules(activity, ScheduleDataManager.getFakeData());
-                SharedPreferencesManager.writeInt(activity, R.string.synced, 0);
 
             }).start();
 

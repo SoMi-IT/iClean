@@ -355,7 +355,7 @@ public class WorkActivity extends AppCompatActivity implements HomeListener, Tim
 
         }else if (v == iv_user && mainFragmentManager != null){
 
-            showSettingsFragment();
+            //showSettingsFragment();
 
         }
 
