@@ -33,7 +33,7 @@ public class AuthenticationManager {
     private static final String RESPONSE_TOKEN = "token";
     private static final String RESPONSE_ERROR = "error_message";
     private static final String RESPONSE_USERNAME = "user";
-    private static final String RESPONSE_SCHEDULES = "Turni";
+    private static final String RESPONSE_SCHEDULES = "schedules";
     private static final String RESPONSE_TASKS = "tasks";
 
     private AuthenticationManagerListener listener;

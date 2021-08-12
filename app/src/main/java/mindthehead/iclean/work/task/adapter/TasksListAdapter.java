@@ -74,7 +74,7 @@ public class TasksListAdapter extends RecyclerView.Adapter<TasksListAdapter.Task
 
         holder.tv_date.setText(task.getDate());
         holder.tv_time.setText(task.getTimeStart() + " - " + task.getTimeEnd());
-        holder.tv_task.setText(task.getSite());
+        holder.tv_task.setText(task.getId()+"");
 
         holder.iv_info.setOnClickListener(v -> {
 

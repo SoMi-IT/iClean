@@ -27,7 +27,6 @@ import mindthehead.iclean.util.NFCManager;
 import mindthehead.iclean.util.dialog.NFCDialogListener;
 import mindthehead.iclean.work.settings.SettingsFragment;
 import mindthehead.iclean.work.shedules.SchedulesFragment;
-import mindthehead.iclean.work.shedules.SchedulesListener;
 import mindthehead.iclean.work.sync.SyncFragment;
 import mindthehead.iclean.work.sync.SyncListener;
 import mindthehead.iclean.work.task.TaskFragment;
@@ -37,7 +36,7 @@ import mindthehead.iclean.work.times.TimesListener;
 import mindthehead.iclean.work.home.HomeFragment;
 import mindthehead.iclean.work.home.HomeListener;
 
-public class WorkActivity extends AppCompatActivity implements HomeListener, TimesListener, TaskListener, SchedulesListener, SyncListener, ImageView.OnClickListener {
+public class WorkActivity extends AppCompatActivity implements HomeListener, TimesListener, TaskListener, SyncListener, ImageView.OnClickListener {
 
 
     static final int TYPE_HOME = 0;
@@ -273,15 +272,12 @@ public class WorkActivity extends AppCompatActivity implements HomeListener, Tim
         insideFragment(TYPE_SCHEDULES);
 
         schedulesFragment = new SchedulesFragment();
-        schedulesFragment.setListener(this);
         mainFragmentManager = getSupportFragmentManager();
 
         FragmentTransaction fragmentTransaction = mainFragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fl_work, schedulesFragment);
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         fragmentTransaction.commit();
-
-        schedulesFragment.setListener(this);
 
     }//showSchedulesFragment
 

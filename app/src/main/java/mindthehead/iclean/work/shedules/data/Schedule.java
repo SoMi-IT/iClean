@@ -3,9 +3,9 @@ package mindthehead.iclean.work.shedules.data;
 public class Schedule {
 
 
-    public final static String SCHEDULES_DATE = "data";
-    public final static String SCHEDULES_TIME_START = "orainizio";
-    public final static String SCHEDULES_TIME_END = "orafinie";
+    public final static String SCHEDULES_DATE = "date";
+    public final static String SCHEDULES_TIME_START = "timestart";
+    public final static String SCHEDULES_TIME_END = "timeend";
 
     private String id;
     private String date;
@@ -27,7 +27,7 @@ public class Schedule {
 
     }//Constructor
 
-    public Schedule(String _id, String _date, String _timeStart, String _timeEnd, String _site, String _floor, String _department) {
+    /*public Schedule(String _id, String _date, String _timeStart, String _timeEnd, String _site, String _floor, String _department) {
 
         id = _id;
         date = _date;
@@ -37,7 +37,7 @@ public class Schedule {
         floor = _floor;
         department = _department;
 
-    }//Constructor
+    }//Constructor*/
 
     public String getId() { return id; }//getId
 
@@ -47,11 +47,11 @@ public class Schedule {
 
     public String getTimeEnd() { return timeEnd; }//getTimeEnd
 
-    public String getSite() { return site; }//getSite
+    //public String getSite() { return site; }//getSite
 
-    public String getFloor() { return floor; }//getFloor
+    //public String getFloor() { return floor; }//getFloor
 
-    public String getDepartment() { return department; }//getDepartment
+    //public String getDepartment() { return department; }//getDepartment
 
 
     public void setId(String _id) { id = _id; }//setDate
@@ -62,11 +62,11 @@ public class Schedule {
 
     public void setTimeEnd(String _timeEnd) { timeEnd = _timeEnd; }//setTimeEnd
 
-    public void setSite(String _site) { site = _site; }//setSite
+    //public void setSite(String _site) { site = _site; }//setSite
 
-    public void setFloor(String _floor) { floor = _floor; }//setFloor
+    //public void setFloor(String _floor) { floor = _floor; }//setFloor
 
-    public void setDepartment(String _department) { department = _department; }//setDepartment
+    //public void setDepartment(String _department) { department = _department; }//setDepartment
 
 
 }//Schedule

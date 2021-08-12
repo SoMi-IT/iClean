@@ -45,4 +45,10 @@ public class DateManager {
 
     }//getCurrentTime
 
+    public static String getCurrentMoment(){
+
+        return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
+
+    }//getCurrentMoment
+
 }//DateManager

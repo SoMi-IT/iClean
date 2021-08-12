@@ -9,9 +9,7 @@
     <string name="tasks_done">mindthehead.iclean.util.tasks.done</string>
     <string name="schedules">mindthehead.iclean.util.schedules</string>
 
-    <string name="times_date_in">mindthehead.iclean.util.times.date.in</string>
-    <string name="times_date_out">mindthehead.iclean.util.times.date.out</string>
-    <string name="times_time_in">mindthehead.iclean.util.times.time.in</string>
-    <string name="times_time_out">mindthehead.iclean.util.times.time.out</string>
+    <string name="times_check_in">mindthehead.iclean.util.times.check.in</string>
+    <string name="times_check_out">mindthehead.iclean.util.times.check.out</string>
 
 </resources>

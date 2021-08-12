@@ -27,7 +27,6 @@ public class ManualTimeDialog extends Dialog implements Button.OnClickListener {
 
     private ManualDialogListener listener;
     private Button b_manual, b_dismiss;
-    private EditText et_hour, et_minutes;
 
 
     public ManualTimeDialog(WorkActivity _context, int type) {
@@ -52,7 +51,7 @@ public class ManualTimeDialog extends Dialog implements Button.OnClickListener {
 
         TextView tv_type = findViewById(R.id.tv_dialog_manual_time_type);
         TextView tv_time = findViewById(R.id.tv_dialog_manual_time);
-        tv_time.setText(DateManager.getCurrentDate() + "\n" + "\n" + DateManager.getCurrentTime());
+        tv_time.setText(DateManager.getCurrentMoment());
         if (type == MANUAL_TYPE_IN){
             tv_type.setText("INGRESSO");
         } else if (type == MANUAL_TYPE_OUT){
@@ -72,7 +71,7 @@ public class ManualTimeDialog extends Dialog implements Button.OnClickListener {
 
     private void saveData(){
 
-        listener.onManualPick(DateManager.getCurrentDate(), DateManager.getCurrentTime());
+        listener.onManualPick(DateManager.getCurrentMoment());
         dismiss();
 
     }//saveData

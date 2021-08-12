@@ -95,10 +95,6 @@ public class AuthActivity extends AppCompatActivity implements AuthFragmentListe
         SharedPreferencesManager.writeString(this, R.string.tasks, JsonTaskDataManager.getConvertedJsonTasks(tasks));
         SharedPreferencesManager.writeInt(this, R.string.synced, 0);
 
-        Log.d("XXX", "--UserName: " + username);
-        Log.d("XXX", "--Schedules: " + schedules);
-        Log.d("XXX", "--Tasks: " + tasks);
-
         startActivity(new Intent(this, WorkActivity.class));
 
     }//onLoginSuccessful

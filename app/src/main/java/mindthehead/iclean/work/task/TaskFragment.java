@@ -67,7 +67,6 @@ public class TaskFragment extends Fragment implements TasksListAdapterListener, 
 
         tv_date = rootView.findViewById(R.id.tv_task_date);
         tv_time = rootView.findViewById(R.id.tv_task_time);
-
         tv_date.setText(DateManager.getCurrentDate());
         tv_time.setText(DateManager.getCurrentTime());
 
@@ -127,7 +126,7 @@ public class TaskFragment extends Fragment implements TasksListAdapterListener, 
 
     public void onItemInfoClicked(Task task) {
 
-        TaskItemInfoDialog taskItemInfoDialog = new TaskItemInfoDialog(activity, task.getInfo());
+        TaskItemInfoDialog taskItemInfoDialog = new TaskItemInfoDialog(activity, task.getDescription());
         taskItemInfoDialog.show();
 
     }//onItemInfoClicked
@@ -145,14 +144,14 @@ public class TaskFragment extends Fragment implements TasksListAdapterListener, 
 
         UserDataManager userDataManager = new UserDataManager(activity);
 
-        if (userDataManager.getDateIn().length() == 0 ) {
+        if (userDataManager.getCheckIn().length() == 0 ) {
 
             WarningDialog warningDialog = new WarningDialog(activity, "Non hai ancora timbrato l'ingresso!");
             warningDialog.show();
             return;
 
         }
-        if (userDataManager.getDateOut().length() != 0) {
+        if (userDataManager.getCheckOut().length() != 0) {
 
             WarningDialog warningDialog = new WarningDialog(activity, "Hai già chiuso il turno!");
             warningDialog.show();
@@ -207,14 +206,12 @@ public class TaskFragment extends Fragment implements TasksListAdapterListener, 
 
         if(currentChoice == ManualTimeDialog.MANUAL_TYPE_IN) {
 
-            currentTask.setDateStartDone(DateManager.getCurrentDate());
-            currentTask.setTimeStartDone(DateManager.getCurrentTime());
+            currentTask.setCheckIn(DateManager.getCurrentMoment());
             taskDataManager.updateTask(activity, currentTask);
 
         } else if(currentChoice == ManualTimeDialog.MANUAL_TYPE_OUT) {
 
-            currentTask.setDateEndDone(DateManager.getCurrentDate());
-            currentTask.setTimeEndDone(DateManager.getCurrentTime());
+            currentTask.setCheckOut(DateManager.getCurrentMoment());
             taskDataManager.updateTask(activity, currentTask);
 
         }
@@ -230,18 +227,16 @@ public class TaskFragment extends Fragment implements TasksListAdapterListener, 
     }//onManual
 
 
-    public void onManualPick(String date, String time) {
+    public void onManualPick(String time) {
 
         if(currentChoice == ManualTimeDialog.MANUAL_TYPE_IN) {
 
-            currentTask.setDateStartDone(date);
-            currentTask.setTimeStartDone(time);
+            currentTask.setCheckIn(time);
             taskDataManager.updateTask(activity, currentTask);
 
         } else if(currentChoice == ManualTimeDialog.MANUAL_TYPE_OUT) {
 
-            currentTask.setDateEndDone(date);
-            currentTask.setTimeEndDone(time);
+            currentTask.setCheckOut(time);
             taskDataManager.updateTask(activity, currentTask);
 
         }

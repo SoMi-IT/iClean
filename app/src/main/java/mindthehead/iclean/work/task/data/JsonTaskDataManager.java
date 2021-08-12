@@ -25,14 +25,12 @@ public class JsonTaskDataManager {
 
                 JSONObject currentJsonObject = new JSONObject();
                 currentJsonObject = jsonArray.getJSONObject(i);
-                Log.d("XXX", "--Old Task: " + jsonArray.getJSONObject(i).toString());
+
                 JSONObject newJsonObject = new JSONObject();
                 newJsonObject = getConvertedJsonTask(currentJsonObject, i);
-                if (newJsonObject != null)
-                {
-                    newJsonArray.put(newJsonObject);
-                    Log.d("XXX", "--New Task: " + newJsonObject.toString());
-                }
+
+                if (newJsonObject != null) newJsonArray.put(newJsonObject);
+
 
 
             }
@@ -57,20 +55,18 @@ public class JsonTaskDataManager {
             if (index == 0) status = Task.STATUS_CURRENT_NOT_STARTED;
             else status = Task.STATUS_TODO;
 
-            newJsonObject.put("status", status);
-            newJsonObject.put(Task.TASK_ID, jsonObject.getString(Task.TASK_ID));
+            newJsonObject.put(Task.TASK_ID, jsonObject.getInt(Task.TASK_ID));
+            newJsonObject.put(Task.TASK_STATUS, status);
             newJsonObject.put(Task.TASK_DATE, jsonObject.getString(Task.TASK_DATE));
-            newJsonObject.put("dateStartDone", "");
-            newJsonObject.put("dateEndDone", "");
             newJsonObject.put(Task.TASK_TIME_START, jsonObject.getString(Task.TASK_TIME_START));
-            newJsonObject.put("timeStartDone", "");
+            newJsonObject.put(Task.TASK_CHECK_IN, "");
             newJsonObject.put(Task.TASK_TIME_END, jsonObject.getString(Task.TASK_TIME_END));
-            newJsonObject.put("timeEndDone", "");
-            newJsonObject.put(Task.TASK_PLACE, jsonObject.getString(Task.TASK_PLACE));
-            newJsonObject.put(Task.TASK_PLACE_NAME, jsonObject.getString(Task.TASK_PLACE_NAME));
-            newJsonObject.put("floor", "");
-            newJsonObject.put("department", "");
-            newJsonObject.put("info", "");
+            newJsonObject.put(Task.TASK_CHECK_OUT, "");
+            newJsonObject.put(Task.TASK_CODE, jsonObject.getString(Task.TASK_CODE));
+            newJsonObject.put(Task.TASK_SITE, jsonObject.getString(Task.TASK_SITE));
+            newJsonObject.put(Task.TASK_FLOOR, jsonObject.getString(Task.TASK_FLOOR));
+            newJsonObject.put(Task.TASK_DEPARTMENT, jsonObject.getString(Task.TASK_DEPARTMENT));
+            newJsonObject.put(Task.TASK_DESCRIPTION, jsonObject.getString(Task.TASK_DESCRIPTION));
 
 
         } catch (JSONException e) {
@@ -103,6 +99,7 @@ public class JsonTaskDataManager {
 
             }
 
+            Log.d("XXX", " -------------- ");
         } catch (JSONException e) {
             e.printStackTrace();
             return tasks;
@@ -119,22 +116,21 @@ public class JsonTaskDataManager {
 
         try {
 
-            int status = jsonObject.getInt("status");
-            String id = jsonObject.getString(Task.TASK_ID);
-            String date = jsonObject.getString(Task.TASK_DATE);
-            String dateStartDone = jsonObject.getString("dateStartDone");
-            String dateEndDone = jsonObject.getString("dateEndDone");
-            String timeStart = jsonObject.getString(Task.TASK_TIME_START);
-            String timeStartDone = jsonObject.getString("timeStartDone");
-            String timeEnd = jsonObject.getString(Task.TASK_TIME_END);
-            String timeEndDone = jsonObject.getString("timeEndDone");
-            String NFC = jsonObject.getString(Task.TASK_PLACE);
-            String site = jsonObject.getString(Task.TASK_PLACE_NAME);
-            String floor = jsonObject.getString("floor");
-            String department = jsonObject.getString("department");
-            String info = jsonObject.getString("info");
 
-            task = new Task(status, id,  date, dateStartDone, dateEndDone, timeStart, timeStartDone, timeEnd, timeEndDone, NFC,  site, floor, department, info);
+            int id = jsonObject.getInt(Task.TASK_ID);
+            int status = jsonObject.getInt(Task.TASK_STATUS);
+            String date = jsonObject.getString(Task.TASK_DATE);
+            String timeStart = jsonObject.getString(Task.TASK_TIME_START);
+            String checkIn = jsonObject.getString(Task.TASK_CHECK_IN);
+            String timeEnd = jsonObject.getString(Task.TASK_TIME_END);
+            String checkOut = jsonObject.getString(Task.TASK_CHECK_OUT);
+            String code = jsonObject.getString(Task.TASK_CODE);
+            String site = jsonObject.getString(Task.TASK_SITE);
+            String floor = jsonObject.getString(Task.TASK_FLOOR);
+            String department = jsonObject.getString(Task.TASK_DEPARTMENT);
+            String description = jsonObject.getString(Task.TASK_DESCRIPTION);
+
+            task = new Task(id, status, date, timeStart, checkIn, timeEnd, checkOut,  code,  site, floor, department, description);
             task.setStatus(status);
 
         } catch (JSONException e) {
@@ -168,20 +164,19 @@ public class JsonTaskDataManager {
 
         try {
 
-            jsonObject.put("status", task.getStatus());
             jsonObject.put(Task.TASK_ID, task.getId());
+            jsonObject.put(Task.TASK_STATUS, task.getStatus());
             jsonObject.put(Task.TASK_DATE, task.getDate());
-            jsonObject.put("dateStartDone", task.getDateStartDone());
-            jsonObject.put("dateEndDone", task.getDateEndDone());
             jsonObject.put(Task.TASK_TIME_START, task.getTimeStart());
-            jsonObject.put("timeStartDone", task.getTimeStartDone());
+            jsonObject.put(Task.TASK_CHECK_IN, task.getCheckIn());
             jsonObject.put(Task.TASK_TIME_END, task.getTimeEnd());
-            jsonObject.put("timeEndDone", task.getTimeEndDone());
-            jsonObject.put(Task.TASK_PLACE, task.getNFC());
-            jsonObject.put(Task.TASK_PLACE_NAME, task.getSite());
-            jsonObject.put("floor", task.getFloor());
-            jsonObject.put("department", task.getDepartment());
-            jsonObject.put("info", task.getInfo());
+            jsonObject.put(Task.TASK_CHECK_OUT, task.getCheckOut());
+            jsonObject.put(Task.TASK_CODE, task.getCode());
+            jsonObject.put(Task.TASK_SITE, task.getSite());
+            jsonObject.put(Task.TASK_FLOOR, task.getFloor());
+            jsonObject.put(Task.TASK_DEPARTMENT, task.getDepartment());
+            jsonObject.put(Task.TASK_DESCRIPTION, task.getDescription());
+
 
         } catch (JSONException e) {
             e.printStackTrace();

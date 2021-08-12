@@ -64,7 +64,7 @@ public class TaskDataManager {
 
         for(int i = 0; i<tasks.size(); i++) {
 
-            if(tasks.get(i).getId().equals(task.getId())) {
+            if(tasks.get(i).getId() == task.getId()) {
 
                 tasks.set(i, task);
 

@@ -1,7 +1,6 @@
 package mindthehead.iclean.work.shedules.data;
 
 
-import android.util.Log;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,7 +25,6 @@ public class JsonScheduleDataManager {
                 Schedule schedule = new Schedule();
                 JSONObject currentJsonObject = new JSONObject();
                 currentJsonObject = jsonArray.getJSONObject(i);
-                Log.d("XXX", "--Schedule: " + jsonArray.getJSONObject(i).toString());
                 schedule = getScheduleFromJson(currentJsonObject);
 
                 if(schedule != null) schedules.add(schedule);
@@ -46,7 +44,6 @@ public class JsonScheduleDataManager {
     public static Schedule getScheduleFromJson(JSONObject jsonObject){
 
         Schedule schedule = null;
-        ArrayList<Schedule> schedules = new ArrayList<Schedule>();
 
         try {
 

@@ -7,7 +7,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import mindthehead.iclean.work.task.data.Task;
 
-
+/*
 public class JsonDataManager {
 
 
@@ -125,7 +125,7 @@ public class JsonDataManager {
 
     }//getStringFromTask
 
-
 }//JsonDataManager
 
 
+*/

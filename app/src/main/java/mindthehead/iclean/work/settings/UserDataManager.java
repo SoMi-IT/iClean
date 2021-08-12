@@ -28,57 +28,42 @@ public class UserDataManager {
 
     public  boolean isUserWorkShiftStarted() {
 
-        return SharedPreferencesManager.readString(activity, R.string.times_date_in).length() != 0;
+        return SharedPreferencesManager.readString(activity, R.string.times_check_in).length() != 0;
 
     }//isUserWorkShiftStarted
 
 
     public boolean isUserWorkShiftEnd() {
 
-        return SharedPreferencesManager.readString(activity, R.string.times_date_out).length() != 0;
+        return SharedPreferencesManager.readString(activity, R.string.times_check_out).length() != 0;
 
     }//isUserWorkShiftEnd
 
 
-    public static void saveWorkShiftData(Activity activity, String _dateIn, String _dateOut, String _timeIn, String _timeOut) {
+    public static void saveWorkShiftData(Activity activity, String checkIn, String checkOut) {
 
-        if (_dateIn != null) {
+        if (checkIn != null) {
 
-            SharedPreferencesManager.writeString(activity, R.string.times_date_in, _dateIn);
-            SharedPreferencesManager.writeString(activity, R.string.times_time_in, _timeIn);
+            SharedPreferencesManager.writeString(activity, R.string.times_check_in, checkIn);
 
-        } else if (_dateOut != null) {
+        } else if (checkOut != null) {
 
-            SharedPreferencesManager.writeString(activity, R.string.times_date_out, _dateOut);
-            SharedPreferencesManager.writeString(activity, R.string.times_time_out, _timeOut);
+            SharedPreferencesManager.writeString(activity, R.string.times_check_out, checkOut);
 
         }
 
     }//saveData
 
 
+    public  String getCheckIn() {
 
-    public String getDateIn() {
-
-        return SharedPreferencesManager.readString(activity, R.string.times_date_in);
-
-    }//getDateIn
-
-    public String getDateOut() {
-
-        return SharedPreferencesManager.readString(activity, R.string.times_date_out);
-
-    }//getDateOut
-
-    public  String getTimeIn() {
-
-        return SharedPreferencesManager.readString(activity, R.string.times_time_in);
+        return SharedPreferencesManager.readString(activity, R.string.times_check_in);
 
     }//getTimeIn
 
-    public  String getTimeOut() {
+    public  String getCheckOut() {
 
-        return SharedPreferencesManager.readString(activity, R.string.times_time_out);
+        return SharedPreferencesManager.readString(activity, R.string.times_check_out);
 
     }//getTimeOut
 

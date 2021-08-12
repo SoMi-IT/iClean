@@ -64,10 +64,8 @@ public class SyncFragment extends Fragment implements View.OnClickListener {
 
         if (view == b_sync) {
 
-            SharedPreferencesManager.writeString(activity, R.string.times_date_in, "");
-            SharedPreferencesManager.writeString(activity, R.string.times_date_out, "");
-            SharedPreferencesManager.writeString(activity, R.string.times_time_in, "");
-            SharedPreferencesManager.writeString(activity, R.string.times_time_out, "");
+            SharedPreferencesManager.writeString(activity, R.string.times_check_in, "");
+            SharedPreferencesManager.writeString(activity, R.string.times_check_out, "");
             SharedPreferencesManager.writeString(activity, R.string.schedules, "");
             SharedPreferencesManager.writeString(activity, R.string.tasks, "");
             SharedPreferencesManager.writeInt(activity, R.string.synced, 1);

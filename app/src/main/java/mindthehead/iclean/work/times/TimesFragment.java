@@ -56,11 +56,10 @@ public class TimesFragment extends Fragment implements View.OnClickListener, NFC
 
         tv_date = rootView.findViewById(R.id.tv_times_date);
         tv_time = rootView.findViewById(R.id.tv_times_time);
-        tv_start = rootView.findViewById(R.id.tv_times_start);
-        tv_end = rootView.findViewById(R.id.tv_times_end);
-
         tv_date.setText(DateManager.getCurrentDate());
         tv_time.setText(DateManager.getCurrentTime());
+        tv_start = rootView.findViewById(R.id.tv_times_start);
+        tv_end = rootView.findViewById(R.id.tv_times_end);
 
         b_start = rootView.findViewById(R.id.b_times_item_start);
         b_end = rootView.findViewById(R.id.b_times_item_end);
@@ -91,7 +90,7 @@ public class TimesFragment extends Fragment implements View.OnClickListener, NFC
 
         UserDataManager userDataManager = new UserDataManager(activity);
 
-        if(userDataManager.getDateIn().length() == 0  && userDataManager.getDateOut().length() == 0) {
+        if(userDataManager.getCheckIn().length() == 0  && userDataManager.getCheckOut().length() == 0) {
 
             v_start.setBackgroundResource(R.drawable.times_round_view_disabled);
             v_end.setBackgroundResource(R.drawable.times_round_view_disabled);
@@ -102,24 +101,24 @@ public class TimesFragment extends Fragment implements View.OnClickListener, NFC
             toggleButtonState(b_start, true);
             toggleButtonState(b_end, false);
 
-        } else if(userDataManager.getDateIn().length() != 0  && userDataManager.getDateOut().length() == 0) {
+        } else if(userDataManager.getCheckIn().length() != 0  && userDataManager.getCheckOut().length() == 0) {
 
             v_start.setBackgroundResource(R.drawable.times_round_view_start);
             v_end.setBackgroundResource(R.drawable.times_round_view_disabled);
 
-            tv_start.setText("Hai timbrato l'ingresso il: " + userDataManager.getDateIn() + "\n alle ore: " + userDataManager.getTimeIn());
+            tv_start.setText("Hai timbrato l'ingresso il: " + "\n" + userDataManager.getCheckIn());
             tv_end.setText("Non hai ancora timbrato l'uscita");
 
             toggleButtonState(b_start, false);
             toggleButtonState(b_end, true);
 
-        }  else if(userDataManager.getDateIn().length() != 0  && userDataManager.getDateOut().length() != 0) {
+        }  else if(userDataManager.getCheckIn().length() != 0  && userDataManager.getCheckOut().length() != 0) {
 
             v_start.setBackgroundResource(R.drawable.times_round_view_start);
             v_end.setBackgroundResource(R.drawable.times_round_view_end);
 
-            tv_start.setText("Hai timbrato l'ingresso il: " + userDataManager.getDateIn() + "\n alle ore: " + userDataManager.getTimeIn());
-            tv_end.setText("Hai timbrato l'uscita il: " + userDataManager.getDateOut() + "\n alle ore: " + userDataManager.getTimeOut());
+            tv_start.setText("Hai timbrato l'ingresso il: " + "\n" + userDataManager.getCheckIn());
+            tv_end.setText("Hai timbrato l'uscita il: " + "\n" + userDataManager.getCheckOut());
 
             toggleButtonState(b_start, false);
             toggleButtonState(b_end, false);
@@ -216,16 +215,15 @@ public class TimesFragment extends Fragment implements View.OnClickListener, NFC
 
         if(currentChoice == ManualTimeDialog.MANUAL_TYPE_IN) {
 
-            UserDataManager.saveWorkShiftData(activity, DateManager.getCurrentDate(), null, DateManager.getCurrentTime(), null);
+            UserDataManager.saveWorkShiftData(activity, DateManager.getCurrentDate(), null);
 
         } else if(currentChoice == ManualTimeDialog.MANUAL_TYPE_OUT) {
 
-            UserDataManager.saveWorkShiftData(activity, null, DateManager.getCurrentDate(), null, DateManager.getCurrentTime());
+            UserDataManager.saveWorkShiftData(activity, null, DateManager.getCurrentMoment());
 
         }
 
         updateStatus();
-
 
     }//onNFCFind
 
@@ -238,15 +236,15 @@ public class TimesFragment extends Fragment implements View.OnClickListener, NFC
     }//onManual
 
 
-    public void onManualPick(String date, String time) {
+    public void onManualPick(String time) {
 
         if(currentChoice == ManualTimeDialog.MANUAL_TYPE_IN) {
 
-            UserDataManager.saveWorkShiftData(activity, date, null, time, null);
+            UserDataManager.saveWorkShiftData(activity, time, null);
 
         } else if(currentChoice == ManualTimeDialog.MANUAL_TYPE_OUT) {
 
-            UserDataManager.saveWorkShiftData(activity, null, date, null, time);
+            UserDataManager.saveWorkShiftData(activity, null, time);
 
         }
 
