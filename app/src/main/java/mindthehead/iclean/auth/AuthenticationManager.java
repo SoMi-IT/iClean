@@ -1,6 +1,7 @@
 package mindthehead.iclean.auth;
 
 
+import android.app.Activity;
 import android.util.Log;
 
 import org.jetbrains.annotations.NotNull;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 
 import mindthehead.iclean.R;
 import mindthehead.iclean.util.SharedPreferencesManager;
+import mindthehead.iclean.work.settings.UserDataManager;
 import mindthehead.iclean.work.shedules.data.ScheduleDataManager;
 import mindthehead.iclean.work.task.data.TaskDataManager;
 import okhttp3.Call;
@@ -25,6 +27,8 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 public class AuthenticationManager {
+
+    private Activity activity;
 
     private final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     private static final String URL_LOGIN = "https://mediclean.icleanfm.it/api/user/login  ";
@@ -40,7 +44,9 @@ public class AuthenticationManager {
     private final JSONObject jsonBody = new JSONObject();
 
 
-    public void startAuth(String user, String psw) {
+    public void startAuth(Activity _activity, String user, String psw) {
+
+        activity = _activity;
 
         try {
 
@@ -115,8 +121,13 @@ public class AuthenticationManager {
 
             if (!token.equals("")) {
 
-               saveResponse(jsonResponse);
-               Log.d("XXX", jsonResponse.toString());
+                if(UserDataManager.isUserTaskSynced(activity)) {
+
+                    saveResponse(jsonResponse);
+                    Log.d("XXX", jsonResponse.toString());
+
+                } else listener.onLoginSuccessful(null, null, null);
+
 
             } else {
 

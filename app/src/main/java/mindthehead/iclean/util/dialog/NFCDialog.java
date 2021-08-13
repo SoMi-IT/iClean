@@ -95,7 +95,7 @@ public class NFCDialog extends Dialog implements Button.OnClickListener, WorkAct
     public void onNFCTagFound(String id) {
 
         activity.setListener(null);
-        listener.onNFCFind(id);
+        listener.onNFCFind(id.replace(" ", ""));
         dismiss();
 
     }//onNFCFind

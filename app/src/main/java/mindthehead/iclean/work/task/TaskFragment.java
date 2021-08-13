@@ -2,6 +2,7 @@ package mindthehead.iclean.work.task;
 
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -204,17 +205,27 @@ public class TaskFragment extends Fragment implements TasksListAdapterListener, 
 
     public void onNFCFind(String id) {
 
-        if(currentChoice == ManualTimeDialog.MANUAL_TYPE_IN) {
+        if (currentTask.getCode().equals(id)) {
 
-            currentTask.setCheckIn(DateManager.getCurrentMoment());
-            taskDataManager.updateTask(activity, currentTask);
+            if(currentChoice == ManualTimeDialog.MANUAL_TYPE_IN) {
 
-        } else if(currentChoice == ManualTimeDialog.MANUAL_TYPE_OUT) {
+                currentTask.setCheckIn(DateManager.getCurrentMoment());
+                taskDataManager.updateTask(activity, currentTask);
 
-            currentTask.setCheckOut(DateManager.getCurrentMoment());
-            taskDataManager.updateTask(activity, currentTask);
+            } else if(currentChoice == ManualTimeDialog.MANUAL_TYPE_OUT) {
 
+                currentTask.setCheckOut(DateManager.getCurrentMoment());
+                taskDataManager.updateTask(activity, currentTask);
+
+            }
+
+        } else {
+
+            WarningDialog warningDialog = new WarningDialog(activity, "Il TAG Scansionato non corrisponde a quello del Task");
+            warningDialog.show();
         }
+
+
 
     }//onNFCFind
 

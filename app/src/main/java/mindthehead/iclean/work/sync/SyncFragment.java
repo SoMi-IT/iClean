@@ -2,6 +2,7 @@ package mindthehead.iclean.work.sync;
 
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,8 @@ import androidx.fragment.app.Fragment;
 import mindthehead.iclean.R;
 import mindthehead.iclean.util.SharedPreferencesManager;
 import mindthehead.iclean.work.WorkActivity;
+import mindthehead.iclean.work.settings.UserDataManager;
+import mindthehead.iclean.work.sync.data.JsonTaskDoneDataManager;
 
 
 public class SyncFragment extends Fragment implements View.OnClickListener {
@@ -53,7 +56,7 @@ public class SyncFragment extends Fragment implements View.OnClickListener {
 
     private void updateStatus() {
 
-        if(SharedPreferencesManager.readInt(activity, R.string.synced) == 1) tv_state.setText("IClean è sincronizzato");
+        if(UserDataManager.isUserTaskSynced(activity)) tv_state.setText("IClean è sincronizzato");
         else tv_state.setText("IClean non è sincronizzato");
 
 
@@ -64,13 +67,17 @@ public class SyncFragment extends Fragment implements View.OnClickListener {
 
         if (view == b_sync) {
 
-            SharedPreferencesManager.writeString(activity, R.string.times_check_in, "");
-            SharedPreferencesManager.writeString(activity, R.string.times_check_out, "");
-            SharedPreferencesManager.writeString(activity, R.string.schedules, "");
-            SharedPreferencesManager.writeString(activity, R.string.tasks, "");
-            SharedPreferencesManager.writeInt(activity, R.string.synced, 1);
+            String taskDone = JsonTaskDoneDataManager.getTasksDoneFromString(SharedPreferencesManager.readString(activity, R.string.tasks));
 
-            updateStatus();
+            Log.d("xxx", taskDone);
+
+            //SharedPreferencesManager.writeString(activity, R.string.times_check_in, "");
+            //SharedPreferencesManager.writeString(activity, R.string.times_check_out, "");
+            //SharedPreferencesManager.writeString(activity, R.string.schedules, "");
+            //SharedPreferencesManager.writeString(activity, R.string.tasks, "");
+            //SharedPreferencesManager.writeInt(activity, R.string.synced, 1);
+
+            //updateStatus();
 
         }
 

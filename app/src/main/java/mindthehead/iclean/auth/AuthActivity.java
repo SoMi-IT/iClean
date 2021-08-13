@@ -83,17 +83,21 @@ public class AuthActivity extends AppCompatActivity implements AuthFragmentListe
 
         AuthenticationManager authenticationManager = new AuthenticationManager();
         authenticationManager.setListener(this);
-        authenticationManager.startAuth(email, psw);
+        authenticationManager.startAuth(this, email, psw);
 
     }//onAuthStarted
 
 
     public void onLoginSuccessful(String username, String schedules, String tasks) {
 
-        SharedPreferencesManager.writeString(this, R.string.username, username);
-        SharedPreferencesManager.writeString(this, R.string.schedules, schedules);
-        SharedPreferencesManager.writeString(this, R.string.tasks, JsonTaskDataManager.getConvertedJsonTasks(tasks));
-        SharedPreferencesManager.writeInt(this, R.string.synced, 0);
+        if(username != null && schedules != null && tasks != null) {
+
+            SharedPreferencesManager.writeString(this, R.string.username, username);
+            SharedPreferencesManager.writeString(this, R.string.schedules, schedules);
+            SharedPreferencesManager.writeString(this, R.string.tasks, tasks);
+            SharedPreferencesManager.writeInt(this, R.string.synced, 0);
+
+        }
 
         startActivity(new Intent(this, WorkActivity.class));
 
