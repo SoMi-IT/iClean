@@ -57,10 +57,11 @@ public class JsonTaskDoneDataManager {
             int id = jsonObject.getInt(Task.TASK_ID);
             taskDone.put(Task.TASK_ID, id);
 
-            String checkIn = jsonObject.getString(Task.TASK_CHECK_IN);
+
+            String checkIn = jsonObject.getString(Task.TASK_CHECK_IN).replace(":", "-");
             taskDone.put(Task.TASK_CHECK_IN, checkIn);
 
-            String checkOut = jsonObject.getString(Task.TASK_CHECK_OUT);
+            String checkOut = jsonObject.getString(Task.TASK_CHECK_OUT).replace(":", "-");
             taskDone.put(Task.TASK_CHECK_OUT, checkOut);
 
 

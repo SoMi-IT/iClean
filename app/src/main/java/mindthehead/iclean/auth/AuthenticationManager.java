@@ -31,7 +31,7 @@ public class AuthenticationManager {
     private Activity activity;
 
     private final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-    private static final String URL_LOGIN = "https://mediclean.icleanfm.it/api/user/login  ";
+    private static final String URL_LOGIN = "https://mediclean.icleanfm.it/api/user/login";
     private static final String BODY_NAME = "username";
     private static final String BODY_PASSWORD = "password";
     private static final String RESPONSE_TOKEN = "token";
@@ -119,12 +119,16 @@ public class AuthenticationManager {
             JSONObject jsonResponse = new JSONObject(response);
             String token = jsonResponse.getString(RESPONSE_TOKEN);
 
+            Log.d("XXX", "TOKEN: " + token);
+
             if (!token.equals("")) {
 
-                if(UserDataManager.isUserTaskSynced(activity)) {
+                Log.d("XXX", "IF ");
 
+                if(!UserDataManager.hasTasks(activity)) {
+
+                    Log.d("XXX", "RESPONSE: " + jsonResponse.toString());
                     saveResponse(jsonResponse);
-                    Log.d("XXX", jsonResponse.toString());
 
                 } else listener.onLoginSuccessful(null, null, null);
 
@@ -174,6 +178,10 @@ public class AuthenticationManager {
             tasks = "";
         }
 
+        if (tasks == null || tasks.length() == 0 || tasks.equals("null"))  {
+            listener.onLoginError("No tasks disponibili");
+            return;
+        }
         listener.onLoginSuccessful(username, schedules, tasks);
 
     }//analyzeResponse

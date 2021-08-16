@@ -26,11 +26,18 @@ public class UserDataManager {
 
     }//Constructor
 
-    public static boolean isUserTaskSynced(Activity _activity) {
+    public static boolean isUserTaskSynced(Activity activity) {
 
-        return SharedPreferencesManager.readInt(_activity, R.string.synced) == 1;
+        return SharedPreferencesManager.readInt(activity, R.string.synced) == 1;
 
     }//isUserTaskSynced
+
+
+    public static boolean hasTasks(Activity activity) {
+
+        return SharedPreferencesManager.readString(activity, R.string.tasks).length() != 0;
+
+    }//hasTasks
 
 
     public  boolean isUserWorkShiftStarted() {
