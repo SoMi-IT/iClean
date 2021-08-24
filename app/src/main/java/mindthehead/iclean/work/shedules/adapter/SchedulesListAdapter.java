@@ -21,7 +21,7 @@ public class SchedulesListAdapter extends RecyclerView.Adapter<SchedulesListAdap
 
 
     private final ArrayList<Schedule> schedules;
-    //private SchedulesListAdapterListener schedulesListAdapterListener;
+    private SchedulesListAdapterListener schedulesListAdapterListener;
 
 
     public SchedulesListAdapter(Context _context, ArrayList<Schedule> _schedules) {
@@ -31,11 +31,11 @@ public class SchedulesListAdapter extends RecyclerView.Adapter<SchedulesListAdap
     }//sheetsListAdapter constructor
 
 
-    /*public void setListener(SchedulesListAdapterListener _schedulesListAdapterListener){
+    public void setListener(SchedulesListAdapterListener _schedulesListAdapterListener){
 
         schedulesListAdapterListener = _schedulesListAdapterListener;
 
-    }//setListener*/
+    }//setListener
 
 
     @NonNull
@@ -58,11 +58,11 @@ public class SchedulesListAdapter extends RecyclerView.Adapter<SchedulesListAdap
         holder.tv_date.setText(schedule.getDate());
         holder.tv_time.setText(schedule.getTimeStart() + " - " + schedule.getTimeEnd());
 
-        /*holder.fb_info.setOnClickListener(v -> {
+        holder.fb_info.setOnClickListener(v -> {
 
             if (schedulesListAdapterListener != null) schedulesListAdapterListener.onItemInfoClicked(schedules.get(holder.getAdapterPosition()));
 
-        });*/
+        });
 
     }//onBindViewHolder
 
@@ -71,14 +71,14 @@ public class SchedulesListAdapter extends RecyclerView.Adapter<SchedulesListAdap
 
         TextView tv_date;
         TextView tv_time;
-        //ImageView fb_info;
+        ImageView fb_info;
 
         SchedulesListAdapterItemView(View itemView) {
 
             super(itemView);
             tv_date = itemView.findViewById(R.id.tv_schedule_item_date);
             tv_time = itemView.findViewById(R.id.tv_schedule_item_time);
-            //fb_info = itemView.findViewById(R.id.fb_schedule_item_info);
+            fb_info = itemView.findViewById(R.id.fb_schedule_item_info);
 
         }
 

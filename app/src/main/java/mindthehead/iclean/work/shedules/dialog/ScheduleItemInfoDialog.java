@@ -23,7 +23,7 @@ public class ScheduleItemInfoDialog extends Dialog implements Button.OnClickList
     private Button b_dismiss;
 
 
-    public ScheduleItemInfoDialog(WorkActivity _context, String site, String floor, String department) {
+    public ScheduleItemInfoDialog(WorkActivity _context, String site) {
 
         super(_context);
 
@@ -41,14 +41,10 @@ public class ScheduleItemInfoDialog extends Dialog implements Button.OnClickList
         b_dismiss = findViewById(R.id.b_dialog_schedule_item_info_dismiss);
         b_dismiss.setOnClickListener(this);
 
-        TextView tv_site, tv_floor, tv_department;
+        TextView tv_site;
 
         tv_site = findViewById(R.id.tv_dialog_schedule_item_info_site);
         tv_site.setText(site);
-        tv_floor = findViewById(R.id.tv_dialog_schedule_item_info_floor);
-        tv_floor.setText(floor);
-        tv_department = findViewById(R.id.tv_dialog_schedule_item_info_department);
-        tv_department.setText(department);
 
     }//CheckPasswordDialog
 

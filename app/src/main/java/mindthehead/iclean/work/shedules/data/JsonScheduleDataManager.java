@@ -50,8 +50,9 @@ public class JsonScheduleDataManager {
             String date = jsonObject.getString(Schedule.SCHEDULES_DATE);
             String timeStart = jsonObject.getString(Schedule.SCHEDULES_TIME_START);
             String timeEnd = jsonObject.getString(Schedule.SCHEDULES_TIME_END);
+            String site = jsonObject.getString(Schedule.SCHEDULES_SITE);
 
-            schedule = new Schedule(date, timeStart, timeEnd);
+            schedule = new Schedule(date, timeStart, timeEnd, site);
 
         } catch (JSONException e) {
             e.printStackTrace();

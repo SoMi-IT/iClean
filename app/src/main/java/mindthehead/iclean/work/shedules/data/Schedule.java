@@ -6,38 +6,27 @@ public class Schedule {
     public final static String SCHEDULES_DATE = "date";
     public final static String SCHEDULES_TIME_START = "timestart";
     public final static String SCHEDULES_TIME_END = "timeend";
+    public final static String SCHEDULES_SITE = "site";
 
     private String id;
     private String date;
     private String timeStart;
     private String timeEnd;
     private String site;
-    private String floor;
-    private String department;
 
 
     public Schedule() { }//Constructor
 
 
-    public Schedule(String _date, String _timeStart, String _timeEnd) {
+    public Schedule(String _date, String _timeStart, String _timeEnd, String _site) {
 
-        date = _date;
-        timeStart = _timeStart;
-        timeEnd = _timeEnd;
-
-    }//Constructor
-
-    /*public Schedule(String _id, String _date, String _timeStart, String _timeEnd, String _site, String _floor, String _department) {
-
-        id = _id;
         date = _date;
         timeStart = _timeStart;
         timeEnd = _timeEnd;
         site = _site;
-        floor = _floor;
-        department = _department;
 
-    }//Constructor*/
+    }//Constructor
+
 
     public String getId() { return id; }//getId
 
@@ -47,11 +36,7 @@ public class Schedule {
 
     public String getTimeEnd() { return timeEnd; }//getTimeEnd
 
-    //public String getSite() { return site; }//getSite
-
-    //public String getFloor() { return floor; }//getFloor
-
-    //public String getDepartment() { return department; }//getDepartment
+    public String getSite() { return site; }//getSite
 
 
     public void setId(String _id) { id = _id; }//setDate
@@ -62,11 +47,7 @@ public class Schedule {
 
     public void setTimeEnd(String _timeEnd) { timeEnd = _timeEnd; }//setTimeEnd
 
-    //public void setSite(String _site) { site = _site; }//setSite
-
-    //public void setFloor(String _floor) { floor = _floor; }//setFloor
-
-    //public void setDepartment(String _department) { department = _department; }//setDepartment
+    public void setSite(String _site) { site = _site; }//setSite
 
 
 }//Schedule
