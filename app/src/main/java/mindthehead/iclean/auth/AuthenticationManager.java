@@ -119,11 +119,7 @@ public class AuthenticationManager {
             JSONObject jsonResponse = new JSONObject(response);
             String token = jsonResponse.getString(RESPONSE_TOKEN);
 
-            Log.d("XXX", "TOKEN: " + token);
-
             if (!token.equals("")) {
-
-                Log.d("XXX", "IF ");
 
                 if(!UserDataManager.hasTasks(activity)) {
 
