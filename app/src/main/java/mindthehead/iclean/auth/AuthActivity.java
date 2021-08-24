@@ -26,17 +26,11 @@ public class AuthActivity extends AppCompatActivity implements AuthFragmentListe
 
     private AuthFragment authFragment;
 
-    private View v_authLoader;
-    private ProgressBar pb_authLoader;
-
 
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth);
-
-        v_authLoader = findViewById(R.id.v_auth);
-        pb_authLoader = findViewById(R.id.pb_auth);
 
         toggleLoader(false);
 
@@ -46,6 +40,9 @@ public class AuthActivity extends AppCompatActivity implements AuthFragmentListe
 
 
     public void toggleLoader(boolean visible){
+
+        View v_authLoader = findViewById(R.id.v_auth);
+        ProgressBar pb_authLoader = findViewById(R.id.pb_auth);
 
         if(visible) {
             v_authLoader.setVisibility(View.VISIBLE);
@@ -108,19 +105,15 @@ public class AuthActivity extends AppCompatActivity implements AuthFragmentListe
 
         Activity activity = this;
 
-        runOnUiThread(new Runnable() {
+        runOnUiThread(() -> {
 
-            @Override
-            public void run() {
+            if (authFragment != null) authFragment.toggleAuthButton(true);
 
-                if (authFragment != null) authFragment.toggleAuthButton(true);
+            toggleLoader(false);
 
-                toggleLoader(false);
+            WarningDialog warningDialog = new WarningDialog(activity, "Error: " + error);
+            warningDialog.show();
 
-                WarningDialog warningDialog = new WarningDialog(activity, "Error: " + error);
-                warningDialog.show();
-
-            }
         });
 
     }//onLoginError
