@@ -106,6 +106,17 @@ public class WorkActivity extends AppCompatActivity implements HomeListener, Ima
 
     }//onPause
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (nfcAdapter != null) nfcAdapter.disableForegroundDispatch(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (nfcAdapter != null) nfcAdapter.disableForegroundDispatch(this);
+    }
 
     protected void onNewIntent(Intent intent) {
 

@@ -25,27 +25,6 @@ public class SharedPreferencesManager {
 
         String key = context.getResources().getString(idKey);
         SharedPreferences sharedPreferences = context.getSharedPreferences(sharedPreferencesName , Context.MODE_PRIVATE);
-
-        return sharedPreferences.getString(key, "");
-
-    }//readString
-
-    public static void writeStringWithString(Context context, String key, String value) {
-
-        SharedPreferences sharedPreferences = context.getSharedPreferences(sharedPreferencesName , Context.MODE_PRIVATE);
-
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(key, value);
-        editor.commit();
-
-    }//writeStringWithString
-
-
-    public static String readStringWithString(Context context, String key) {
-
-        SharedPreferences sharedPreferences = context.getSharedPreferences(sharedPreferencesName , Context.MODE_PRIVATE);
-
-
         return sharedPreferences.getString(key, "");
 
     }//readString
@@ -67,7 +46,6 @@ public class SharedPreferencesManager {
 
         String key = context.getResources().getString(idKey);
         SharedPreferences sharedPreferences = context.getSharedPreferences(sharedPreferencesName , Context.MODE_PRIVATE);
-
 
         return sharedPreferences.getInt(key, 0);
 

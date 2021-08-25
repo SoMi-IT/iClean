@@ -5,7 +5,6 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
-import android.nfc.tech.MifareClassic;
 import android.nfc.tech.MifareUltralight;
 import android.util.Log;
 
@@ -16,8 +15,6 @@ import java.nio.charset.Charset;
 public class NFCManager {
 
 
-    NfcAdapter nfcAdapter;
-    PendingIntent pendingIntent;
     private static String TAG = "XXX";
 
 
