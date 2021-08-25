@@ -10,6 +10,7 @@
     android:gravity="center">
 
         <ImageView
+            android:id="@+id/iv_dialog_info"
             android:layout_width="50sp"
             android:layout_height="50sp"
             android:layout_margin="10sp"
@@ -23,7 +24,14 @@
             android:layout_marginTop="18sp">
 
                 <TextView
-                    android:id="@+id/tv_dialog_task_item_location_site_label"
+                    android:id="@+id/tv_dialog_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="2sp"
+                    android:textColor="@color/dark_transparent"
+                    android:textSize="16sp"/>
+                <TextView
+                    android:id="@+id/tv_dialog_info_site_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="2sp"
@@ -32,7 +40,7 @@
                     android:textSize="16sp"/>
 
                 <TextView
-                    android:id="@+id/tv_dialog_task_item_location_site"
+                    android:id="@+id/tv_dialog_info_site"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="2sp"
@@ -49,7 +57,7 @@
             android:layout_marginTop="8sp">
 
                 <TextView
-                    android:id="@+id/tv_dialog_task_item_location_floor_label"
+                    android:id="@+id/tv_dialog_info_floor_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="2sp"
@@ -58,7 +66,7 @@
                     android:textSize="16sp"/>
 
                 <TextView
-                    android:id="@+id/tv_dialog_task_item_location_floor"
+                    android:id="@+id/tv_dialog_info_floor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="2sp"
@@ -75,7 +83,7 @@
             android:layout_marginTop="8sp">
 
                 <TextView
-                    android:id="@+id/tv_dialog_task_item_location_department_label"
+                    android:id="@+id/tv_dialog_info_department_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="2sp"
@@ -84,7 +92,7 @@
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/tv_dialog_task_item_location_department"
+                    android:id="@+id/tv_dialog_info_department"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="2sp"
@@ -96,7 +104,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/b_dialog_task_item_location_dismiss"
+            android:id="@+id/b_dialog_info_dismiss"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="50sp"

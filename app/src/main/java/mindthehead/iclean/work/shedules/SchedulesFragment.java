@@ -5,20 +5,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import mindthehead.iclean.R;
+import mindthehead.iclean.util.dialog.InfoDialog;
 import mindthehead.iclean.work.WorkActivity;
 import mindthehead.iclean.work.shedules.adapter.SchedulesListAdapter;
 import mindthehead.iclean.work.shedules.adapter.SchedulesListAdapterListener;
 import mindthehead.iclean.work.shedules.data.Schedule;
 import mindthehead.iclean.work.shedules.data.ScheduleDataManager;
-import mindthehead.iclean.work.shedules.dialog.ScheduleItemInfoDialog;
-import mindthehead.iclean.work.task.adapter.TasksListAdapter;
-import mindthehead.iclean.work.task.data.TaskDataManager;
 
 
 public class SchedulesFragment extends Fragment implements SchedulesListAdapterListener {
@@ -50,8 +46,8 @@ public class SchedulesFragment extends Fragment implements SchedulesListAdapterL
 
     public void onItemInfoClicked(Schedule schedule) {
 
-        ScheduleItemInfoDialog scheduleItemInfoDialog = new ScheduleItemInfoDialog(activity, schedule.getSite());
-        scheduleItemInfoDialog.show();
+        InfoDialog infoDialog = new InfoDialog(activity, "", schedule.getSite(), "", "");
+        infoDialog.show();
 
     }//onItemInfoClicked
 

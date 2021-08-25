@@ -20,7 +20,7 @@
             android:layout_height="34sp"
             android:layout_marginTop="16sp"
             android:layout_marginBottom="16sp"
-            app:srcCompat="@drawable/icon_info"
+            app:srcCompat="@drawable/icon_location"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />

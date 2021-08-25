@@ -1,4 +1,4 @@
-package mindthehead.iclean.work.sync;
+package mindthehead.iclean.work.sync.data;
 
 
 import android.app.Activity;
@@ -9,6 +9,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.IOException;
+
+import mindthehead.iclean.work.sync.SyncManagerListener;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;

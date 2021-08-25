@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import mindthehead.iclean.R;
 import mindthehead.iclean.data.DataManager;
 import mindthehead.iclean.util.DateManager;
+import mindthehead.iclean.util.dialog.InfoDialog;
 import mindthehead.iclean.util.dialog.ManualDialogListener;
 import mindthehead.iclean.util.dialog.ManualTimeDialog;
 import mindthehead.iclean.util.dialog.NFCDialog;
@@ -25,8 +26,6 @@ import mindthehead.iclean.work.task.adapter.TasksListAdapterListener;
 import mindthehead.iclean.work.task.data.Task;
 import mindthehead.iclean.work.task.data.TaskDataManager;
 import mindthehead.iclean.work.task.data.TaskDataManagerListener;
-import mindthehead.iclean.work.task.dialog.TaskItemInfoDialog;
-import mindthehead.iclean.work.task.dialog.TaskItemLocationDialog;
 
 
 public class TaskFragment extends Fragment implements TasksListAdapterListener, TaskDataManagerListener, NFCDialogListener, ManualDialogListener {
@@ -118,32 +117,30 @@ public class TaskFragment extends Fragment implements TasksListAdapterListener, 
 
     public void onItemInfoClicked(Task task) {
 
-        TaskItemInfoDialog taskItemInfoDialog = new TaskItemInfoDialog(activity, task.getDescription());
-        taskItemInfoDialog.show();
+        InfoDialog infoDialog = new InfoDialog(activity, task.getDescription(),"","","");
+        infoDialog.show();
 
     }//onItemInfoClicked
 
 
     public void onItemLocationClicked(Task task) {
 
-        TaskItemLocationDialog taskItemLocationDialog = new TaskItemLocationDialog(activity, task.getSite(), task.getFloor(), task.getDepartment());
-        taskItemLocationDialog.show();
+        InfoDialog infoDialog = new InfoDialog(activity, "", task.getSite(), task.getFloor(), task.getDepartment());
+        infoDialog.show();
 
     }//onItemLocationClicked
 
 
     public void onItemStartClicked(Task task) {
 
-        DataManager dataManager = new DataManager(activity);
-
-        if (dataManager.getCheckIn().length() == 0 ) {
+        if (DataManager.getCheckIn(activity).length() == 0 ) {
 
             WarningDialog warningDialog = new WarningDialog(activity, "Non hai ancora timbrato l'ingresso!");
             warningDialog.show();
             return;
 
         }
-        if (dataManager.getCheckOut().length() != 0) {
+        if (DataManager.getCheckOut(activity).length() != 0) {
 
             WarningDialog warningDialog = new WarningDialog(activity, "Hai già chiuso il turno!");
             warningDialog.show();
@@ -161,16 +158,14 @@ public class TaskFragment extends Fragment implements TasksListAdapterListener, 
 
     public void onItemEndClicked(Task task) {
 
-        DataManager dataManager = new DataManager(activity);
-
-        if (!dataManager.isUserWorkShiftStarted()) {
+        if (!DataManager.isUserWorkShiftStarted(activity)) {
 
             WarningDialog warningDialog = new WarningDialog(activity, "Non hai ancora timbrato l'ingresso!");
             warningDialog.show();
             return;
 
         }
-        if (dataManager.isUserWorkShiftEnd()) {
+        if (DataManager.isUserWorkShiftEnd(activity)) {
 
             WarningDialog warningDialog = new WarningDialog(activity, "Hai già chiuso il turno!");
             warningDialog.show();

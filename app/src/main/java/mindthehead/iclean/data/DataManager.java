@@ -7,15 +7,6 @@ import mindthehead.iclean.util.SharedPreferencesManager;
 
 public class DataManager {
 
-    private Activity activity;
-
-
-    public DataManager (Activity _activity) {
-
-        activity = _activity;
-
-    }//Constructor
-
 
     public static void saveData(Activity activity, String username, String checkIn, String checkOut, String schedules, String tasks, int synced) {
 
@@ -42,14 +33,14 @@ public class DataManager {
     }//hasTasks
 
 
-    public  boolean isUserWorkShiftStarted() {
+    public  static boolean isUserWorkShiftStarted(Activity activity) {
 
         return SharedPreferencesManager.readString(activity, R.string.times_check_in).length() != 0;
 
     }//isUserWorkShiftStarted
 
 
-    public boolean isUserWorkShiftEnd() {
+    public static boolean isUserWorkShiftEnd(Activity activity) {
 
         return SharedPreferencesManager.readString(activity, R.string.times_check_out).length() != 0;
 
@@ -71,13 +62,13 @@ public class DataManager {
     }//saveData
 
 
-    public  String getCheckIn() {
+    public static String getCheckIn(Activity activity) {
 
         return SharedPreferencesManager.readString(activity, R.string.times_check_in);
 
     }//getTimeIn
 
-    public  String getCheckOut() {
+    public  static String getCheckOut(Activity activity) {
 
         return SharedPreferencesManager.readString(activity, R.string.times_check_out);
 

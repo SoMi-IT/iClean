@@ -79,9 +79,7 @@ public class TimesFragment extends Fragment implements View.OnClickListener, NFC
 
     private void updateStatus() {
 
-        DataManager dataManager = new DataManager(activity);
-
-        if(dataManager.getCheckIn().length() == 0  && dataManager.getCheckOut().length() == 0) {
+        if(DataManager.getCheckIn(activity).length() == 0  && DataManager.getCheckOut(activity).length() == 0) {
 
             v_start.setBackgroundResource(R.drawable.times_round_view_disabled);
             v_end.setBackgroundResource(R.drawable.times_round_view_disabled);
@@ -92,24 +90,24 @@ public class TimesFragment extends Fragment implements View.OnClickListener, NFC
             toggleButtonState(b_start, true);
             toggleButtonState(b_end, false);
 
-        } else if(dataManager.getCheckIn().length() != 0  && dataManager.getCheckOut().length() == 0) {
+        } else if(DataManager.getCheckIn(activity).length() != 0  && DataManager.getCheckOut(activity).length() == 0) {
 
             v_start.setBackgroundResource(R.drawable.times_round_view_start);
             v_end.setBackgroundResource(R.drawable.times_round_view_disabled);
 
-            tv_start.setText("Hai timbrato l'ingresso il: " + "\n" + dataManager.getCheckIn());
+            tv_start.setText("Hai timbrato l'ingresso il: " + "\n" + DataManager.getCheckIn(activity));
             tv_end.setText("Non hai ancora timbrato l'uscita");
 
             toggleButtonState(b_start, false);
             toggleButtonState(b_end, true);
 
-        }  else if(dataManager.getCheckIn().length() != 0  && dataManager.getCheckOut().length() != 0) {
+        }  else if(DataManager.getCheckIn(activity).length() != 0  && DataManager.getCheckOut(activity).length() != 0) {
 
             v_start.setBackgroundResource(R.drawable.times_round_view_start);
             v_end.setBackgroundResource(R.drawable.times_round_view_end);
 
-            tv_start.setText("Hai timbrato l'ingresso il: " + "\n" + dataManager.getCheckIn());
-            tv_end.setText("Hai timbrato l'uscita il: " + "\n" + dataManager.getCheckOut());
+            tv_start.setText("Hai timbrato l'ingresso il: " + "\n" + DataManager.getCheckIn(activity));
+            tv_end.setText("Hai timbrato l'uscita il: " + "\n" + DataManager.getCheckOut(activity));
 
             toggleButtonState(b_start, false);
             toggleButtonState(b_end, false);
