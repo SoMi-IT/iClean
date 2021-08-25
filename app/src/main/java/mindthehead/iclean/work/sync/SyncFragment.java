@@ -1,23 +1,20 @@
 package mindthehead.iclean.work.sync;
 
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.fragment.app.Fragment;
 import mindthehead.iclean.R;
-import mindthehead.iclean.auth.AuthenticationManager;
-import mindthehead.iclean.util.SharedPreferencesManager;
+import mindthehead.iclean.auth.AuthActivity;
+import mindthehead.iclean.data.DataManager;
 import mindthehead.iclean.util.dialog.WarningDialog;
 import mindthehead.iclean.work.WorkActivity;
-import mindthehead.iclean.work.settings.UserDataManager;
-import mindthehead.iclean.work.sync.data.JsonTaskDoneDataManager;
 
 
 public class SyncFragment extends Fragment implements View.OnClickListener, SyncManagerListener {
@@ -25,7 +22,6 @@ public class SyncFragment extends Fragment implements View.OnClickListener, Sync
 
     private WorkActivity activity;
 
-    private SyncListener listener;
 
     private TextView tv_state;
 
@@ -50,19 +46,10 @@ public class SyncFragment extends Fragment implements View.OnClickListener, Sync
     }//onCreateView
 
 
-    public void setListener(SyncListener _listener){
-
-        listener = _listener;
-
-    }//setListener
-
-
     private void updateStatus() {
 
-        if(UserDataManager.isUserTaskSynced(activity)) tv_state.setText("IClean è sincronizzato");
+        if(DataManager.areDataSynced(activity)) tv_state.setText("IClean è sincronizzato");
         else tv_state.setText("IClean non è sincronizzato");
-
-
 
     }//updateStatus
 
@@ -70,13 +57,10 @@ public class SyncFragment extends Fragment implements View.OnClickListener, Sync
 
         if (view == b_sync) {
 
+            //Questo blocco è da eliminare quando sblocco quello sotto
             Toast.makeText(activity, "Sincronizzazione effettuata", Toast.LENGTH_LONG).show();
-            SharedPreferencesManager.writeString(activity, R.string.times_check_in, "");
-            SharedPreferencesManager.writeString(activity, R.string.times_check_out, "");
-            SharedPreferencesManager.writeString(activity, R.string.schedules, "");
-            SharedPreferencesManager.writeString(activity, R.string.tasks, "");
-            SharedPreferencesManager.writeInt(activity, R.string.synced, 1);
-            updateStatus();
+            DataManager.saveData(activity, "", "", "", "", "", 1);
+            startActivity(new Intent(activity, AuthActivity.class));
 
             /*String tasksDone = JsonTaskDoneDataManager.getTasksDoneFromString(SharedPreferencesManager.readString(activity, R.string.tasks));
 
@@ -93,11 +77,7 @@ public class SyncFragment extends Fragment implements View.OnClickListener, Sync
     public void onSyncSuccessful(String message) {
 
         Toast.makeText(activity, "Sincronizzazione effettuata", Toast.LENGTH_LONG).show();
-        SharedPreferencesManager.writeString(activity, R.string.times_check_in, "");
-        SharedPreferencesManager.writeString(activity, R.string.times_check_out, "");
-        SharedPreferencesManager.writeString(activity, R.string.schedules, "");
-        SharedPreferencesManager.writeString(activity, R.string.tasks, "");
-        SharedPreferencesManager.writeInt(activity, R.string.synced, 1);
+        DataManager.saveData(activity, "", "", "", "", "", 1);
         updateStatus();
 
     }//onSyncSuccessful

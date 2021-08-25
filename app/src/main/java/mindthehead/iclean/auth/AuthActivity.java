@@ -4,24 +4,22 @@ package mindthehead.iclean.auth;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ProgressBar;
-
 import mindthehead.iclean.R;
+import mindthehead.iclean.data.DataManager;
 import mindthehead.iclean.util.SharedPreferencesManager;
+import mindthehead.iclean.util.dialog.OptionDialog;
+import mindthehead.iclean.util.dialog.OptionDialogListener;
 import mindthehead.iclean.util.dialog.WarningDialog;
 import mindthehead.iclean.work.WorkActivity;
-import mindthehead.iclean.work.task.data.JsonTaskDataManager;
-import mindthehead.iclean.work.task.data.TaskDataManager;
 
 
-public class AuthActivity extends AppCompatActivity implements AuthFragmentListener, AuthenticationManagerListener {
+public class AuthActivity extends AppCompatActivity implements AuthFragmentListener, AuthenticationManagerListener{
 
 
     private AuthFragment authFragment;
@@ -47,6 +45,7 @@ public class AuthActivity extends AppCompatActivity implements AuthFragmentListe
         if(visible) {
             v_authLoader.setVisibility(View.VISIBLE);
             pb_authLoader.setVisibility(View.VISIBLE);
+
         }else {
             v_authLoader.setVisibility(View.GONE);
             pb_authLoader.setVisibility(View.GONE);
@@ -71,7 +70,7 @@ public class AuthActivity extends AppCompatActivity implements AuthFragmentListe
     }//showAuthFragment
 
 
-    public void onAuthStarted(String email, String psw) {
+    public void onAuthStartRequested(boolean downloadNeeded, String email, String psw) {
 
         toggleLoader(true);
 
@@ -80,7 +79,7 @@ public class AuthActivity extends AppCompatActivity implements AuthFragmentListe
 
         AuthenticationManager authenticationManager = new AuthenticationManager();
         authenticationManager.setListener(this);
-        authenticationManager.startAuth(this, email, psw);
+        authenticationManager.startAuth(this, downloadNeeded, email, psw);
 
     }//onAuthStarted
 
@@ -89,10 +88,7 @@ public class AuthActivity extends AppCompatActivity implements AuthFragmentListe
 
         if(username != null && schedules != null && tasks != null) {
 
-            SharedPreferencesManager.writeString(this, R.string.username, username);
-            SharedPreferencesManager.writeString(this, R.string.schedules, schedules);
-            SharedPreferencesManager.writeString(this, R.string.tasks, tasks);
-            SharedPreferencesManager.writeInt(this, R.string.synced, 0);
+            DataManager.saveData(this, username, "", "", schedules, tasks, 0);
 
         }
 

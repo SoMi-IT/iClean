@@ -2,6 +2,6 @@ package mindthehead.iclean.auth;
 
 public interface AuthFragmentListener {
 
-    void onAuthStarted(String email, String psw);
+    void onAuthStartRequested(boolean downloadNeeded, String email, String psw);
 
 }//AuthListener

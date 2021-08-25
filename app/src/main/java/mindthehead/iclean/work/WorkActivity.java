@@ -1,6 +1,7 @@
 package mindthehead.iclean.work;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -28,15 +29,12 @@ import mindthehead.iclean.util.dialog.NFCDialogListener;
 import mindthehead.iclean.work.settings.SettingsFragment;
 import mindthehead.iclean.work.shedules.SchedulesFragment;
 import mindthehead.iclean.work.sync.SyncFragment;
-import mindthehead.iclean.work.sync.SyncListener;
 import mindthehead.iclean.work.task.TaskFragment;
-import mindthehead.iclean.work.task.TaskListener;
 import mindthehead.iclean.work.times.TimesFragment;
-import mindthehead.iclean.work.times.TimesListener;
 import mindthehead.iclean.work.home.HomeFragment;
 import mindthehead.iclean.work.home.HomeListener;
 
-public class WorkActivity extends AppCompatActivity implements HomeListener, TimesListener, TaskListener, SyncListener, ImageView.OnClickListener {
+public class WorkActivity extends AppCompatActivity implements HomeListener, ImageView.OnClickListener {
 
 
     static final int TYPE_HOME = 0;
@@ -49,13 +47,6 @@ public class WorkActivity extends AppCompatActivity implements HomeListener, Tim
     private WorkActivityListener listener;
     private FragmentManager mainFragmentManager;
 
-    private HomeFragment homeFragment;
-    private TimesFragment timesFragment;
-    private TaskFragment taskFragment;
-    private SchedulesFragment schedulesFragment;
-    private SyncFragment syncFragment;
-    private SettingsFragment settingsFragment;
-
     private ImageView iv_app_logo, iv_back, iv_label_logo, iv_user;
 
     private LinearLayout ll_label;
@@ -63,10 +54,9 @@ public class WorkActivity extends AppCompatActivity implements HomeListener, Tim
 
     private int currentStatus;
 
-    //Intialize attributes
-    NfcAdapter nfcAdapter;
-    PendingIntent pendingIntent;
-    final static String TAG = "nfc_test";
+    private NfcAdapter nfcAdapter;
+    private PendingIntent pendingIntent;
+
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -84,15 +74,13 @@ public class WorkActivity extends AppCompatActivity implements HomeListener, Tim
         tv_label = findViewById(R.id.tv_work_current_label);
         tv_description = findViewById(R.id.tv_work_current_description);
 
-        showHomeFragment();
+        showFragment(TYPE_HOME);
 
-        //Initialise NfcAdapter
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
-        //If no NfcAdapter, display that the device has no NFC
         if (nfcAdapter == null){
             finish();
         }
-        //PendingIntent.getActivity(Context,requestcode(identifier for intent),intent,int)
+
         pendingIntent = PendingIntent.getActivity(this,0,new Intent(this,this.getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP),0);
 
 
@@ -103,7 +91,6 @@ public class WorkActivity extends AppCompatActivity implements HomeListener, Tim
 
         super.onResume();
         assert nfcAdapter != null;
-        //nfcAdapter.enableForegroundDispatch(context,pendingIntent, intentFilterArray, techListsArray)
         nfcAdapter.enableForegroundDispatch(this,pendingIntent,null,null);
 
     }//onResume
@@ -130,229 +117,128 @@ public class WorkActivity extends AppCompatActivity implements HomeListener, Tim
 
         listener = _listener;
 
-
     }//setListener
+
+    private void updateTopBar(String label, String description, int resource) {
+
+        tv_label.setText(label);
+        tv_description.setText(description);
+        iv_label_logo.setImageResource(resource);
+
+    }//updateTopBar
+
 
     private void insideFragment(int type) {
 
         if (type == TYPE_HOME) {
 
-            showHomeBar();
+            toggleFragmentBar(false);
+            return;
 
-        } else  if(type == TYPE_TIMES){
+        } else if(type == TYPE_TIMES){
+            updateTopBar("Timbratura", "Timbra l'entrata o l'uscita", R.drawable.icon_times);
 
-            showFragmentBar();
-            tv_label.setText("Timbratura");
-            tv_description.setText("Timbra l'entrata o l'uscita");
-            iv_label_logo.setImageResource(R.drawable.icon_times);
+        } else if(type == TYPE_TASK){
+            updateTopBar("Task", "Timbra l'entrata o l'uscita nella \n stazione di lavoro", R.drawable.icon_task);
 
-        } else  if(type == TYPE_TASK){
+        } else if(type == TYPE_SCHEDULES){
+            updateTopBar("Turni di lavoro", "Visualizza i turni di lavoro, \n i piani e la mappa delle stazioni", R.drawable.icon_schedules);
 
-            showFragmentBar();
-            tv_label.setText("Task");
-            tv_description.setText("Timbra l'entrata o l'uscita nella \n stazione di lavoro");
-            iv_label_logo.setImageResource(R.drawable.icon_task);
-
-        } else  if(type == TYPE_SCHEDULES){
-
-            showFragmentBar();
-            tv_label.setText("Turni di lavoro");
-            tv_description.setText("Visualizza i turni di lavoro, \n i piani e la mappa delle stazioni");
-            iv_label_logo.setImageResource(R.drawable.icon_schedules);
-
-        } else  if(type == TYPE_SYNC){
-
-            showFragmentBar();
-            tv_label.setText("Sincronizza");
-            tv_description.setText("Sincronicca i dati inseriti");
-            iv_label_logo.setImageResource(R.drawable.icon_sync);
+        } else if(type == TYPE_SYNC){
+            updateTopBar("Sincronizza", "Sincronicca i dati inseriti", R.drawable.icon_sync);
 
         } else  if(type == TYPE_SETTINGS){
-
-            showFragmentBar();
-            tv_label.setText("IMPOSTAZIONI");
-            tv_description.setText("");
-            iv_label_logo.setImageResource(R.drawable.ic_user);
-
+            updateTopBar("IMPOSTAZIONI", "", R.drawable.ic_user);
         }
+
+        toggleFragmentBar(true);
 
     }//insideFragment
 
 
     public void onBackPressed() {
-
-        if(currentStatus != TYPE_HOME) showHomeFragment();
-
+        if(currentStatus != TYPE_HOME) showFragment(TYPE_HOME);
     }//onBackPressed
 
-    private void showHomeBar(){
 
-        iv_app_logo.setVisibility(View.VISIBLE);
+    private void toggleFragmentBar(boolean insideFragment){
 
-        iv_back.setOnClickListener(null);
-        iv_back.setVisibility(View.GONE);
+        if (insideFragment) {
+            iv_app_logo.setVisibility(View.GONE);
+            iv_back.setVisibility(View.VISIBLE);
+            iv_back.setOnClickListener(this);
+            ll_label.setVisibility(View.VISIBLE);
 
-        ll_label.setVisibility(View.GONE);
-
-    }//showHomeBar
-
-    private void showFragmentBar(){
-
-        iv_app_logo.setVisibility(View.GONE);
-
-
-        iv_back.setVisibility(View.VISIBLE);
-        iv_back.setOnClickListener(this);
-
-        ll_label.setVisibility(View.VISIBLE);
+        } else {
+            iv_app_logo.setVisibility(View.VISIBLE);
+            iv_back.setOnClickListener(null);
+            iv_back.setVisibility(View.GONE);
+            ll_label.setVisibility(View.GONE);
+        }
 
     }//showFragmentBar
 
 
-    public void showHomeFragment() {
+    public void showFragment(int newType) {
 
-        currentStatus = TYPE_HOME;
-        insideFragment(TYPE_HOME);
-
-        homeFragment = new HomeFragment();
-        homeFragment.setListener(this);
+        currentStatus = newType;
+        insideFragment(newType);
+        Fragment currentFragment = null;
         mainFragmentManager = getSupportFragmentManager();
 
+        if(currentStatus == TYPE_HOME) {
+
+            HomeFragment homeFragment = new HomeFragment();
+            homeFragment.setListener(this);
+            currentFragment = homeFragment;
+
+        }else if(currentStatus == TYPE_TIMES) {
+            currentFragment = new TimesFragment();
+
+        }else if(currentStatus == TYPE_TASK) {
+            currentFragment = new TaskFragment();
+
+        }else if(currentStatus == TYPE_SCHEDULES) {
+            currentFragment = new SchedulesFragment();
+
+        }else if(currentStatus == TYPE_SYNC) {
+            currentFragment = new SyncFragment();
+        }
+
         FragmentTransaction fragmentTransaction = mainFragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fl_work, homeFragment);
+        fragmentTransaction.replace(R.id.fl_work, currentFragment);
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         fragmentTransaction.commit();
-
-        homeFragment.setListener(this);
 
     }//showHomeFragment
 
 
-    public void showTimesFragment() {
-
-        currentStatus = TYPE_TIMES;
-        insideFragment(TYPE_TIMES);
-
-        timesFragment = new TimesFragment();
-        timesFragment.setListener(this);
-        mainFragmentManager = getSupportFragmentManager();
-
-        FragmentTransaction fragmentTransaction = mainFragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fl_work, timesFragment);
-        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        fragmentTransaction.commit();
-
-        timesFragment.setListener(this);
-
-    }//showTimesFragment
-
-
-    public void showTaskFragment() {
-
-        currentStatus = TYPE_TASK;
-        insideFragment(TYPE_TASK);
-
-        taskFragment = new TaskFragment();
-        taskFragment.setListener(this);
-        mainFragmentManager = getSupportFragmentManager();
-
-        FragmentTransaction fragmentTransaction = mainFragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fl_work, taskFragment);
-        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        fragmentTransaction.commit();
-
-        taskFragment.setListener(this);
-
-    }//showTaskFragment
-
-
-    public void showSchedulesFragment() {
-
-        currentStatus = TYPE_SCHEDULES;
-        insideFragment(TYPE_SCHEDULES);
-
-        schedulesFragment = new SchedulesFragment();
-        mainFragmentManager = getSupportFragmentManager();
-
-        FragmentTransaction fragmentTransaction = mainFragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fl_work, schedulesFragment);
-        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        fragmentTransaction.commit();
-
-    }//showSchedulesFragment
-
-
-    public void showSyncFragment() {
-
-        currentStatus = TYPE_SYNC;
-        insideFragment(TYPE_SYNC);
-
-        syncFragment = new SyncFragment();
-        syncFragment.setListener(this);
-        mainFragmentManager = getSupportFragmentManager();
-
-        FragmentTransaction fragmentTransaction = mainFragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fl_work, syncFragment);
-        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        fragmentTransaction.commit();
-
-        syncFragment.setListener(this);
-
-    }//showSyncFragment
-
-    public void showSettingsFragment() {
-
-        currentStatus = TYPE_SETTINGS;
-        insideFragment(TYPE_SETTINGS);
-        settingsFragment = new SettingsFragment();
-        mainFragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = mainFragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fl_work, settingsFragment);
-        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        fragmentTransaction.commit();
-
-    }//showSettingsFragment
-
-
-
     public void onTimesChosen() {
-
-        showTimesFragment();
-
+        showFragment(TYPE_TIMES);
     }//onTimesChosen
 
 
     public void onTaskChosen() {
-
-        showTaskFragment();
-
+        showFragment(TYPE_TASK);
     }//onTaskChosen
 
 
     public void onSchedulesChosen() {
-
-        showSchedulesFragment();
-
+        showFragment(TYPE_SCHEDULES);
     }//onSchedulesChosen
 
 
     public void onSyncChosen() {
-
-        showSyncFragment();
-
+        showFragment(TYPE_SYNC);
     }//onSyncChosen
 
 
     public void onClick(View v) {
 
         if (v == iv_back && mainFragmentManager != null){
-
-            showHomeFragment();
-
+            showFragment(TYPE_HOME);
         }else if (v == iv_user && mainFragmentManager != null){
-
-            //showSettingsFragment();
-
+            //showFragment();
         }
 
     }

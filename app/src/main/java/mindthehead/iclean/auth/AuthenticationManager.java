@@ -3,20 +3,10 @@ package mindthehead.iclean.auth;
 
 import android.app.Activity;
 import android.util.Log;
-
 import org.jetbrains.annotations.NotNull;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
-import java.util.ArrayList;
-
-import mindthehead.iclean.R;
-import mindthehead.iclean.util.SharedPreferencesManager;
-import mindthehead.iclean.work.settings.UserDataManager;
-import mindthehead.iclean.work.shedules.data.ScheduleDataManager;
-import mindthehead.iclean.work.task.data.TaskDataManager;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
@@ -43,8 +33,9 @@ public class AuthenticationManager {
     private AuthenticationManagerListener listener;
     private final JSONObject jsonBody = new JSONObject();
 
+    private boolean downloadNeeded;
 
-    public void startAuth(Activity _activity, String user, String psw) {
+    public void startAuth(Activity _activity, boolean _downloadNeeded, String user, String psw) {
 
         activity = _activity;
 
@@ -52,6 +43,7 @@ public class AuthenticationManager {
 
             jsonBody.put(BODY_NAME, user);
             jsonBody.put(BODY_PASSWORD, psw);
+            downloadNeeded = _downloadNeeded;
 
             new AsynchronousGet().run();
         } catch (Exception e) {
@@ -121,18 +113,14 @@ public class AuthenticationManager {
 
             if (!token.equals("")) {
 
-                if(!UserDataManager.hasTasks(activity)) {
-
+                if(downloadNeeded) {
                     Log.d("XXX", "RESPONSE: " + jsonResponse.toString());
                     saveResponse(jsonResponse);
 
                 } else listener.onLoginSuccessful(null, null, null);
 
-
             } else {
-
                 listener.onLoginError(jsonResponse.getString(RESPONSE_ERROR));
-
             }
 
         } catch (JSONException e) {
@@ -174,7 +162,7 @@ public class AuthenticationManager {
             tasks = "";
         }
 
-        if (tasks == null || tasks.length() == 0 || tasks.equals("null"))  {
+        if (tasks.length() == 0 || tasks.equals("null"))  {
             listener.onLoginError("No tasks disponibili");
             return;
         }

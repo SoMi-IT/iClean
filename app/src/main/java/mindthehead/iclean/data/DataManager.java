@@ -1,16 +1,11 @@
-package mindthehead.iclean.work.settings;
+package mindthehead.iclean.data;
 
 import android.app.Activity;
 
-import java.util.ArrayList;
-
 import mindthehead.iclean.R;
 import mindthehead.iclean.util.SharedPreferencesManager;
-import mindthehead.iclean.util.dialog.WarningDialog;
-import mindthehead.iclean.work.shedules.data.Schedule;
-import mindthehead.iclean.work.task.data.Task;
 
-public class UserDataManager {
+public class DataManager {
 
     private Activity activity;
 
@@ -20,17 +15,29 @@ public class UserDataManager {
     private String UserLastName;
 
 
-    public UserDataManager (Activity _activity) {
+    public DataManager (Activity _activity) {
 
         activity = _activity;
 
     }//Constructor
 
-    public static boolean isUserTaskSynced(Activity activity) {
+
+    public static void saveData(Activity activity, String username, String checkIn, String checkOut, String schedules, String tasks, int synced) {
+
+        SharedPreferencesManager.writeString(activity, R.string.username, username);
+        SharedPreferencesManager.writeString(activity, R.string.times_check_in, checkIn);
+        SharedPreferencesManager.writeString(activity, R.string.times_check_out, checkOut);
+        SharedPreferencesManager.writeString(activity, R.string.schedules, schedules);
+        SharedPreferencesManager.writeString(activity, R.string.tasks, tasks);
+        SharedPreferencesManager.writeInt(activity, R.string.synced, synced);
+
+    }//saveData
+
+    public static boolean areDataSynced(Activity activity) {
 
         return SharedPreferencesManager.readInt(activity, R.string.synced) == 1;
 
-    }//isUserTaskSynced
+    }//areDataSynced
 
 
     public static boolean hasTasks(Activity activity) {
@@ -81,6 +88,4 @@ public class UserDataManager {
 
     }//getTimeOut
 
-
-
-}//UserDataManager
+}

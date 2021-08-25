@@ -12,15 +12,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import mindthehead.iclean.R;
+import mindthehead.iclean.data.DataManager;
 import mindthehead.iclean.util.DateManager;
-import mindthehead.iclean.util.SharedPreferencesManager;
 import mindthehead.iclean.util.dialog.ManualDialogListener;
 import mindthehead.iclean.util.dialog.ManualTimeDialog;
 import mindthehead.iclean.util.dialog.NFCDialog;
 import mindthehead.iclean.util.dialog.NFCDialogListener;
 import mindthehead.iclean.util.dialog.WarningDialog;
 import mindthehead.iclean.work.WorkActivity;
-import mindthehead.iclean.work.settings.UserDataManager;
 import mindthehead.iclean.work.task.adapter.TasksListAdapter;
 import mindthehead.iclean.work.task.adapter.TasksListAdapterListener;
 import mindthehead.iclean.work.task.data.Task;
@@ -36,7 +35,6 @@ public class TaskFragment extends Fragment implements TasksListAdapterListener, 
     private WorkActivity activity;
     private TaskDataManager taskDataManager;
     private TasksListAdapter tasksListAdapter;
-    private TaskListener listener;
     private Task currentTask;
     private NFCDialog nfcDialog;
 
@@ -118,13 +116,6 @@ public class TaskFragment extends Fragment implements TasksListAdapterListener, 
     }//startClock
 
 
-    public void setListener(TaskListener _listener){
-
-        listener = _listener;
-
-    }//setListener
-
-
     public void onItemInfoClicked(Task task) {
 
         TaskItemInfoDialog taskItemInfoDialog = new TaskItemInfoDialog(activity, task.getDescription());
@@ -143,16 +134,16 @@ public class TaskFragment extends Fragment implements TasksListAdapterListener, 
 
     public void onItemStartClicked(Task task) {
 
-        UserDataManager userDataManager = new UserDataManager(activity);
+        DataManager dataManager = new DataManager(activity);
 
-        if (userDataManager.getCheckIn().length() == 0 ) {
+        if (dataManager.getCheckIn().length() == 0 ) {
 
             WarningDialog warningDialog = new WarningDialog(activity, "Non hai ancora timbrato l'ingresso!");
             warningDialog.show();
             return;
 
         }
-        if (userDataManager.getCheckOut().length() != 0) {
+        if (dataManager.getCheckOut().length() != 0) {
 
             WarningDialog warningDialog = new WarningDialog(activity, "Hai già chiuso il turno!");
             warningDialog.show();
@@ -170,16 +161,16 @@ public class TaskFragment extends Fragment implements TasksListAdapterListener, 
 
     public void onItemEndClicked(Task task) {
 
-        UserDataManager userDataManager = new UserDataManager(activity);
+        DataManager dataManager = new DataManager(activity);
 
-        if (!userDataManager.isUserWorkShiftStarted()) {
+        if (!dataManager.isUserWorkShiftStarted()) {
 
             WarningDialog warningDialog = new WarningDialog(activity, "Non hai ancora timbrato l'ingresso!");
             warningDialog.show();
             return;
 
         }
-        if (userDataManager.isUserWorkShiftEnd()) {
+        if (dataManager.isUserWorkShiftEnd()) {
 
             WarningDialog warningDialog = new WarningDialog(activity, "Hai già chiuso il turno!");
             warningDialog.show();

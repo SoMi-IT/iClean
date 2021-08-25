@@ -1,38 +1,29 @@
 package mindthehead.iclean.work.times;
 
 
-import android.content.res.ColorStateList;
-import android.content.res.Resources;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.Fragment;
-
 import mindthehead.iclean.R;
+import mindthehead.iclean.data.DataManager;
 import mindthehead.iclean.util.DateManager;
-import mindthehead.iclean.util.SharedPreferencesManager;
 import mindthehead.iclean.util.dialog.ManualDialogListener;
 import mindthehead.iclean.util.dialog.ManualTimeDialog;
 import mindthehead.iclean.util.dialog.NFCDialog;
 import mindthehead.iclean.util.dialog.NFCDialogListener;
 import mindthehead.iclean.work.WorkActivity;
-import mindthehead.iclean.work.settings.UserDataManager;
 
 
 public class TimesFragment extends Fragment implements View.OnClickListener, NFCDialogListener, ManualDialogListener {
 
 
     private WorkActivity activity;
-
-    private TimesListener listener;
 
     private NFCDialog nfcDialog;
 
@@ -88,9 +79,9 @@ public class TimesFragment extends Fragment implements View.OnClickListener, NFC
 
     private void updateStatus() {
 
-        UserDataManager userDataManager = new UserDataManager(activity);
+        DataManager dataManager = new DataManager(activity);
 
-        if(userDataManager.getCheckIn().length() == 0  && userDataManager.getCheckOut().length() == 0) {
+        if(dataManager.getCheckIn().length() == 0  && dataManager.getCheckOut().length() == 0) {
 
             v_start.setBackgroundResource(R.drawable.times_round_view_disabled);
             v_end.setBackgroundResource(R.drawable.times_round_view_disabled);
@@ -101,24 +92,24 @@ public class TimesFragment extends Fragment implements View.OnClickListener, NFC
             toggleButtonState(b_start, true);
             toggleButtonState(b_end, false);
 
-        } else if(userDataManager.getCheckIn().length() != 0  && userDataManager.getCheckOut().length() == 0) {
+        } else if(dataManager.getCheckIn().length() != 0  && dataManager.getCheckOut().length() == 0) {
 
             v_start.setBackgroundResource(R.drawable.times_round_view_start);
             v_end.setBackgroundResource(R.drawable.times_round_view_disabled);
 
-            tv_start.setText("Hai timbrato l'ingresso il: " + "\n" + userDataManager.getCheckIn());
+            tv_start.setText("Hai timbrato l'ingresso il: " + "\n" + dataManager.getCheckIn());
             tv_end.setText("Non hai ancora timbrato l'uscita");
 
             toggleButtonState(b_start, false);
             toggleButtonState(b_end, true);
 
-        }  else if(userDataManager.getCheckIn().length() != 0  && userDataManager.getCheckOut().length() != 0) {
+        }  else if(dataManager.getCheckIn().length() != 0  && dataManager.getCheckOut().length() != 0) {
 
             v_start.setBackgroundResource(R.drawable.times_round_view_start);
             v_end.setBackgroundResource(R.drawable.times_round_view_end);
 
-            tv_start.setText("Hai timbrato l'ingresso il: " + "\n" + userDataManager.getCheckIn());
-            tv_end.setText("Hai timbrato l'uscita il: " + "\n" + userDataManager.getCheckOut());
+            tv_start.setText("Hai timbrato l'ingresso il: " + "\n" + dataManager.getCheckIn());
+            tv_end.setText("Hai timbrato l'uscita il: " + "\n" + dataManager.getCheckOut());
 
             toggleButtonState(b_start, false);
             toggleButtonState(b_end, false);
@@ -183,13 +174,6 @@ public class TimesFragment extends Fragment implements View.OnClickListener, NFC
     }//startClock
 
 
-    public void setListener(TimesListener _listener){
-
-        listener = _listener;
-
-    }//setListener
-
-
     public void onClick(View view) {
 
         if(view == b_start) {
@@ -215,11 +199,11 @@ public class TimesFragment extends Fragment implements View.OnClickListener, NFC
 
         if(currentChoice == ManualTimeDialog.MANUAL_TYPE_IN) {
 
-            UserDataManager.saveWorkShiftData(activity, DateManager.getCurrentDate(), null);
+            DataManager.saveWorkShiftData(activity, DateManager.getCurrentDate(), null);
 
         } else if(currentChoice == ManualTimeDialog.MANUAL_TYPE_OUT) {
 
-            UserDataManager.saveWorkShiftData(activity, null, DateManager.getCurrentMoment());
+            DataManager.saveWorkShiftData(activity, null, DateManager.getCurrentMoment());
 
         }
 
@@ -240,11 +224,11 @@ public class TimesFragment extends Fragment implements View.OnClickListener, NFC
 
         if(currentChoice == ManualTimeDialog.MANUAL_TYPE_IN) {
 
-            UserDataManager.saveWorkShiftData(activity, time, null);
+            DataManager.saveWorkShiftData(activity, time, null);
 
         } else if(currentChoice == ManualTimeDialog.MANUAL_TYPE_OUT) {
 
-            UserDataManager.saveWorkShiftData(activity, null, time);
+            DataManager.saveWorkShiftData(activity, null, time);
 
         }
 

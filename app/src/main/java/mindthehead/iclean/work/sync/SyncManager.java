@@ -8,11 +8,7 @@ import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
-
-import mindthehead.iclean.auth.AuthenticationManagerListener;
-import mindthehead.iclean.work.settings.UserDataManager;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;

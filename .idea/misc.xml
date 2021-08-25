@@ -3,12 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/AdroidStudioProjects/iClean/app/src/main/res/layout/activity_topo.xml" value="0.3307291666666667" />
-        <entry key="..\:/AdroidStudioProjects/iClean/app/src/main/res/layout/dialog_schedule_item_info.xml" value="0.4696557971014493" />
-        <entry key="..\:/AdroidStudioProjects/iClean/app/src/main/res/layout/item_schedule.xml" value="0.4696557971014493" />
-        <entry key="..\:/AdroidStudioProjects/iClean/app/src/main/res/xml/testest.xml" value="0.31302083333333336" />
         <entry key="..\:/Users/Silvano/AndroidStudioProjects/iClean/app/src/main/res/layout/dialog_manual_time.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Silvano/AndroidStudioProjects/iClean/app/src/main/res/layout/dialog_nfc.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Silvano/AndroidStudioProjects/iClean/app/src/main/res/layout/dialog_option.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Silvano/AndroidStudioProjects/iClean/app/src/main/res/layout/dialog_schedule_item_info.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Silvano/AndroidStudioProjects/iClean/app/src/main/res/layout/dialog_task_item_info.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Silvano/AndroidStudioProjects/iClean/app/src/main/res/layout/dialog_task_item_location.xml" value="0.36666666666666664" />
@@ -19,6 +16,7 @@
         <entry key="..\:/Users/Silvano/AndroidStudioProjects/iClean/app/src/main/res/layout/fragment_times.xml" value="0.17831813576494426" />
         <entry key="..\:/Users/Silvano/AndroidStudioProjects/iClean/app/src/main/res/layout/item_schedule.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Silvano/AndroidStudioProjects/iClean/app/src/main/res/layout/item_task.xml" value="0.5" />
+        <entry key="..\:/Users/Silvano/AndroidStudioProjects/iClean/app/src/main/res/layout/option_warning.xml" value="0.36666666666666664" />
       </map>
     </option>
   </component>

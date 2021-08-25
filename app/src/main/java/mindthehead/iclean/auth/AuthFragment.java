@@ -9,15 +9,20 @@ import android.widget.EditText;
 import androidx.fragment.app.Fragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import mindthehead.iclean.R;
+import mindthehead.iclean.data.DataManager;
+import mindthehead.iclean.util.dialog.OptionDialog;
+import mindthehead.iclean.util.dialog.OptionDialogListener;
 
 
-public class AuthFragment extends Fragment implements View.OnClickListener {
+public class AuthFragment extends Fragment implements View.OnClickListener, OptionDialogListener {
 
 
     private AuthFragmentListener listener;
 
     private EditText et_username;
     private EditText et_password;
+
+    private String username, psw;
 
     private FloatingActionButton b_confirm;
 
@@ -55,8 +60,20 @@ public class AuthFragment extends Fragment implements View.OnClickListener {
             et_username.setError(null);
             et_password.setError(null);
 
-            toggleAuthButton(false);
-            listener.onAuthStarted(emailString, pswString);
+            username = emailString;
+            psw = pswString;
+
+            if (!DataManager.areDataSynced(getActivity())) {
+
+                OptionDialog optionDialog = new OptionDialog(getActivity(), "Esistono già dei dati salvati ma non ancora sincronizzati. \n Vuoi eliminarli e scaricarne di nuovi o continuare con i dati esistenti?", "Sovrascrivi", "Mantieni");
+                optionDialog.setListener(this);
+                optionDialog.show();
+
+            }else {
+                toggleAuthButton(false);
+                listener.onAuthStartRequested(true, username, psw);
+            }
+
 
         }
 
@@ -72,17 +89,25 @@ public class AuthFragment extends Fragment implements View.OnClickListener {
 
 
     public void setListener(AuthFragmentListener _listener){
-
         listener = _listener;
-
     }//setListener
 
 
     public void onClick(View view) {
-
         if (view == b_confirm) initAuth();
-
     }//onClick
+
+
+    public void onYesChoice() {
+        toggleAuthButton(false);
+        listener.onAuthStartRequested(true, username, psw);
+    }//onYesChoice
+
+
+    public void onNotChoice() {
+        toggleAuthButton(false);
+        listener.onAuthStartRequested(false, username, psw);
+    }//onNotChoice
 
 
 }//AuthFragment
