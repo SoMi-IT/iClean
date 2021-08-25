@@ -16,16 +16,12 @@ import mindthehead.iclean.work.WorkActivity;
 public class HomeFragment extends Fragment implements View.OnClickListener {
 
 
-    private WorkActivity activity;
-
     private HomeListener listener;
 
     private Button b_times, b_task, b_schedules, b_sync;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-
-        activity = (WorkActivity) getActivity();
 
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
 

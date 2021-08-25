@@ -25,8 +25,6 @@ public class TimesFragment extends Fragment implements View.OnClickListener, NFC
 
     private WorkActivity activity;
 
-    private NFCDialog nfcDialog;
-
     private TextView tv_date, tv_time, tv_start, tv_end;
 
     private Button b_start, b_end;
@@ -177,18 +175,16 @@ public class TimesFragment extends Fragment implements View.OnClickListener, NFC
         if(view == b_start) {
 
             currentChoice = ManualTimeDialog.MANUAL_TYPE_IN;
-            nfcDialog = new NFCDialog(activity);
-            nfcDialog.setListener(this);
-            nfcDialog.show();
 
         } else if (view == b_end) {
 
             currentChoice = ManualTimeDialog.MANUAL_TYPE_OUT;
-            nfcDialog = new NFCDialog(activity);
-            nfcDialog.setListener(this);
-            nfcDialog.show();
 
         }
+
+        NFCDialog nfcDialog = new NFCDialog(activity);
+        nfcDialog.setListener(this);
+        nfcDialog.show();
 
     }//onClick
 
