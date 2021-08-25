@@ -145,7 +145,7 @@ public class WorkActivity extends AppCompatActivity implements HomeListener, Ima
             updateTopBar("Turni di lavoro", "Visualizza i turni di lavoro, \n i piani e la mappa delle stazioni", R.drawable.icon_schedules);
 
         } else if(type == TYPE_SYNC){
-            updateTopBar("Sincronizza", "Sincronicca i dati inseriti", R.drawable.icon_sync);
+            updateTopBar("Fine turno", "Carica i dati inseriti", R.drawable.icon_sync);
 
         } else  if(type == TYPE_SETTINGS){
             updateTopBar("IMPOSTAZIONI", "", R.drawable.ic_user);

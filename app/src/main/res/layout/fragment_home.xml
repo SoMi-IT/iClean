@@ -48,7 +48,7 @@
                     android:layout_marginStart="7sp"
                     android:paddingTop="10sp"
                     android:drawableTop="@drawable/icon_sync"
-                    android:text="Sincronizza"
+                    android:text="FINE TURNO"
                     app:layout_constraintTop_toBottomOf="@id/b_home_task"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@id/b_home_schedules"

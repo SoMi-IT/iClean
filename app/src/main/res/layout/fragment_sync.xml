@@ -36,7 +36,7 @@
         android:layout_margin="8sp"
         android:padding="10sp"
         android:drawableTop="@drawable/icon_sync_action"
-        android:text="SINCRONIZZA"/>
+        android:text="Carica dati"/>
 
 
 </LinearLayout>
