@@ -49,7 +49,7 @@ public class AuthFragment extends Fragment implements View.OnClickListener, Opti
 
         if(emailString.equals("")){
 
-            et_username.setError("write your e-mail!");
+            et_username.setError("write your username!");
 
         } else if(pswString.equals("")){
 

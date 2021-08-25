@@ -9,11 +9,6 @@ public class DataManager {
 
     private Activity activity;
 
-    private String userId;
-
-    private String UserName;
-    private String UserLastName;
-
 
     public DataManager (Activity _activity) {
 
@@ -87,5 +82,11 @@ public class DataManager {
         return SharedPreferencesManager.readString(activity, R.string.times_check_out);
 
     }//getTimeOut
+
+    public static String getUserName(Activity _activity) {
+
+        return SharedPreferencesManager.readString(_activity, R.string.username);
+
+    }//getUserName
 
 }

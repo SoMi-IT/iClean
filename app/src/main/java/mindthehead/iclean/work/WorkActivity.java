@@ -24,6 +24,7 @@ import android.widget.TextView;
 import java.io.UnsupportedEncodingException;
 
 import mindthehead.iclean.R;
+import mindthehead.iclean.data.DataManager;
 import mindthehead.iclean.util.NFCManager;
 import mindthehead.iclean.util.dialog.NFCDialogListener;
 import mindthehead.iclean.work.settings.SettingsFragment;
@@ -50,7 +51,7 @@ public class WorkActivity extends AppCompatActivity implements HomeListener, Ima
     private ImageView iv_app_logo, iv_back, iv_label_logo, iv_user;
 
     private LinearLayout ll_label;
-    private TextView tv_label, tv_description;
+    private TextView tv_user, tv_label, tv_description;
 
     private int currentStatus;
 
@@ -71,6 +72,8 @@ public class WorkActivity extends AppCompatActivity implements HomeListener, Ima
         iv_label_logo = findViewById(R.id.iv_work_current_logo);
         iv_user = findViewById(R.id.iv_work_bar_user);
         iv_user.setOnClickListener(this);
+        tv_user = findViewById(R.id.tv_work_username);
+        tv_user.setText(DataManager.getUserName(this));
         tv_label = findViewById(R.id.tv_work_current_label);
         tv_description = findViewById(R.id.tv_work_current_description);
 
