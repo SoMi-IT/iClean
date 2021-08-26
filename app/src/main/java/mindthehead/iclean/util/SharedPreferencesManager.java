@@ -1,7 +1,9 @@
 package mindthehead.iclean.util;
 
+
 import android.content.Context;
 import android.content.SharedPreferences;
+
 
 public class SharedPreferencesManager {
 

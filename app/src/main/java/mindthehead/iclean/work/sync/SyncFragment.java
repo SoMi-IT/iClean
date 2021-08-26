@@ -22,7 +22,6 @@ public class SyncFragment extends Fragment implements View.OnClickListener, Sync
 
     private WorkActivity activity;
 
-
     private TextView tv_state;
 
     private Button b_sync;
@@ -48,8 +47,8 @@ public class SyncFragment extends Fragment implements View.OnClickListener, Sync
 
     private void updateStatus() {
 
-        if(DataManager.areDataSynced(activity)) tv_state.setText("IClean è sincronizzato");
-        else tv_state.setText("IClean non è sincronizzato");
+        if(DataManager.areDataSynced(activity)) tv_state.setText(R.string.sync_fragment_ok);
+        else tv_state.setText(R.string.sync_fragment_no);
 
     }//updateStatus
 
@@ -58,7 +57,7 @@ public class SyncFragment extends Fragment implements View.OnClickListener, Sync
         if (view == b_sync) {
 
             //Questo blocco è da eliminare quando sblocco quello sotto
-            Toast.makeText(activity, "Sincronizzazione effettuata", Toast.LENGTH_LONG).show();
+            Toast.makeText(activity, R.string.sync_fragment_done, Toast.LENGTH_LONG).show();
             DataManager.saveData(activity, "", "", "", "", "", 1);
             startActivity(new Intent(activity, AuthActivity.class));
 
@@ -76,7 +75,7 @@ public class SyncFragment extends Fragment implements View.OnClickListener, Sync
 
     public void onSyncSuccessful(String message) {
 
-        Toast.makeText(activity, "Sincronizzazione effettuata", Toast.LENGTH_LONG).show();
+        Toast.makeText(activity, R.string.sync_fragment_done, Toast.LENGTH_LONG).show();
         DataManager.saveData(activity, "", "", "", "", "", 1);
         updateStatus();
 
@@ -84,14 +83,10 @@ public class SyncFragment extends Fragment implements View.OnClickListener, Sync
 
     public void onSyncError(String error) {
 
-        activity.runOnUiThread(new Runnable() {
+        activity.runOnUiThread(() -> {
 
-            public void run() {
-
-                WarningDialog warningDialog = new WarningDialog(activity, "Error: " + error);
-                warningDialog.show();
-
-            }
+            WarningDialog warningDialog = new WarningDialog(activity, "Error: " + error);
+            warningDialog.show();
 
         });
 

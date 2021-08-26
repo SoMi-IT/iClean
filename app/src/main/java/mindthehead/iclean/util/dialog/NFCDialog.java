@@ -2,24 +2,14 @@ package mindthehead.iclean.util.dialog;
 
 
 import android.app.Dialog;
-import android.app.PendingIntent;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.InsetDrawable;
-import android.nfc.NdefMessage;
-import android.nfc.NfcAdapter;
-import android.os.Parcelable;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
-
-import java.io.UnsupportedEncodingException;
-
 import mindthehead.iclean.R;
 import mindthehead.iclean.work.WorkActivity;
 import mindthehead.iclean.work.WorkActivityListener;
@@ -28,9 +18,9 @@ import mindthehead.iclean.work.WorkActivityListener;
 public class NFCDialog extends Dialog implements Button.OnClickListener, WorkActivityListener {
 
 
-    private WorkActivity activity;
+    private final WorkActivity activity;
     private NFCDialogListener listener;
-    private Button b_manual, b_dismiss;
+    private final Button b_manual, b_dismiss;
 
     public NFCDialog(WorkActivity _activity) {
 

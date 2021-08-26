@@ -8,24 +8,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import androidx.fragment.app.Fragment;
 import mindthehead.iclean.R;
-import mindthehead.iclean.util.SharedPreferencesManager;
 import mindthehead.iclean.work.WorkActivity;
-import mindthehead.iclean.work.shedules.data.ScheduleDataManager;
-import mindthehead.iclean.work.task.data.TaskDataManager;
 
 
 public class SettingsFragment extends Fragment implements View.OnClickListener {
 
 
-    private WorkActivity activity;
-
     private Button b_settings;
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-
-        activity = (WorkActivity) getActivity();
 
         View rootView = inflater.inflate(R.layout.fragment_settings, container, false);
 

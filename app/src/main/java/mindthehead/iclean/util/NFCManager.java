@@ -1,21 +1,19 @@
 package mindthehead.iclean.util;
 
 
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.nfc.tech.MifareUltralight;
 import android.util.Log;
-
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 
 public class NFCManager {
 
 
-    private static String TAG = "XXX";
+    private static final String TAG = "XXX";
 
 
     public static String obtainTagFromIntent(Intent intent) {
@@ -25,9 +23,6 @@ public class NFCManager {
         if (NfcAdapter.ACTION_TAG_DISCOVERED.equals(action) || NfcAdapter.ACTION_TECH_DISCOVERED.equals(action) || NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)) {
             Tag tag = (Tag) intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
             assert tag != null;
-
-            StringBuilder sb = new StringBuilder();
-            byte[] id = tag.getId();
 
             for (String tech : tag.getTechList()) {
 
@@ -52,8 +47,8 @@ public class NFCManager {
 
             mifareUlTag.connect();
             byte[] payload = mifareUlTag.readPages(4);
-
-            return new String(payload, Charset.forName("US-ASCII"));
+            //Charset.forName("US-ASCII")
+            return new String(payload, StandardCharsets.US_ASCII);
 
         } catch (IOException e) {
 

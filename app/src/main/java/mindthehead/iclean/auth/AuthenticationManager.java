@@ -1,7 +1,6 @@
 package mindthehead.iclean.auth;
 
 
-import android.app.Activity;
 import android.util.Log;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
@@ -18,7 +17,6 @@ import okhttp3.ResponseBody;
 
 public class AuthenticationManager {
 
-    private Activity activity;
 
     private final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     private static final String URL_LOGIN = "https://mediclean.icleanfm.it/api/user/login";
@@ -35,9 +33,7 @@ public class AuthenticationManager {
 
     private boolean downloadNeeded;
 
-    public void startAuth(Activity _activity, boolean _downloadNeeded, String user, String psw) {
-
-        activity = _activity;
+    public void startAuth(boolean _downloadNeeded, String user, String psw) {
 
         try {
 
@@ -64,7 +60,7 @@ public class AuthenticationManager {
 
         private final OkHttpClient client = new OkHttpClient();
 
-        public void run() throws Exception {
+        public void run() {
 
             RequestBody body = RequestBody.create(jsonBody.toString(), JSON);
 
@@ -93,7 +89,8 @@ public class AuthenticationManager {
                     listener.onLoginError("Unexpected code " + response);
                     throw new IOException("Unexpected code " + response);
                 }else {
-                    analyzeResponse(responseBody.string());
+                    if (responseBody != null) analyzeResponse(responseBody.string());
+
                 }
 
             }

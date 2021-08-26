@@ -22,7 +22,7 @@ import mindthehead.iclean.work.WorkActivity;
 public class InfoDialog extends Dialog implements Button.OnClickListener {
 
 
-    private Button b_dismiss;
+    private final Button b_dismiss;
 
 
     public InfoDialog(WorkActivity _context, String info, String site, String floor, String department) {

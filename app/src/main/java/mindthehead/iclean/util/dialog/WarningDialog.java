@@ -12,15 +12,13 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
-
 import mindthehead.iclean.R;
-import mindthehead.iclean.work.WorkActivity;
 
 
 public class WarningDialog extends Dialog implements Button.OnClickListener {
 
 
-    private Button b_dismiss;
+    private final Button b_dismiss;
 
 
     public WarningDialog(Activity _context, String description) {

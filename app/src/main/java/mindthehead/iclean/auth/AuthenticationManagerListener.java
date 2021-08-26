@@ -1,6 +1,5 @@
 package mindthehead.iclean.auth;
 
-import org.json.JSONArray;
 
 public interface AuthenticationManagerListener {
 

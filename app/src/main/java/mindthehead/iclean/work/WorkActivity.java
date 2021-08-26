@@ -4,36 +4,24 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
 import android.app.PendingIntent;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.nfc.NdefMessage;
 import android.nfc.NfcAdapter;
-import android.nfc.Tag;
-import android.nfc.tech.MifareClassic;
-import android.nfc.tech.MifareUltralight;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import java.io.UnsupportedEncodingException;
-
 import mindthehead.iclean.R;
 import mindthehead.iclean.data.DataManager;
 import mindthehead.iclean.util.NFCManager;
-import mindthehead.iclean.util.dialog.NFCDialogListener;
-import mindthehead.iclean.work.settings.SettingsFragment;
 import mindthehead.iclean.work.shedules.SchedulesFragment;
 import mindthehead.iclean.work.sync.SyncFragment;
 import mindthehead.iclean.work.task.TaskFragment;
 import mindthehead.iclean.work.times.TimesFragment;
 import mindthehead.iclean.work.home.HomeFragment;
 import mindthehead.iclean.work.home.HomeListener;
+
 
 public class WorkActivity extends AppCompatActivity implements HomeListener, ImageView.OnClickListener {
 
@@ -51,7 +39,8 @@ public class WorkActivity extends AppCompatActivity implements HomeListener, Ima
     private ImageView iv_app_logo, iv_back, iv_label_logo, iv_user;
 
     private LinearLayout ll_label;
-    private TextView tv_user, tv_label, tv_description;
+    private TextView tv_label;
+    private TextView tv_description;
 
     private int currentStatus;
 
@@ -72,8 +61,10 @@ public class WorkActivity extends AppCompatActivity implements HomeListener, Ima
         iv_label_logo = findViewById(R.id.iv_work_current_logo);
         iv_user = findViewById(R.id.iv_work_bar_user);
         iv_user.setOnClickListener(this);
-        tv_user = findViewById(R.id.tv_work_username);
+
+        TextView tv_user = findViewById(R.id.tv_work_username);
         tv_user.setText(DataManager.getUserName(this));
+
         tv_label = findViewById(R.id.tv_work_current_label);
         tv_description = findViewById(R.id.tv_work_current_description);
 

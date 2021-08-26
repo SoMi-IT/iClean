@@ -10,14 +10,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
-
 import mindthehead.iclean.R;
 import mindthehead.iclean.work.task.data.Task;
 

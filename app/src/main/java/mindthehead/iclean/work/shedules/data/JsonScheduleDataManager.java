@@ -13,7 +13,7 @@ public class JsonScheduleDataManager {
 
     public static ArrayList<Schedule> getSchedulesFromString(String string) {
 
-        ArrayList<Schedule> schedules = new ArrayList<Schedule>();
+        ArrayList<Schedule> schedules = new ArrayList<>();
 
         try {
 
@@ -22,8 +22,8 @@ public class JsonScheduleDataManager {
 
             for(int i = 0; i<jsonArray.length(); i++) {
 
-                Schedule schedule = new Schedule();
-                JSONObject currentJsonObject = new JSONObject();
+                Schedule schedule;
+                JSONObject currentJsonObject;
                 currentJsonObject = jsonArray.getJSONObject(i);
                 schedule = getScheduleFromJson(currentJsonObject);
 
@@ -43,7 +43,7 @@ public class JsonScheduleDataManager {
 
     public static Schedule getScheduleFromJson(JSONObject jsonObject){
 
-        Schedule schedule = null;
+        Schedule schedule;
 
         try {
 

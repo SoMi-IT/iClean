@@ -12,15 +12,13 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
-
 import mindthehead.iclean.R;
-import mindthehead.iclean.auth.AuthFragmentListener;
 
 
 public class OptionDialog extends Dialog implements Button.OnClickListener {
 
 
-    private Button b_yes, b_not;
+    private final Button b_yes, b_not;
     private OptionDialogListener listener;
 
     public OptionDialog(Activity _context, String description, String yes, String not) {

@@ -84,17 +84,17 @@ public class Task {
 
     public void setStatus(int _status) { status = _status; }//setStatus
 
-    public void setDate(String _date) { date = _date; }//setDate
+    //public void setDate(String _date) { date = _date; }//setDate
 
-    public void setTimeStart(String _timeStart) { timeStart = _timeStart; }//setTimeStart
+    //public void setTimeStart(String _timeStart) { timeStart = _timeStart; }//setTimeStart
 
     public void setCheckIn(String _checkIn) { checkIn = _checkIn; }//setCheckIn
 
-    public void setTimeEnd(String _timeEnd) { timeEnd = _timeEnd; }//setTimeEnd
+   // public void setTimeEnd(String _timeEnd) { timeEnd = _timeEnd; }//setTimeEnd
 
     public void setCheckOut(String _checkOut) { checkOut = _checkOut; }//setCheckOut
 
-    public void setCode(String _code) { code = _code; }//setCode
+    /*public void setCode(String _code) { code = _code; }//setCode
 
     public void setSite(String _site) { site = _site; }//setSite
 
@@ -102,7 +102,7 @@ public class Task {
 
     public void setDepartment(String _department) { department = _department; }//setDepartment
 
-    public void setDescription(String _description) { description = _description; }//setDescription
+    public void setDescription(String _description) { description = _description; }//setDescription*/
 
 
 }//Task

@@ -28,16 +28,16 @@ public class SchedulesFragment extends Fragment implements SchedulesListAdapterL
 
         View rootView = inflater.inflate(R.layout.fragment_schedules, container, false);
 
-        ScheduleDataManager scheduleDataManager= new ScheduleDataManager();
+        ScheduleDataManager scheduleDataManager;
 
         RecyclerView rv_schedules = rootView.findViewById(R.id.rv_schedules);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(activity);
         rv_schedules.setLayoutManager(layoutManager);
 
         scheduleDataManager = new ScheduleDataManager();
-        SchedulesListAdapter schedulesListAdapter = new SchedulesListAdapter(activity, scheduleDataManager.getStoredSchedules(activity));
+        SchedulesListAdapter schedulesListAdapter = new SchedulesListAdapter(scheduleDataManager.getStoredSchedules(activity));
         schedulesListAdapter.setListener(this);
-        rv_schedules.setAdapter(schedulesListAdapter);;
+        rv_schedules.setAdapter(schedulesListAdapter);
 
         return rootView;
 

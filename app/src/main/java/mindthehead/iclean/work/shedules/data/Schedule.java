@@ -9,13 +9,10 @@ public class Schedule {
     public final static String SCHEDULES_SITE = "site";
 
     private String id;
-    private String date;
-    private String timeStart;
-    private String timeEnd;
-    private String site;
-
-
-    public Schedule() { }//Constructor
+    private final String date;
+    private final String timeStart;
+    private final String timeEnd;
+    private final String site;
 
 
     public Schedule(String _date, String _timeStart, String _timeEnd, String _site) {
@@ -41,13 +38,13 @@ public class Schedule {
 
     public void setId(String _id) { id = _id; }//setDate
 
-    public void setDate(String _date) { date = _date; }//setDate
+    //public void setDate(String _date) { date = _date; }//setDate
 
-    public void setTimeStart(String _timeStart) { timeStart = _timeStart; }//setTimeStart
+    //public void setTimeStart(String _timeStart) { timeStart = _timeStart; }//setTimeStart
 
-    public void setTimeEnd(String _timeEnd) { timeEnd = _timeEnd; }//setTimeEnd
+    //public void setTimeEnd(String _timeEnd) { timeEnd = _timeEnd; }//setTimeEnd
 
-    public void setSite(String _site) { site = _site; }//setSite
+    //public void setSite(String _site) { site = _site; }//setSite
 
 
 }//Schedule

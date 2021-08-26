@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import mindthehead.iclean.R;
 import mindthehead.iclean.data.DataManager;
-import mindthehead.iclean.util.dialog.OptionDialog;
 import mindthehead.iclean.util.dialog.OptionDialogListener;
 
 

@@ -5,15 +5,12 @@ import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.InsetDrawable;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
-
 import mindthehead.iclean.R;
 import mindthehead.iclean.util.DateManager;
 import mindthehead.iclean.work.WorkActivity;
@@ -26,7 +23,7 @@ public class ManualTimeDialog extends Dialog implements Button.OnClickListener {
     public static final int MANUAL_TYPE_OUT = 1;
 
     private ManualDialogListener listener;
-    private Button b_manual, b_dismiss;
+    private final Button b_dismiss, b_manual;
 
 
     public ManualTimeDialog(WorkActivity _context, int type) {
@@ -53,9 +50,9 @@ public class ManualTimeDialog extends Dialog implements Button.OnClickListener {
         TextView tv_time = findViewById(R.id.tv_dialog_manual_time);
         tv_time.setText(DateManager.getCurrentMoment());
         if (type == MANUAL_TYPE_IN){
-            tv_type.setText("INGRESSO");
+            tv_type.setText(R.string.manual_time_dialog_check_in);
         } else if (type == MANUAL_TYPE_OUT){
-            tv_type.setText("USCITA");
+            tv_type.setText(R.string.manual_time_dialog_check_out);
         }
 
 

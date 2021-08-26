@@ -26,13 +26,6 @@ public class DataManager {
     }//areDataSynced
 
 
-    public static boolean hasTasks(Activity activity) {
-
-        return SharedPreferencesManager.readString(activity, R.string.tasks).length() != 0;
-
-    }//hasTasks
-
-
     public  static boolean isUserWorkShiftStarted(Activity activity) {
 
         return SharedPreferencesManager.readString(activity, R.string.times_check_in).length() != 0;

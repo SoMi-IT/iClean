@@ -6,11 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
 import androidx.fragment.app.Fragment;
-
 import mindthehead.iclean.R;
-import mindthehead.iclean.work.WorkActivity;
 
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
@@ -49,23 +46,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     public void onClick(View view) {
 
-        if (view == b_times) {
+        if (view == b_times) listener.onTimesChosen();
 
-            listener.onTimesChosen();
+        else if (view == b_task) listener.onTaskChosen();
 
-        } else if (view == b_task) {
+        else if (view == b_schedules) listener.onSchedulesChosen();
 
-            listener.onTaskChosen();
-
-        } else if (view == b_schedules) {
-
-            listener.onSchedulesChosen();
-
-        } else if (view == b_sync) {
-
-            listener.onSyncChosen();
-
-        }
+        else if (view == b_sync) listener.onSyncChosen();
 
     }//onClick
 

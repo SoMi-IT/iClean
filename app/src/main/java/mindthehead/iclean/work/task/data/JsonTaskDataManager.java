@@ -2,11 +2,9 @@ package mindthehead.iclean.work.task.data;
 
 
 import android.util.Log;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 
 
@@ -15,7 +13,7 @@ public class JsonTaskDataManager {
 
     public static ArrayList<Task> getTasksFromString(String string) {
 
-        ArrayList<Task> tasks = new ArrayList<Task>();
+        ArrayList<Task> tasks = new ArrayList<>();
 
         try {
 
@@ -23,8 +21,8 @@ public class JsonTaskDataManager {
 
             for(int i = 0; i<jsonArray.length(); i++) {
 
-                Task task = new Task();
-                JSONObject currentJsonObject = new JSONObject();
+                Task task;
+                JSONObject currentJsonObject;
                 currentJsonObject = jsonArray.getJSONObject(i);
                 Log.d("XXX", "--Stored Task: " + jsonArray.getJSONObject(i).toString());
                 task = getTaskFromJson(currentJsonObject);
@@ -46,7 +44,7 @@ public class JsonTaskDataManager {
 
     public static Task getTaskFromJson(JSONObject jsonObject){
 
-        Task task = null;
+        Task task;
 
         try {
 

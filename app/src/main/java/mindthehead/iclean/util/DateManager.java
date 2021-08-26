@@ -1,16 +1,15 @@
 package mindthehead.iclean.util;
 
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+
 
 public class DateManager {
 
 
-    public static String getFormattedStringFromDate(int year, int month, int day) {
+    /*public static String getFormattedStringFromDate(int year, int month, int day) {
 
 
         Calendar calendar = Calendar.getInstance();
@@ -30,7 +29,7 @@ public class DateManager {
 
         return calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault());
 
-    }//getFormattedStringFromDate
+    }//getFormattedStringFromDate*/
 
 
     public static String getCurrentDate(){

@@ -1,15 +1,11 @@
 package mindthehead.iclean.work.sync.data;
 
 
-import android.app.Activity;
-import android.util.Log;
-
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.IOException;
-
 import mindthehead.iclean.work.sync.SyncManagerListener;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -20,9 +16,9 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
+
 public class SyncManager {
 
-    private Activity activity;
 
     private final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     private static final String URL_LOGIN = "https://mediclean.icleanfm.it/api/user/tasksign";
@@ -37,9 +33,8 @@ public class SyncManager {
     private final JSONObject jsonBody = new JSONObject();
 
 
-    public void startSync(Activity _activity,  String tasksDone) {
+    public void startSync(String tasksDone) {
 
-        activity = _activity;
 
         try {
             JSONArray jsonArray = new JSONArray(tasksDone);
@@ -93,7 +88,9 @@ public class SyncManager {
                     listener.onSyncError("Unexpected code " + response);
                     throw new IOException("Unexpected code " + response);
                 }else {
-                    analyzeResponse(responseBody.string());
+
+                    if (responseBody != null) analyzeResponse(responseBody.string());
+
                 }
 
             }

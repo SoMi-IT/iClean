@@ -1,18 +1,14 @@
 package mindthehead.iclean.work.shedules.adapter;
 
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
-
 import mindthehead.iclean.R;
 import mindthehead.iclean.work.shedules.data.Schedule;
 
@@ -24,7 +20,7 @@ public class SchedulesListAdapter extends RecyclerView.Adapter<SchedulesListAdap
     private SchedulesListAdapterListener schedulesListAdapterListener;
 
 
-    public SchedulesListAdapter(Context _context, ArrayList<Schedule> _schedules) {
+    public SchedulesListAdapter(ArrayList<Schedule> _schedules) {
 
         schedules = _schedules;
 

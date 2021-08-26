@@ -1,11 +1,7 @@
 package mindthehead.iclean.work.task.data;
 
 import android.app.Activity;
-import android.content.Context;
-
 import java.util.ArrayList;
-import java.util.Collections;
-
 import mindthehead.iclean.R;
 import mindthehead.iclean.util.SharedPreferencesManager;
 
@@ -28,13 +24,12 @@ public class TaskDataManager {
     public ArrayList<Task> getStoredTasks(Activity context) {
 
         String storedTasksString = SharedPreferencesManager.readString(context, R.string.tasks);
-        ArrayList<Task> tasks = JsonTaskDataManager.getTasksFromString(storedTasksString);
-        return tasks;
+        return JsonTaskDataManager.getTasksFromString(storedTasksString);
 
     }//obtainStoredTasks
 
 
-    public static void saveTasks(Context context, ArrayList<Task> tasks) {
+    /*public static void saveTasks(Context context, ArrayList<Task> tasks) {
 
         /*Collections.sort(tasks, (obj1, obj2) -> {
             // ## Ascending order
@@ -44,13 +39,13 @@ public class TaskDataManager {
             // return obj2.firstName.compareToIgnoreCase(obj1.firstName); // To compare string values
             return Integer.compare(obj2.getPriority(), obj1.getPriority()); // To compare integer values
 
-        });*/
+        });
 
         tasks.get(0).setStatus(Task.STATUS_CURRENT_NOT_STARTED);
         String newStoredTaskString = JsonTaskDataManager.getStringFromTasks(tasks);
         SharedPreferencesManager.writeString(context, R.string.tasks, newStoredTaskString);
 
-    }//saveTasks
+    }//saveTasks */
 
 
     public void updateTask(Activity context, Task task) {

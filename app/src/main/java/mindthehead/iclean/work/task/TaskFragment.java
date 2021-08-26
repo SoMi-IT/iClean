@@ -2,7 +2,6 @@ package mindthehead.iclean.work.task;
 
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,8 +36,6 @@ public class TaskFragment extends Fragment implements TasksListAdapterListener, 
     private Task currentTask;
     private NFCDialog nfcDialog;
 
-    private RecyclerView rv_tasks;
-
     private TextView tv_date, tv_time;
 
     private Thread thread;
@@ -53,7 +50,7 @@ public class TaskFragment extends Fragment implements TasksListAdapterListener, 
 
         View rootView = inflater.inflate(R.layout.fragment_task, container, false);
 
-        rv_tasks = rootView.findViewById(R.id.rv_tasks);
+        RecyclerView rv_tasks = rootView.findViewById(R.id.rv_tasks);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(activity);
         rv_tasks.setLayoutManager(layoutManager);
 
@@ -92,13 +89,9 @@ public class TaskFragment extends Fragment implements TasksListAdapterListener, 
 
                         Thread.sleep(1000);
 
-                        activity.runOnUiThread(new Runnable() {
-
-                            public void run() {
-                                tv_date.setText(DateManager.getCurrentDate());
-                                tv_time.setText(DateManager.getCurrentTime());
-                            }
-
+                        activity.runOnUiThread(() -> {
+                            tv_date.setText(DateManager.getCurrentDate());
+                            tv_time.setText(DateManager.getCurrentTime());
                         });
 
                     }

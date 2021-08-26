@@ -12,9 +12,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ProgressBar;
 import mindthehead.iclean.R;
 import mindthehead.iclean.data.DataManager;
-import mindthehead.iclean.util.SharedPreferencesManager;
-import mindthehead.iclean.util.dialog.OptionDialog;
-import mindthehead.iclean.util.dialog.OptionDialogListener;
 import mindthehead.iclean.util.dialog.WarningDialog;
 import mindthehead.iclean.work.WorkActivity;
 
@@ -79,7 +76,7 @@ public class AuthActivity extends AppCompatActivity implements AuthFragmentListe
 
         AuthenticationManager authenticationManager = new AuthenticationManager();
         authenticationManager.setListener(this);
-        authenticationManager.startAuth(this, downloadNeeded, email, psw);
+        authenticationManager.startAuth(downloadNeeded, email, psw);
 
     }//onAuthStarted
 

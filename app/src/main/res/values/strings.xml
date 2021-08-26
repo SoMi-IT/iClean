@@ -12,4 +12,17 @@
     <string name="times_check_in">mindthehead.iclean.util.times.check.in</string>
     <string name="times_check_out">mindthehead.iclean.util.times.check.out</string>
 
+
+    <!-- TESTI -->
+    <string name="manual_time_dialog_check_in">Ingresso</string>
+    <string name="manual_time_dialog_check_out">Uscita</string>
+
+    <string name="sync_fragment_ok">IClean è sincronizzato</string>
+    <string name="sync_fragment_no">IClean non è sincronizzato</string>
+    <string name="sync_fragment_done">Sincronizzazione effettuata</string>
+
+    <string name="times_fragment_no_check_in">Non hai ancora timbrato l\'ingresso</string>
+    <string name="times_fragment_no_check_out">Non hai ancora timbrato l\'uscita</string>
+    <string name="times_fragment_yes_check_in">Hai timbrato l\'ingresso il:  \n</string>
+    <string name="times_fragment_yes_check_out">Hai timbrato l\'uscita il:  \n</string>
 </resources>

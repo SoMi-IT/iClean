@@ -1,14 +1,9 @@
 package mindthehead.iclean.work.sync.data;
 
 
-import android.util.Log;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
-
 import mindthehead.iclean.work.task.data.Task;
 
 
@@ -25,8 +20,8 @@ public class JsonTaskDoneDataManager {
 
             for(int i = 0; i<jsonArray.length(); i++) {
 
-                JSONObject currentJsonObject = new JSONObject();
-                JSONObject taskDone = new JSONObject();
+                JSONObject currentJsonObject;
+                JSONObject taskDone;
 
                 currentJsonObject = jsonArray.getJSONObject(i);
                 taskDone = getTaskDoneFromJson(currentJsonObject);
