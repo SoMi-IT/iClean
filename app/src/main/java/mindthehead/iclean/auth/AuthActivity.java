@@ -81,11 +81,11 @@ public class AuthActivity extends AppCompatActivity implements AuthFragmentListe
     }//onAuthStarted
 
 
-    public void onLoginSuccessful(String username, String schedules, String tasks) {
+    public void onLoginSuccessful(String userid, String username, String schedules, String tasks) {
 
-        if(username != null && schedules != null && tasks != null) {
+        if(userid != null && username != null && schedules != null && tasks != null) {
 
-            DataManager.saveData(this, username, "", "", schedules, tasks, 0);
+            DataManager.saveData(this, userid, username, "", "", schedules, tasks, 0);
 
         }
 

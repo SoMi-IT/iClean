@@ -3,6 +3,7 @@ package mindthehead.iclean.work.sync;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +14,11 @@ import androidx.fragment.app.Fragment;
 import mindthehead.iclean.R;
 import mindthehead.iclean.auth.AuthActivity;
 import mindthehead.iclean.data.DataManager;
+import mindthehead.iclean.util.SharedPreferencesManager;
 import mindthehead.iclean.util.dialog.WarningDialog;
 import mindthehead.iclean.work.WorkActivity;
+import mindthehead.iclean.work.sync.data.JsonSyncDataManager;
+import mindthehead.iclean.work.sync.data.SyncManager;
 
 
 public class SyncFragment extends Fragment implements View.OnClickListener, SyncManagerListener {
@@ -56,16 +60,15 @@ public class SyncFragment extends Fragment implements View.OnClickListener, Sync
 
         if (view == b_sync) {
 
-            //Questo blocco è da eliminare quando sblocco quello sotto
-            Toast.makeText(activity, R.string.sync_fragment_done, Toast.LENGTH_LONG).show();
-            DataManager.saveData(activity, "", "", "", "", "", 1);
-            startActivity(new Intent(activity, AuthActivity.class));
+            if(DataManager.isUserWorkShiftEnd(activity)) {
 
-            /*String tasksDone = JsonTaskDoneDataManager.getTasksDoneFromString(SharedPreferencesManager.readString(activity, R.string.tasks));
+                String finalSync = JsonSyncDataManager.getDataForSync(activity);
 
-            SyncManager syncManager = new SyncManager();
-            syncManager.setListener(this);
-            syncManager.startSync(activity, tasksDone);*/
+                SyncManager syncManager = new SyncManager();
+                syncManager.setListener(this);
+                syncManager.startSync(finalSync);
+
+            } else Toast.makeText(activity, "Non hai chiuso il turno di lavoro!", Toast.LENGTH_LONG).show();
 
 
         }
@@ -75,9 +78,15 @@ public class SyncFragment extends Fragment implements View.OnClickListener, Sync
 
     public void onSyncSuccessful(String message) {
 
-        Toast.makeText(activity, R.string.sync_fragment_done, Toast.LENGTH_LONG).show();
-        DataManager.saveData(activity, "", "", "", "", "", 1);
-        updateStatus();
+        activity.runOnUiThread(() -> {
+
+            Toast.makeText(activity, R.string.sync_fragment_done, Toast.LENGTH_LONG).show();
+
+        });
+
+
+        DataManager.saveData(activity, "", "", "", "", "", "", 1);
+        startActivity(new Intent(activity, AuthActivity.class));
 
     }//onSyncSuccessful
 

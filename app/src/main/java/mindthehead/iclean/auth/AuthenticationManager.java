@@ -24,6 +24,7 @@ public class AuthenticationManager {
     private static final String BODY_PASSWORD = "password";
     private static final String RESPONSE_TOKEN = "token";
     private static final String RESPONSE_ERROR = "error_message";
+    private static final String RESPONSE_USERID = "user_id";
     private static final String RESPONSE_USERNAME = "user";
     private static final String RESPONSE_SCHEDULES = "schedules";
     private static final String RESPONSE_TASKS = "tasks";
@@ -114,7 +115,7 @@ public class AuthenticationManager {
                     Log.d("XXX", "RESPONSE: " + jsonResponse.toString());
                     saveResponse(jsonResponse);
 
-                } else listener.onLoginSuccessful(null, null, null);
+                } else listener.onLoginSuccessful(null, null, null, null);
 
             } else {
                 listener.onLoginError(jsonResponse.getString(RESPONSE_ERROR));
@@ -130,9 +131,19 @@ public class AuthenticationManager {
 
     private void saveResponse(JSONObject jsonResponse) {
 
+        String userid;
         String username;
         String schedules;
         String tasks;
+
+        try {
+
+            userid = jsonResponse.getString(RESPONSE_USERID);
+            if (userid.length() == 0) userid = null;
+
+        } catch (JSONException e) {
+            userid = "";
+        }
 
         try {
 
@@ -163,7 +174,7 @@ public class AuthenticationManager {
             listener.onLoginError("No tasks disponibili");
             return;
         }
-        listener.onLoginSuccessful(username, schedules, tasks);
+        listener.onLoginSuccessful(userid, username, schedules, tasks);
 
     }//analyzeResponse
 

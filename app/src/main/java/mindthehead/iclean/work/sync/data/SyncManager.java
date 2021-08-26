@@ -1,6 +1,8 @@
 package mindthehead.iclean.work.sync.data;
 
 
+import android.util.Log;
+
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,25 +23,20 @@ public class SyncManager {
 
 
     private final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-    private static final String URL_LOGIN = "https://mediclean.icleanfm.it/api/user/tasksign";
-    private static final String BODY_NAME = "username";
-    private static final String BODY_PASSWORD = "password";
-    private static final String BODY_TASKS_DONE = "tasksDone";
+    private static final String URL_SYNC = "https://mediclean.icleanfm.it/api/user/tasksign";
     private static final String RESPONSE_ERROR = "error_message";
     private static final String RESPONSE_OK = "message";
 
     private SyncManagerListener listener;
 
-    private final JSONObject jsonBody = new JSONObject();
+    private  JSONObject jsonBody = new JSONObject();
 
 
     public void startSync(String tasksDone) {
 
 
         try {
-            JSONArray jsonArray = new JSONArray(tasksDone);
-            jsonBody.put(BODY_TASKS_DONE, jsonArray);
-
+            jsonBody = new JSONObject(tasksDone);
             new AsynchronousGet().run();
         } catch (Exception e) {
             e.printStackTrace();
@@ -64,7 +61,7 @@ public class SyncManager {
             RequestBody body = RequestBody.create(jsonBody.toString(), JSON);
 
             Request request = new Request.Builder()
-                    .url(URL_LOGIN)
+                    .url(URL_SYNC)
                     .post(body)
                     .build();
 

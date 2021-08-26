@@ -8,8 +8,9 @@ import mindthehead.iclean.util.SharedPreferencesManager;
 public class DataManager {
 
 
-    public static void saveData(Activity activity, String username, String checkIn, String checkOut, String schedules, String tasks, int synced) {
+    public static void saveData(Activity activity, String userid, String username, String checkIn, String checkOut, String schedules, String tasks, int synced) {
 
+        SharedPreferencesManager.writeString(activity, R.string.userid, userid);
         SharedPreferencesManager.writeString(activity, R.string.username, username);
         SharedPreferencesManager.writeString(activity, R.string.times_check_in, checkIn);
         SharedPreferencesManager.writeString(activity, R.string.times_check_out, checkOut);
@@ -66,6 +67,12 @@ public class DataManager {
         return SharedPreferencesManager.readString(activity, R.string.times_check_out);
 
     }//getTimeOut
+
+    public static String getUserId(Activity _activity) {
+
+        return SharedPreferencesManager.readString(_activity, R.string.userid);
+
+    }//getUserId
 
     public static String getUserName(Activity _activity) {
 

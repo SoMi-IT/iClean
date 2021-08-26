@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">iClean</string>
 
+    <string name="userid">mindthehead.iclean.util.userid</string>
     <string name="username">mindthehead.iclean.util.username</string>
 
     <string name="synced">mindthehead.iclean.util.synced</string>
