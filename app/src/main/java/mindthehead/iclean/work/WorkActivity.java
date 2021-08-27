@@ -15,6 +15,7 @@ import android.widget.TextView;
 import mindthehead.iclean.R;
 import mindthehead.iclean.data.DataManager;
 import mindthehead.iclean.util.NFCManager;
+import mindthehead.iclean.work.settings.SettingsFragment;
 import mindthehead.iclean.work.shedules.SchedulesFragment;
 import mindthehead.iclean.work.sync.SyncFragment;
 import mindthehead.iclean.work.task.TaskFragment;
@@ -208,6 +209,9 @@ public class WorkActivity extends AppCompatActivity implements HomeListener, Ima
 
         }else if(currentStatus == TYPE_SYNC) {
             currentFragment = new SyncFragment();
+
+        }else if(currentStatus == TYPE_SETTINGS) {
+            currentFragment = new SettingsFragment();
         }
 
         FragmentTransaction fragmentTransaction = mainFragmentManager.beginTransaction();
@@ -243,7 +247,7 @@ public class WorkActivity extends AppCompatActivity implements HomeListener, Ima
         if (v == iv_back && mainFragmentManager != null){
             showFragment(TYPE_HOME);
         }else if (v == iv_user && mainFragmentManager != null){
-            //showFragment();
+            showFragment(TYPE_SETTINGS);
         }
 
     }
