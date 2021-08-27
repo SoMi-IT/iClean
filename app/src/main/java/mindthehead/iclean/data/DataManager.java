@@ -22,7 +22,7 @@ public class DataManager {
 
     public static boolean areDataSynced(Activity activity) {
 
-        return SharedPreferencesManager.readInt(activity, R.string.synced) == 1;
+        return (SharedPreferencesManager.readInt(activity, R.string.synced) == 1 || SharedPreferencesManager.readString(activity, R.string.tasks).equals(""));
 
     }//areDataSynced
 

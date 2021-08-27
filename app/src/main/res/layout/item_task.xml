@@ -132,26 +132,27 @@
         android:id="@+id/ll_task_item_expand"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8sp"
-        android:visibility="gone">
+        android:padding="8sp">
 
         <Button
             android:id="@+id/b_task_item_start"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="140sp"
             android:layout_weight="1"
+            android:padding="10sp"
             android:layout_marginEnd="6sp"
             android:drawableTop="@drawable/icon_in"
-            android:text="Timbra inizio task"/>
+            android:text="Timbra inizio\n task"/>
 
         <Button
             android:id="@+id/b_task_item_end"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="140sp"
             android:layout_weight="1"
+            android:padding="10sp"
             android:layout_marginStart="6sp"
             android:drawableTop="@drawable/icon_out"
-            android:text="Timbra fine task"/>
+            android:text="Timbra fine\n task"/>
 
 
     </LinearLayout>

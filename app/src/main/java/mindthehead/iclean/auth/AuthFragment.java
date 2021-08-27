@@ -62,17 +62,17 @@ public class AuthFragment extends Fragment implements View.OnClickListener, Opti
             username = emailString;
             psw = pswString;
 
-            if (!DataManager.areDataSynced(getActivity())) {
+            if (DataManager.areDataSynced(getActivity())) {
 
                 /*OptionDialog optionDialog = new OptionDialog(getActivity(), "Esistono già dei dati salvati ma non ancora sincronizzati. \n Vuoi eliminarli e scaricarne di nuovi o continuare con i dati esistenti?", "Sovrascrivi", "Mantieni");
                 optionDialog.setListener(this);
                 optionDialog.show();*/
-
-                listener.onAuthStartRequested(false, username, psw);
-
-            }else {
                 toggleAuthButton(false);
                 listener.onAuthStartRequested(true, username, psw);
+
+
+            }else {
+                listener.onAuthStartRequested(false, username, psw);
             }
 
 
