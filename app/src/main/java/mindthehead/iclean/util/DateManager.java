@@ -1,6 +1,7 @@
 package mindthehead.iclean.util;
 
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -31,12 +32,30 @@ public class DateManager {
 
     }//getFormattedStringFromDate*/
 
+    public static String getCurrentItalianDate(){
 
-    public static String getCurrentDate(){
+        return new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
 
-       return new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+    }//getCurrentItalianDate
 
-    }//getCurrentDate
+    public static String getItalianConvertedTime(String strCurrentDate){
+
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String date = null;
+
+        try {
+
+            Date newDate  = format.parse(strCurrentDate);
+            format = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+            date = format.format(newDate);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return date;
+
+    }//getItalianConvertedTime
 
     public static String getCurrentTime(){
 
@@ -47,6 +66,13 @@ public class DateManager {
     public static String getCurrentMoment(){
 
         return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
+
+    }//getCurrentMoment
+
+
+    public static String getCurrentItalianMoment(){
+
+        return new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault()).format(new Date());
 
     }//getCurrentMoment
 

@@ -45,7 +45,7 @@ public class TimesFragment extends Fragment implements View.OnClickListener, NFC
 
         tv_date = rootView.findViewById(R.id.tv_times_date);
         tv_time = rootView.findViewById(R.id.tv_times_time);
-        tv_date.setText(DateManager.getCurrentDate());
+        tv_date.setText(DateManager.getCurrentItalianDate());
         tv_time.setText(DateManager.getCurrentTime());
         tv_start = rootView.findViewById(R.id.tv_times_start);
         tv_end = rootView.findViewById(R.id.tv_times_end);
@@ -93,7 +93,7 @@ public class TimesFragment extends Fragment implements View.OnClickListener, NFC
             v_start.setBackgroundResource(R.drawable.times_round_view_start);
             v_end.setBackgroundResource(R.drawable.times_round_view_disabled);
 
-            tv_start.setText(getResources().getString(R.string.times_fragment_yes_check_in) + DataManager.getCheckIn(activity));
+            tv_start.setText(getResources().getString(R.string.times_fragment_yes_check_in) + DateManager.getItalianConvertedTime(DataManager.getCheckIn(activity)));
             tv_end.setText(R.string.times_fragment_no_check_out);
 
             toggleButtonState(b_start, false);
@@ -104,8 +104,8 @@ public class TimesFragment extends Fragment implements View.OnClickListener, NFC
             v_start.setBackgroundResource(R.drawable.times_round_view_start);
             v_end.setBackgroundResource(R.drawable.times_round_view_end);
 
-            tv_start.setText(getResources().getString(R.string.times_fragment_yes_check_in) + DataManager.getCheckIn(activity));
-            tv_end.setText(getResources().getString(R.string.times_fragment_yes_check_out) + DataManager.getCheckOut(activity));
+            tv_start.setText(getResources().getString(R.string.times_fragment_yes_check_in) + DateManager.getItalianConvertedTime(DataManager.getCheckIn(activity)));
+            tv_end.setText(getResources().getString(R.string.times_fragment_yes_check_out) + DateManager.getItalianConvertedTime(DataManager.getCheckOut(activity)));
 
             toggleButtonState(b_start, false);
             toggleButtonState(b_end, false);
@@ -148,7 +148,7 @@ public class TimesFragment extends Fragment implements View.OnClickListener, NFC
                         Thread.sleep(1000);
 
                         activity.runOnUiThread(() -> {
-                            tv_date.setText(DateManager.getCurrentDate());
+                            tv_date.setText(DateManager.getCurrentItalianDate());
                             tv_time.setText(DateManager.getCurrentTime());
                         });
 
@@ -189,7 +189,7 @@ public class TimesFragment extends Fragment implements View.OnClickListener, NFC
 
         if(currentChoice == ManualTimeDialog.MANUAL_TYPE_IN) {
 
-            DataManager.saveWorkShiftData(activity, DateManager.getCurrentDate(), null);
+            DataManager.saveWorkShiftData(activity, DateManager.getCurrentMoment(), null);
 
         } else if(currentChoice == ManualTimeDialog.MANUAL_TYPE_OUT) {
 

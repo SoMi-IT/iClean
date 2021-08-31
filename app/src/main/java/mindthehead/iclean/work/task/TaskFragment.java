@@ -62,7 +62,7 @@ public class TaskFragment extends Fragment implements TasksListAdapterListener, 
 
         tv_date = rootView.findViewById(R.id.tv_task_date);
         tv_time = rootView.findViewById(R.id.tv_task_time);
-        tv_date.setText(DateManager.getCurrentDate());
+        tv_date.setText(DateManager.getCurrentItalianDate());
         tv_time.setText(DateManager.getCurrentTime());
 
         startClock();
@@ -90,8 +90,10 @@ public class TaskFragment extends Fragment implements TasksListAdapterListener, 
                         Thread.sleep(1000);
 
                         activity.runOnUiThread(() -> {
-                            tv_date.setText(DateManager.getCurrentDate());
+                            tv_date.setText(DateManager.getCurrentItalianDate());
                             tv_time.setText(DateManager.getCurrentTime());
+
+
                         });
 
                     }

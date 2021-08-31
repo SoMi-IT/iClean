@@ -48,7 +48,7 @@ public class ManualTimeDialog extends Dialog implements Button.OnClickListener {
 
         TextView tv_type = findViewById(R.id.tv_dialog_manual_time_type);
         TextView tv_time = findViewById(R.id.tv_dialog_manual_time);
-        tv_time.setText(DateManager.getCurrentMoment());
+        tv_time.setText(DateManager.getCurrentItalianMoment());
         if (type == MANUAL_TYPE_IN){
             tv_type.setText(R.string.manual_time_dialog_check_in);
         } else if (type == MANUAL_TYPE_OUT){
