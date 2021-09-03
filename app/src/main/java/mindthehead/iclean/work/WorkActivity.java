@@ -247,7 +247,7 @@ public class WorkActivity extends AppCompatActivity implements HomeListener, Ima
         if (v == iv_back && mainFragmentManager != null){
             showFragment(TYPE_HOME);
         }else if (v == iv_user && mainFragmentManager != null){
-            showFragment(TYPE_SETTINGS);
+            //showFragment(TYPE_SETTINGS);
         }
 
     }
