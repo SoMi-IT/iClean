@@ -170,10 +170,6 @@ public class AuthenticationManager {
             tasks = "";
         }
 
-        if (tasks.length() == 0 || tasks.equals("null"))  {
-            listener.onLoginError("No tasks disponibili");
-            return;
-        }
         listener.onLoginSuccessful(userid, username, schedules, tasks);
 
     }//analyzeResponse
